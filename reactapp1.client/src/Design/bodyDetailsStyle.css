@@ -1,0 +1,103 @@
+canvas {
+  background-color: transparent; /* vagy valami világosabb szín */
+}
+
+/* Globális stílusok */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+}
+
+/* Fő elrendezés */
+.body-details {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+/* Canvas konténer */
+.canvas-container {
+  flex: 1;
+  position: relative;
+  padding: 20px;
+  background-color: #222;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+/* Input overlay (űrlap konténer) */
+.input-overlay {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/* Input elemek */
+.input-container {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-container input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Regisztrációs gomb */
+.register-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Nem kiválasztó */
+.gender-selector {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 1rem;
+}
+
+/* Canvas stílus */
+.canvas-container canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 10px;
+  z-index: inherit;
+}

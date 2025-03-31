@@ -1,0 +1,11 @@
+Model Information:
+* title:	Base Body Female v2
+* source:	https://sketchfab.com/3d-models/base-body-female-v2-63f539acfc564b379fd70b76a52b0098
+* author:	Jeferson Camargo Brasil (https://sketchfab.com/sidbeyond)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Base Body Female v2" (https://sketchfab.com/3d-models/base-body-female-v2-63f539acfc564b379fd70b76a52b0098) by Jeferson Camargo Brasil (https://sketchfab.com/sidbeyond) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

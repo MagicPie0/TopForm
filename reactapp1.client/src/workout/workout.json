@@ -1,0 +1,34 @@
+{
+    "arm": [
+      "Bicep curl",
+      "Tricep dip",
+      "Hammer curl",
+      "Cable tricep pushdown",
+      "Parallel bar dip",
+      "Concentration curl"
+    ],
+    "chest": [
+      "Bench press",
+      "Chest fly",
+      "Push-up",
+      "Incline bench press",
+      "Wide-grip push-up",
+      "Cable chest fly"
+    ],
+    "thigh": [
+      "Squat",
+      "Leg press",
+      "Lunge",
+      "Leg extension",
+      "Romanian deadlift",
+      "Hamstring curl"
+    ],
+    "calf": [
+      "Calf raise",
+      "Seated calf raise",
+      "Single-leg calf raise",
+      "Standing calf raise on step",
+      "Cable calf raise",
+      "Jumping calf raise"
+    ]
+  }

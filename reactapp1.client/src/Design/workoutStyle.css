@@ -1,0 +1,20 @@
+/* Görgetősáv testreszabása csak a .custom-scroll osztályra */
+.scrollable::-webkit-scrollbar {
+    width: 8px;  /* Görgetősáv szélessége */
+}
+  
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: white; /* Görgető szín */
+    border-radius: 10px;  /* Lekerekített sarkok */
+    transition: background-color 0.3s ease; /* Finom átmenet */
+}
+  
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background-color: white; /* Görgető szín változása hover esetén */
+}
+  
+.scrollable::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1); /* Háttér szín a görgetősáv mögött */
+    border-radius: 10px; /* Lekerekített sarkok */
+}
+  

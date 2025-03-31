@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ReactApp1.Server\\asp.Server.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "reactapp1.client\\react.client.esproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -1,0 +1,208 @@
+ul{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+.dropdown-menu{
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  background-color: white;
+  border-radius: 5%;
+  padding: 10px 20px;
+  width: 200px;
+}
+
+.dropdown-menu::before{
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  height: 20px;
+  width: 20px;
+  background: white;
+  transform: rotate(45deg);
+}
+
+.dropdown-menu.active{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 0.5s ease;
+}
+
+.dropdown-menu.inactive{
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: 0.25s ease;
+}
+
+h3{
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  padding: 6px 0;
+  font-weight: 500;
+  color: var(--primary-text-color);
+  line-height: 1.2rem;
+  cursor: default;
+}
+
+.dropdown-menu ul {
+  display: flex;
+  flex-direction: column; /* Függőlegesen rendezi a gyermekeket */
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu ul li{
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-menu ul li:hover a{
+  color: lightblue;
+  cursor: pointer;
+}
+
+.dropdownItem{
+  display: flex; /* Flexbox használata a középre igazításhoz */
+  align-items: center; /* Vertikális középre igazítás */
+  justify-content: flex-start; /* Opcionálisan balra igazítva a tartalom */
+  margin:  auto;
+}
+
+.dropdownItem a{
+  max-width: 100px;
+  margin-left: 10px;
+  transition: var(--speed);
+}
+
+.header {
+  color: white;
+  position: absolute;
+  top: 10px;
+  left: 50%; /* A középre igazításhoz */
+  transform: translateX(-50%); /* A középre igazítást finomítja */
+  font-size: 4rem; /* Alapértelmezett méret */
+  text-align: center; /* Középre igazítás */
+  padding: 6px;
+  border-radius: 20px;
+  backdrop-filter: 50%;
+}
+
+/* Nagyobb képernyőkhöz */
+
+
+.card-container {
+  display: flex;
+  justify-content: center; /* Vízszintesen középre */
+  align-items: center; /* Függőlegesen középre */
+  flex-wrap: wrap; /* Ha nem férnek ki a kártyák, törjenek új sorba */
+  gap: 20px; /* Távolság a kártyák között */
+  
+  position: absolute; /* Az oldalhoz rögzítés */
+  top: 50%; /* Középre igazítás függőlegesen */
+  left: 50%; /* Középre igazítás vízszintesen */
+  transform: translate(-50%, -50%); /* Pontosan középre helyezi */
+  
+  width: 100%; /* Teljes szélességű, hogy a flexbox működjön */
+  text-align: center;
+}
+
+.card {
+  position: relative;
+  width: 500px;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.card1 {
+  background-image: url('../background/card1-background.jpg');
+}
+
+.card2 {
+  background-image: url('../background/card2-background.jpg');
+}
+
+.card3 {
+  background-image: url('../background/card3-background.jpg');
+}
+
+.card:hover {
+  transform: translateY(-10px); /* Kicsit felmozdul */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Árnyék a mozgás alatt */
+}
+
+.card-content {
+  width: 500px;
+  height: 250px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7); /* Fekete háttér, átlátszó */
+  color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column; /* Vertikális elrendezés */
+  padding: 20px;
+}
+
+.title {
+  font-size: 1rem; /* Cím nagyobb betűméret */
+  font-weight: bolder; /* Erősebb betűk */
+  text-align: center; /* Középre igazított cím */
+  justify-content: center;
+  align-items: center;
+  transform: translateY(100%);
+  margin-top: 10%;
+}
+
+.description {
+  font-size: 1rem; /* Kisebb betűméret */
+  line-height: 1.5rem; /* Magasabb sorok közötti távolság */
+  text-align: center; /* Középre igazított leírás */
+  margin-bottom: 0; /* Ne legyen margó a leírás alatt */
+  transform: translateY(180%);
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: fit-content;
+  text-align: center;
+  padding: 10px 0;
+  color: white;
+  font-size: 18px;
+  left: 44%;
+}
+
+@media (max-width: 1261px) {
+  .header {
+    font-size: 4rem;
+    text-align: center; /* Középre igazítja vízszintesen */
+    display: flex;
+    justify-content: center; /* Középre igazítja vízszintesen a flexbox-ban */
+    align-items: center; /* Középre igazítja függőlegesen a flexbox-ban */
+    height: 100vh; /* A teljes képernyőt lefedi */    
+  }
+  .card {
+    display: none;
+  }
+  .footer{
+    left: 40%;
+    right: 30%;
+  }
+
+}

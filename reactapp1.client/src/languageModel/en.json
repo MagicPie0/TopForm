@@ -1,0 +1,61 @@
+{
+  "forms": {
+    "login": "Login",
+    "register": "Register"
+  },
+  "fields": {
+    "username": "Username",
+    "password": "Password",
+    "passwordAgain": "Confirm Password",
+    "name": "Name",
+    "email": "Email Address",
+    "birthDate": "Date of Birth"
+  },
+  "buttons": {
+    "loggingIn": "Logging in...",
+    "register": "Register",
+    "login": "Login",
+    "back": "Back",
+    "changeImage": "Change Image",
+    "saveSettings": "Save Settings"
+  },
+  "errors": {
+    "requiredFields": "Please fill out all required fields!",
+    "loginFailed": "Login failed. Please try again!"
+  },
+  "menu": {
+    "home": "Home",
+    "workout": "Workout Page",
+    "diet": "Diet Page",
+    "map": "Map Page",
+    "leaderboard": "Leaderboard",
+    "logout": "Logout",
+    "profile": "My Profile",
+    "achievements": "Achievements",
+    "settings": "Settings"
+  },
+  "tooltip": {
+    "home": "Go to Home",
+    "workout": "Check your workout plans",
+    "diet": "View your diet plans",
+    "map": "Search for locations",
+    "leaderboard": "View the leaderboard",
+    "logout": "Log out of your account"
+  },
+  "popup": {
+    "welcome": "Welcome"
+  },
+  "headers": {
+    "settings": "Settings",
+    "profile": "Profile",
+    "changePassword": "Change Password"
+  },
+  "labels": {
+    "username": "Username",
+    "name": "Name",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "noImage": "No Image"
+  }
+}

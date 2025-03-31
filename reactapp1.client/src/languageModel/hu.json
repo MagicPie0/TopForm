@@ -1,0 +1,61 @@
+{
+  "forms": {
+    "login": "Bejelentkezés",
+    "register": "Regisztráció"
+  },
+  "fields": {
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "passwordAgain": "Jelszó megerősítése",
+    "name": "Név",
+    "email": "Email cím",
+    "birthDate": "Születési dátum"
+  },
+  "buttons": {
+    "loggingIn": "Bejelentkezés folyamatban...",
+    "register": "Regisztráció",
+    "login": "Bejelentkezés",
+    "back": "Vissza",
+    "changeImage": "Kép módosítása",
+    "saveSettings": "Beállítások mentése"
+  },
+  "errors": {
+    "requiredFields": "Kérlek töltsd ki az összes kötelező mezőt!",
+    "loginFailed": "Bejelentkezés sikertelen. Kérlek próbáld újra!"
+  },
+  "menu": {
+    "home": "Kezdőlap",
+    "workout": "Edzésterv oldal",
+    "diet": "Étrend oldal",
+    "map": "Térkép oldal",
+    "leaderboard": "Ranglista",
+    "logout": "Kijelentkezés",
+    "profile": "Profilom",
+    "achievements": "Eredmények",
+    "settings": "Beállítások"
+  },
+  "tooltip": {
+    "home": "Ugrás a Kezdőlapra",
+    "workout": "Nézd meg az edzésterveidet",
+    "diet": "Tekintsd meg az étrendedet",
+    "map": "Keress helyszíneket",
+    "leaderboard": "Tekintsd meg a ranglistát",
+    "logout": "Jelentkezz ki a fiókodból"
+  },
+  "popup": {
+    "welcome": "Üdvözlünk"
+  },
+  "headers": {
+    "settings": "Beállítások",
+    "profile": "Profil",
+    "changePassword": "Jelszó megváltoztatása"
+  },
+  "labels": {
+    "username": "Felhasználónév",
+    "name": "Név",
+    "oldPassword": "Régi jelszó",
+    "newPassword": "Új jelszó",
+    "confirmPassword": "Új jelszó megerősítése",
+    "noImage": "Nincs kép"
+  }
+}
