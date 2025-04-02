@@ -35,6 +35,7 @@
     <PackageJsonDependenciesReactDnd Condition="$(PackageJsonDependenciesReactDnd) == ''">^16.0.1</PackageJsonDependenciesReactDnd>
     <PackageJsonDependenciesReactDndHtml5Backend Condition="$(PackageJsonDependenciesReactDndHtml5Backend) == ''">^16.0.1</PackageJsonDependenciesReactDndHtml5Backend>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^18.3.1</PackageJsonDependenciesReactDom>
+    <PackageJsonDependenciesReactIcons Condition="$(PackageJsonDependenciesReactIcons) == ''">^5.5.0</PackageJsonDependenciesReactIcons>
     <PackageJsonDependenciesReactRedux Condition="$(PackageJsonDependenciesReactRedux) == ''">^9.2.0</PackageJsonDependenciesReactRedux>
     <PackageJsonDependenciesReactRouterDom Condition="$(PackageJsonDependenciesReactRouterDom) == ''">^7.1.1</PackageJsonDependenciesReactRouterDom>
     <PackageJsonDependenciesRecharts Condition="$(PackageJsonDependenciesRecharts) == ''">^2.15.1</PackageJsonDependenciesRecharts>

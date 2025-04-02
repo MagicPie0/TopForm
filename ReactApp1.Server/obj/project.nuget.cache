@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JwePIjM2tss=",
+  "dgSpecHash": "tpoexJzrDws=",
   "success": true,
-  "projectFilePath": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\ReactApp1-loginDesignKesz2\\ReactApp1.Server\\asp.Server.csproj",
+  "projectFilePath": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fulop\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\fulop\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",

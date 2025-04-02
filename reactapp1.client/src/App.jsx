@@ -6,6 +6,7 @@ import Settings from "./components/settings";
 import Reg from "./components/BodyDetails";
 import Profil from "./components/profilePage";
 import WelcomePage from "./components/WelcomePage";
+import AdminPage from "./Admin/admin.jsx"
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,8 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/registration" element={<Reg />} />
+          <Route path="/admin" element={<AdminPage />} />
+
         </Routes>
       </Router>
     </QueryClientProvider>
