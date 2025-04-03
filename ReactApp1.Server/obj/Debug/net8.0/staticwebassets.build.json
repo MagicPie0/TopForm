@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "umVgqqA8+QzirTcJ06tByD+DK3D+NWI1MZS76Gy2TzQ=",
+  "Hash": "mh35RZYeHeazxo/V7gqKpdEZfWoHDFZBxSLRLmY1O8s=",
   "Source": "asp.Server",
   "BasePath": "_content/asp.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\react.client.esproj",
+      "Identity": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\react.client.esproj",
       "Version": 2,
       "Source": "react.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
@@ -22,17 +22,17 @@
     {
       "Name": "asp.Server\\wwwroot",
       "Source": "asp.Server",
-      "ContentRoot": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
       "BasePath": "_content/asp.Server",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "Identity": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
       "SourceId": "asp.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
       "BasePath": "_content/asp.Server",
       "RelativePath": "model/men#[.{fingerprint}]?.glb",
       "AssetKind": "All",
@@ -53,7 +53,7 @@
   "Endpoints": [
     {
       "Route": "model/men.glb",
-      "AssetFile": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "AssetFile": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -74,7 +74,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 03 Apr 2025 06:20:55 GMT"
+          "Value": "Mon, 24 Mar 2025 19:09:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -90,7 +90,7 @@
     },
     {
       "Route": "model/men.ym9m2z47l9.glb",
-      "AssetFile": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "AssetFile": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -111,7 +111,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 03 Apr 2025 06:20:55 GMT"
+          "Value": "Mon, 24 Mar 2025 19:09:44 GMT"
         },
         {
           "Name": "Cache-Control",

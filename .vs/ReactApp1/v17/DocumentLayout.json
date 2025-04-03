@@ -1,42 +1,61 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\",
+  "WorkspaceRootPath": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\info.premontrei\\downloads\\topform\\reactapp1.server\\asp.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\fulop\\.nuget\\packages\\microsoft.visualstudio.javascript.sdk\\1.0.1738743\\Sdk\\Sdk.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.server\\admin\\admintablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\admin\\admintablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.server\\admin\\adminusertablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\admin\\adminusertablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.server\\controllers\\getdietcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\controllers\\getdietcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.server\\controllers\\generateworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\controllers\\generateworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.server\\asp.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\asp.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\info.premontrei\\downloads\\topform\\reactapp1.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|c:\\users\\info.premontrei\\downloads\\topform\\reactapp1.client\\package-lock.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.client\\package-lock.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|solutionrelative:reactapp1.client\\package-lock.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|c:\\users\\info.premontrei\\downloads\\topform\\reactapp1.client\\react.client.esproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "AbsoluteMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.client\\react.client.esproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|solutionrelative:reactapp1.client\\react.client.esproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:reactapp1.client\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|c:\\users\\info.premontrei\\downloads\\topform\\reactapp1.client\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.client\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|solutionrelative:reactapp1.client\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\info.premontrei\\downloads\\topform\\reactapp1.server\\controllers\\getworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.server\\controllers\\getworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\controllers\\getworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\info.premontrei\\downloads\\topform\\reactapp1.server\\ai\\ai.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.server\\ai\\ai.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\ai\\ai.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\info.premontrei\\downloads\\topform\\reactapp1.server\\controllers\\generateworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\controllers\\generateworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|c:\\users\\fulop\\downloads\\reactapp1-loginfull\\topform\\topform\\reactapp1.client\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0E833BBE-67EE-471E-B755-25A3A4A8C8B2}|reactapp1.client\\react.client.esproj|solutionrelative:reactapp1.client\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,15 +65,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminUserTableController.cs",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Admin\\AdminUserTableController.cs",
+              "RelativeDocumentMoniker": "ReactApp1.Server\\Admin\\AdminUserTableController.cs",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Admin\\AdminUserTableController.cs",
+              "RelativeToolTip": "ReactApp1.Server\\Admin\\AdminUserTableController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowCwAAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T17:08:05.668Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "asp.Server",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
+              "Title": "Sdk.targets",
+              "DocumentMoniker": "C:\\Users\\fulop\\.nuget\\packages\\microsoft.visualstudio.javascript.sdk\\1.0.1738743\\Sdk\\Sdk.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\.nuget\\packages\\microsoft.visualstudio.javascript.sdk\\1.0.1738743\\Sdk\\Sdk.targets",
+              "ToolTip": "C:\\Users\\fulop\\.nuget\\packages\\microsoft.visualstudio.javascript.sdk\\1.0.1738743\\Sdk\\Sdk.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\.nuget\\packages\\microsoft.visualstudio.javascript.sdk\\1.0.1738743\\Sdk\\Sdk.targets",
+              "ViewState": "AgIAAKQAAAAAAAAAAAAjwKEAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-04-03T16:59:23.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GetDietController.cs",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GetDietController.cs",
+              "RelativeDocumentMoniker": "ReactApp1.Server\\Controllers\\GetDietController.cs",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GetDietController.cs",
+              "RelativeToolTip": "ReactApp1.Server\\Controllers\\GetDietController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAowBoAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T16:50:15.393Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdminTableController.cs",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Admin\\AdminTableController.cs",
+              "RelativeDocumentMoniker": "ReactApp1.Server\\Admin\\AdminTableController.cs",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Admin\\AdminTableController.cs",
+              "RelativeToolTip": "ReactApp1.Server\\Admin\\AdminTableController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAcwD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T16:50:06.555Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "react-dom.development.js",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "RelativeDocumentMoniker": "reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "RelativeToolTip": "reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "ViewState": "AgIAABAvAAAAAAAAAAAuwBcvAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-04-03T14:11:02.923Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "asp.Server.csproj",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
               "RelativeDocumentMoniker": "ReactApp1.Server\\asp.Server.csproj",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
               "RelativeToolTip": "ReactApp1.Server\\asp.Server.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
@@ -63,50 +143,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "package.json",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\package.json",
-              "RelativeDocumentMoniker": "reactapp1.client\\package.json",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\package.json",
-              "RelativeToolTip": "reactapp1.client\\package.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-03T07:05:44.679Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "package-lock.json",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\package-lock.json",
-              "RelativeDocumentMoniker": "reactapp1.client\\package-lock.json",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\package-lock.json",
-              "RelativeToolTip": "reactapp1.client\\package-lock.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-03T07:05:43.615Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "libman.json",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\libman.json",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\libman.json",
               "RelativeDocumentMoniker": "reactapp1.client\\libman.json",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\libman.json",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\libman.json",
               "RelativeToolTip": "reactapp1.client\\libman.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-03T07:05:36.103Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-03T07:05:36.103Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "react.client",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\react.client.esproj",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\react.client.esproj",
               "RelativeDocumentMoniker": "reactapp1.client\\react.client.esproj",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\reactapp1.client\\react.client.esproj",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\react.client.esproj",
               "RelativeToolTip": "reactapp1.client\\react.client.esproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-04-03T07:04:56.519Z",
@@ -114,55 +167,75 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "GetWorkoutController.cs",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
               "RelativeToolTip": "ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAYwB8AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T17:21:14.997Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\Program.cs",
-              "RelativeDocumentMoniker": "ReactApp1.Server\\Program.cs",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\Program.cs",
-              "RelativeToolTip": "ReactApp1.Server\\Program.cs",
-              "ViewState": "AgIAAIUAAAAAAAAAAAAAwJgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T17:09:39.233Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "GenerateWorkoutController.cs",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
-              "RelativeDocumentMoniker": "ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
-              "RelativeToolTip": "ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBIAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T17:08:52.584Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-31T17:21:14.997Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Program.cs",
+              "RelativeDocumentMoniker": "ReactApp1.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Program.cs",
+              "RelativeToolTip": "ReactApp1.Server\\Program.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAiwH8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-31T17:09:39.233Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GenerateWorkoutController.cs",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
+              "RelativeDocumentMoniker": "ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
+              "RelativeToolTip": "ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBIAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-31T17:08:52.584Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "package-lock.json",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\package-lock.json",
+              "RelativeDocumentMoniker": "reactapp1.client\\package-lock.json",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\package-lock.json",
+              "RelativeToolTip": "reactapp1.client\\package-lock.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-03T07:05:43.615Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "package.json",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\package.json",
+              "RelativeDocumentMoniker": "reactapp1.client\\package.json",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\package.json",
+              "RelativeToolTip": "reactapp1.client\\package.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-03T07:05:44.679Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "ai.py",
-              "DocumentMoniker": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\AI\\ai.py",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\AI\\ai.py",
               "RelativeDocumentMoniker": "ReactApp1.Server\\AI\\ai.py",
-              "ToolTip": "C:\\Users\\info.PREMONTREI\\Downloads\\TopForm\\ReactApp1.Server\\AI\\ai.py",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\AI\\ai.py",
               "RelativeToolTip": "ReactApp1.Server\\AI\\ai.py",
               "ViewState": "AgIAAAsAAAAAAAAAAAAgwCYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2025-03-31T17:05:27.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-31T17:05:27.394Z"
             }
           ]
         }

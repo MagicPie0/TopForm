@@ -27,6 +27,7 @@
     <PackageJsonDependenciesDateFns Condition="$(PackageJsonDependenciesDateFns) == ''">^4.1.0</PackageJsonDependenciesDateFns>
     <PackageJsonDependenciesDayjs Condition="$(PackageJsonDependenciesDayjs) == ''">^1.11.13</PackageJsonDependenciesDayjs>
     <PackageJsonDependenciesDrei Condition="$(PackageJsonDependenciesDrei) == ''">^2.2.21</PackageJsonDependenciesDrei>
+    <PackageJsonDependenciesFramerMotion Condition="$(PackageJsonDependenciesFramerMotion) == ''">^12.6.3</PackageJsonDependenciesFramerMotion>
     <PackageJsonDependenciesJwtDecode Condition="$(PackageJsonDependenciesJwtDecode) == ''">^4.0.0</PackageJsonDependenciesJwtDecode>
     <PackageJsonDependenciesP5 Condition="$(PackageJsonDependenciesP5) == ''">^1.11.3</PackageJsonDependenciesP5>
     <PackageJsonDependenciesPostcss Condition="$(PackageJsonDependenciesPostcss) == ''">^8.5.1</PackageJsonDependenciesPostcss>

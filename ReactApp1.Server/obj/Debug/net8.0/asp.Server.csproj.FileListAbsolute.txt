@@ -1531,3 +1531,4 @@ C:\Users\info.PREMONTREI\Downloads\TopForm\ReactApp1.Server\obj\Debug\net8.0\sta
 C:\Users\info.PREMONTREI\Downloads\TopForm\ReactApp1.Server\obj\Debug\net8.0\asp.Server.genruntimeconfig.cache
 C:\Users\info.PREMONTREI\Downloads\TopForm\ReactApp1.Server\obj\Debug\net8.0\ref\asp.Server.dll
 C:\Users\info.PREMONTREI\Downloads\TopForm\ReactApp1.Server\bin\Debug\net8.0\Microsoft.AspNetCore.SpaProxy.dll
+C:\Users\fulop\Downloads\ReactApp1-loginFull\TopForm\TopForm\ReactApp1.Server\bin\Debug\net8.0\Microsoft.AspNetCore.SpaProxy.dll
