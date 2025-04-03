@@ -7,7 +7,7 @@ import Reg from "./components/BodyDetails";
 import Profil from "./components/profilePage";
 import WelcomePage from "./components/WelcomePage";
 import AdminPage from "./Admin/admin.jsx"
-
+import PageNotFound from "./ErrorPages/PageNotFound.jsx";
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -22,6 +22,7 @@ const App = () => {
           <Route path="/profil" element={<Profil />} />
           <Route path="/registration" element={<Reg />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/pagenotfound" element={<PageNotFound />} />
 
         </Routes>
       </Router>

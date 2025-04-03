@@ -36,9 +36,9 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "react-dom.development.js",
-              "DocumentMoniker": "c:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "DocumentMoniker": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
               "RelativeDocumentMoniker": "reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
-              "ToolTip": "c:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "ToolTip": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
               "RelativeToolTip": "reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
               "ViewState": "AgIAAPUuAAAAAAAAAAAQwBcvAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
@@ -91,8 +91,7 @@
               "RelativeToolTip": "ReactApp1.Server\\AI\\ai.py",
               "ViewState": "AgIAAAsAAAAAAAAAAAAgwCYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2025-03-31T17:05:27.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-31T17:05:27.394Z"
             }
           ]
         }
