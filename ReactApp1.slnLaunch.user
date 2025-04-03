@@ -3,11 +3,11 @@
     "Name": "New Profile",
     "Projects": [
       {
-        "Path": "ReactApp1.Server\\asp.Server.csproj",
+        "Path": "reactapp1.client\\react.client.esproj",
         "Action": "Start"
       },
       {
-        "Path": "reactapp1.client\\react.client.esproj",
+        "Path": "ReactApp1.Server\\asp.Server.csproj",
         "Action": "Start"
       }
     ]

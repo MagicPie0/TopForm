@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import exercises from '../workout/workout.json'; // Lokális JSON fájl importálása
 
 
 const DatabaseTables = () => {
@@ -20,14 +21,14 @@ const DatabaseTables = () => {
   };
 
   return (
-    <div style={{ 
+    <div style={{
       padding: '20px',
       backgroundColor: '#f8f9fa',
       minHeight: 'calc(100vh - 60px)'
     }}>
       <h2 style={{ color: '#343a40', marginBottom: '20px' }}>Tables</h2>
-      <div style={{ 
-        display: 'grid', 
+      <div style={{
+        display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
         gap: '15px',
       }}>
@@ -58,7 +59,7 @@ const DatabaseTables = () => {
 
 const DashboardContent = () => {
   return (
-    <div style={{ 
+    <div style={{
       padding: '20px',
       backgroundColor: '#f8f9fa',
       minHeight: 'calc(100vh - 60px)'
@@ -76,29 +77,244 @@ const DashboardContent = () => {
   );
 };
 
+const ExercisesEditor = () => {
+  const [viewMode, setViewMode] = useState('json'); // 'json' or 'table'
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
+
+  // Flatten all exercises for table view
+  const allExercises = Object.entries(exercises).map(([group, exercises]) => ({
+    group,
+    exercises,
+  }));
+
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 400px',
+        height: 'calc(100vh - 60px)',
+        backgroundColor: '#f8f9fa',
+        gap: '20px',
+      }}
+    >
+      {/* Muscle Group Selection Panel */}
+      <div
+        style={{
+          padding: '20px',
+          overflowY: 'auto',
+        }}
+      >
+        <h2 style={{ color: '#343a40', marginBottom: '20px' }}>Exercises Editor</h2>
+
+        {/* Muscle Group Selection */}
+        <div style={{ marginBottom: '30px' }}>
+          <h3 style={{ marginBottom: '15px' }}>Select Muscle Group</h3>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            {Object.keys(exercises).map((group) => (
+              <button
+                key={group}
+                onClick={() => setSelectedMuscleGroup(group)}
+                style={{
+                  padding: '10px 15px',
+                  backgroundColor: selectedMuscleGroup === group ? '#ff7b00' : '#e9ecef',
+                  color: selectedMuscleGroup === group ? 'white' : '#495057',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s',
+                  flex: '1 0 48%', // Make buttons flexible
+                  minWidth: '120px', // Ensure buttons have a minimum size
+                }}
+              >
+                {group.charAt(0).toUpperCase() + group.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Exercises for Selected Muscle Group */}
+        {selectedMuscleGroup && (
+          <div style={{ marginBottom: '30px' }}>
+            <h3 style={{ marginBottom: '15px' }}>Exercises for {selectedMuscleGroup}</h3>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+                gap: '15px',
+              }}
+            >
+              {exercises[selectedMuscleGroup].map((exercise) => (
+                <div
+                  key={exercise}
+                  style={{
+                    backgroundColor: 'white',
+                    padding: '15px',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                    transition: 'all 0.3s',
+                  }}
+                >
+                  {exercise}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* JSON/Table Preview Panel */}
+      <div
+        style={{
+          backgroundColor: 'white',
+          borderLeft: '1px solid #dee2e6',
+          padding: '20px',
+          overflowY: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '20px',
+          }}
+        >
+          <h3 style={{ margin: 0 }}>Exercises Data</h3>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button
+              onClick={() => setViewMode('json')}
+              style={{
+                padding: '8px 12px',
+                backgroundColor: viewMode === 'json' ? '#ff7b00' : '#e9ecef',
+                color: viewMode === 'json' ? 'white' : '#495057',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+              }}
+            >
+              JSON
+            </button>
+            <button
+              onClick={() => setViewMode('table')}
+              style={{
+                padding: '8px 12px',
+                backgroundColor: viewMode === 'table' ? '#ff7b00' : '#e9ecef',
+                color: viewMode === 'table' ? 'white' : '#495057',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+              }}
+            >
+              Table
+            </button>
+          </div>
+        </div>
+
+        {viewMode === 'json' ? (
+          <pre
+            style={{
+              backgroundColor: '#f8f9fa',
+              padding: '15px',
+              borderRadius: '4px',
+              overflowX: 'auto',
+              flex: 1,
+              margin: 0,
+              whiteSpace: 'pre-wrap',
+              wordWrap: 'break-word',
+            }}
+          >
+            {JSON.stringify(exercises, null, 2)}
+          </pre>
+        ) : (
+          <div style={{ flex: 1, overflow: 'auto' }}>
+            <div
+              style={{
+                overflowX: 'auto', // Add horizontal scroll for small screens
+                WebkitOverflowScrolling: 'touch',
+              }}
+            >
+              <table
+                style={{
+                  width: '100%',
+                  borderCollapse: 'collapse',
+                  backgroundColor: 'white',
+                  tableLayout: 'fixed', // Ensure that columns resize appropriately
+                }}
+              >
+                <thead>
+                  <tr
+                    style={{
+                      backgroundColor: '#f8f9fa',
+                      borderBottom: '2px solid #dee2e6',
+                    }}
+                  >
+                    <th style={{ padding: '12px', textAlign: 'left' }}>Muscle Group</th>
+                    <th style={{ padding: '12px', textAlign: 'left' }}>Exercise</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allExercises.map((groupData, index) => (
+                    <React.Fragment key={index}>
+                      {/* Group Header */}
+                      <tr style={{ backgroundColor: '#f1f1f1' }}>
+                        <td
+                          colSpan={2}
+                          style={{
+                            padding: '12px',
+                            fontWeight: 'bold',
+                            color: '#343a40',
+                          }}
+                        >
+                          {groupData.group.charAt(0).toUpperCase() + groupData.group.slice(1)}
+                        </td>
+                      </tr>
+                      {/* Exercises for the Group */}
+                      {groupData.exercises.map((exercise, idx) => (
+                        <tr key={idx}>
+                          <td style={{ padding: '12px' }}></td>
+                          <td style={{ padding: '12px' }}>{exercise}</td>
+                        </tr>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+
 
 const AdminPage = () => {
-    const [currentView, setCurrentView] = useState('dashboard');
-    const [showTables, setShowTables] = useState(false);
-    const [activeActionButton, setActiveActionButton] = useState(null);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  
-    useEffect(() => {
-      const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-        if (window.innerWidth > 768) {
-          setIsMobileMenuOpen(false);
-        }
-      };
-  
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
-  
-    useEffect(() => {
-      const style = document.createElement('style');
-      style.innerHTML = `
+  const [currentView, setCurrentView] = useState('dashboard');
+  const [showTables, setShowTables] = useState(false);
+  const [activeActionButton, setActiveActionButton] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      if (window.innerWidth > 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
         /* Nav buttons */
         .nav-button {
           background: none;
@@ -224,138 +440,97 @@ const AdminPage = () => {
           }
         }
       `;
-      document.head.appendChild(style);
-      return () => document.head.removeChild(style);
-    }, []);
-  
-    const handleActionButtonClick = (buttonName) => {
-      setActiveActionButton(buttonName);
-      setIsMobileMenuOpen(false);
-      if (buttonName === 'workouts') {
-        setCurrentView('workouts');
-        setShowTables(false);
-      } else if (buttonName === 'user') {
-        setCurrentView('user');
-      }
-    };
-  
-    const handleNavButtonClick = (view, showTablesValue) => {
-      setCurrentView(view);
-      setShowTables(showTablesValue);
-      setActiveActionButton(null);
-      setIsMobileMenuOpen(false);
-    };
-  
-    return (
-      <div style={{ fontFamily: 'Arial, sans-serif' }}>
-        <nav style={{
-          backgroundColor: 'white',
-          color: 'black',
-          padding: '0.8rem 2rem',
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
+  const handleActionButtonClick = (buttonName) => {
+    setActiveActionButton(buttonName);
+    setIsMobileMenuOpen(false);
+    if (buttonName === 'workouts') {
+      setCurrentView('workouts');
+      setShowTables(false);
+    } else if (buttonName === 'user') {
+      setCurrentView('user');
+    }
+  };
+
+  const handleNavButtonClick = (view, showTablesValue) => {
+    setCurrentView(view);
+    setShowTables(showTablesValue);
+    setActiveActionButton(null);
+    setIsMobileMenuOpen(false);
+  };
+
+  return (
+    <div style={{ fontFamily: 'Arial, sans-serif' }}>
+      <nav style={{
+        backgroundColor: 'white',
+        color: 'black',
+        padding: '0.8rem 2rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100
+      }}>
+        <div style={{
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-          position: 'sticky',
-          top: 0,
-          zIndex: 100
+          gap: '20px'
         }}>
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center',
-            gap: '20px'
+          <div style={{
+            fontWeight: 'bold',
+            fontSize: '1.3rem',
+            color: '#212529'
           }}>
-            <div style={{ 
-              fontWeight: 'bold', 
-              fontSize: '1.3rem',
-              color: '#212529'
-            }}>
-              Admin Page
-            </div>
-            
-            {windowWidth > 768 ? (
-              <div className="nav-buttons" style={{ display: 'flex', gap: '15px' }}>
-                <button
-                  className={`nav-button ${currentView === 'dashboard' && !showTables ? 'active' : ''}`}
-                  onClick={() => handleNavButtonClick('dashboard', false)}
-                >
-                  Dashboard
-                </button>
-                
-                <button
-                  className={`nav-button ${showTables ? 'active' : ''}`}
-                  onClick={() => handleNavButtonClick('dashboard', true)}
-                >
-                  Database Tables
-                </button>
-              </div>
-            ) : (
-              <button 
-                className="mobile-menu-button"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-              </button>
-            )}
+            Admin Page
           </div>
-  
-          {windowWidth > 768 && (
-            <div className="action-buttons" style={{ display: 'flex', gap: '15px' }}>
-              <button 
-                className={`action-button ${activeActionButton === 'workouts' ? 'active' : ''}`}
-                style={{ 
-                  backgroundColor: activeActionButton === 'workouts' ? '#ff7b00' : '#e9ecef',
-                  color: activeActionButton === 'workouts' ? 'white' : '#495057'
-                }}
-                onClick={() => handleActionButtonClick('workouts')}
+
+          {windowWidth > 768 ? (
+            <div className="nav-buttons" style={{ display: 'flex', gap: '15px' }}>
+              <button
+                className={`nav-button ${currentView === 'dashboard' && !showTables ? 'active' : ''}`}
+                onClick={() => handleNavButtonClick('dashboard', false)}
               >
-                <span>Add Workout</span>
+                Dashboard
               </button>
-              
-              <button 
-                className={`action-button ${activeActionButton === 'user' ? 'active' : ''}`}
-                style={{ 
-                  backgroundColor: activeActionButton === 'user' ? '#ff7b00' : '#f8f9fa',
-                  color: activeActionButton === 'user' ? 'white' : '#495057'
-                }}
-                onClick={() => handleActionButtonClick('user')}
+
+              <button
+                className={`nav-button ${showTables ? 'active' : ''}`}
+                onClick={() => handleNavButtonClick('dashboard', true)}
               >
-                <span>Back to user view</span>
+                Database Tables
               </button>
             </div>
+          ) : (
+            <button
+              className="mobile-menu-button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
           )}
-        </nav>
-  
-        {isMobileMenuOpen && windowWidth <= 768 && (
-          <div className="mobile-menu">
+        </div>
+
+        {windowWidth > 768 && (
+          <div className="action-buttons" style={{ display: 'flex', gap: '15px' }}>
             <button
-              className={`nav-button ${currentView === 'dashboard' && !showTables ? 'active' : ''}`}
-              onClick={() => handleNavButtonClick('dashboard', false)}
-            >
-              Dashboard
-            </button>
-            
-            <button
-              className={`nav-button ${showTables ? 'active' : ''}`}
-              onClick={() => handleNavButtonClick('dashboard', true)}
-            >
-              Database Tables
-            </button>
-  
-            <button 
               className={`action-button ${activeActionButton === 'workouts' ? 'active' : ''}`}
-              style={{ 
+              style={{
                 backgroundColor: activeActionButton === 'workouts' ? '#ff7b00' : '#e9ecef',
                 color: activeActionButton === 'workouts' ? 'white' : '#495057'
               }}
               onClick={() => handleActionButtonClick('workouts')}
             >
-              <span>Add Workout</span>
+              <span>Add Exercise</span>
             </button>
-            
-            <button 
+
+            <button
               className={`action-button ${activeActionButton === 'user' ? 'active' : ''}`}
-              style={{ 
+              style={{
                 backgroundColor: activeActionButton === 'user' ? '#ff7b00' : '#f8f9fa',
                 color: activeActionButton === 'user' ? 'white' : '#495057'
               }}
@@ -365,12 +540,53 @@ const AdminPage = () => {
             </button>
           </div>
         )}
-  
-        {currentView === 'dashboard' && showTables && <DatabaseTables />}
-        {currentView === 'dashboard' && !showTables && <DashboardContent />}
-        {currentView === 'workouts' && <div style={{ padding: '20px' }}>Workouts content coming soon...</div>}
-      </div>
-    );
-  };
-  
-  export default AdminPage;
+      </nav>
+
+      {isMobileMenuOpen && windowWidth <= 768 && (
+        <div className="mobile-menu">
+          <button
+            className={`nav-button ${currentView === 'dashboard' && !showTables ? 'active' : ''}`}
+            onClick={() => handleNavButtonClick('dashboard', false)}
+          >
+            Dashboard
+          </button>
+
+          <button
+            className={`nav-button ${showTables ? 'active' : ''}`}
+            onClick={() => handleNavButtonClick('dashboard', true)}
+          >
+            Database Tables
+          </button>
+
+          <button
+            className={`action-button ${activeActionButton === 'workouts' ? 'active' : ''}`}
+            style={{
+              backgroundColor: activeActionButton === 'workouts' ? '#ff7b00' : '#e9ecef',
+              color: activeActionButton === 'workouts' ? 'white' : '#495057'
+            }}
+            onClick={() => handleActionButtonClick('workouts')}
+          >
+            <span>Add Workout</span>
+          </button>
+
+          <button
+            className={`action-button ${activeActionButton === 'user' ? 'active' : ''}`}
+            style={{
+              backgroundColor: activeActionButton === 'user' ? '#ff7b00' : '#f8f9fa',
+              color: activeActionButton === 'user' ? 'white' : '#495057'
+            }}
+            onClick={() => handleActionButtonClick('user')}
+          >
+            <span>Back to user view</span>
+          </button>
+        </div>
+      )}
+
+      {currentView === 'dashboard' && showTables && <DatabaseTables />}
+      {currentView === 'dashboard' && !showTables && <DashboardContent />}
+      {currentView === 'workouts' && <ExercisesEditor />}
+    </div>
+  );
+};
+
+export default AdminPage;
