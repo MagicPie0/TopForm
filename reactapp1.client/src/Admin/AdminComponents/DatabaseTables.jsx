@@ -7,14 +7,14 @@ import {
   FaSortUp,
   FaSortDown,
   FaTable,
-  FaSpinner
+  FaSpinner,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import "./ComponentsStyles/DatabaseTables.css";
 import useFetch from "./Hooks/useAllTable.jsx";
 
 const DatabaseTables = () => {
-  const [activeTable, setActiveTable] = useState("User");
+  const [activeTable, setActiveTable] = useState("Users");
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({
@@ -26,35 +26,71 @@ const DatabaseTables = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
 
-  // API endpoints matching your backend
   const apiEndpoints = {
-    User: "/api/Admin/User",
-    Workout: "/api/Admin/Workout",
-    Diet: "/api/Admin/Diet",
-    Ranks: "/api/Admin/Ranks",
-    MuscleGroups: "/api/Admin/MuscleGroups",
-    UserActivity: "/api/Admin/UserActivity",
+    Users: "https://localhost:7196/api/Admin/User",
+    Workouts: "https://localhost:7196/api/Admin/Workout",
+    Diets: "https://localhost:7196/api/Admin/Diet",
+    Ranks: "https://localhost:7196/api/Admin/Ranks",
+    MuscleGroups: "https://localhost:7196/api/Admin/MuscleGroups",
+    UserActivity: "https://localhost:7196/api/Admin/UserActivity",
   };
 
-  // Table configuration with display names
+  const {
+    data: fetchedData,
+    loading,
+    error,
+  } = useFetch(apiEndpoints[activeTable]);
+
+  const getProfilePicture = (item) => {
+    if (!item) return "No profile picture"; // Ha üres, azonnal visszatérünk
+    const mimeType = item.startsWith("/9j/") ? "jpeg" : "png"; // Base64 ellenőrzés
+    return `data:image/${mimeType};base64,${item}`;
+  };
+  
+
+  useEffect(() => {
+    if (fetchedData) {
+      const transformedData = fetchedData.map((item) => {
+        // Handle UserActivity special case
+        if (activeTable === "UserActivity") {
+          return {
+            id: item.id,
+            userId: item.userId,
+            dietId: item.dietId,
+            workoutId: item.workoutId,
+            muscleGroupId: item.muscleGroupId,
+            ranksId: item.ranksID,
+          };
+        }
+        // Handle Users special case
+        if (activeTable === "Users") {
+          return {
+            id: item.Id || item.id, // Handle both Id and id
+            username: item.Username || item.username,
+            email: item.Email || item.email,
+            name: item.Name || item.name,
+            birthDate: item.BirthDate || item.birthDate,
+            profilePicture: item.profilePicture ? getProfilePicture(item.profilePicture) : "No profile picture",
+            password : item.password,
+            gender: item.men == 0 ? "Male" : "Female",
+          };
+        }
+        return item;
+      });
+      setData(transformedData);
+      setCurrentPage(1);
+      setSortConfig({ key: null, direction: "ascending" });
+    }
+  }, [fetchedData, activeTable]);
+
   const tables = [
-    { id: 1, name: "User", displayName: "Users Table" },
-    { id: 2, name: "Workout", displayName: "Workouts Table" },
-    { id: 3, name: "Diet", displayName: "Diets Table" },
+    { id: 1, name: "Users", displayName: "Users Table" },
+    { id: 2, name: "Workouts", displayName: "Workouts Table" },
+    { id: 3, name: "Diets", displayName: "Diets Table" },
     { id: 4, name: "Ranks", displayName: "Ranks Table" },
     { id: 5, name: "MuscleGroups", displayName: "Muscle Groups Table" },
     { id: 6, name: "UserActivity", displayName: "User Activity Table" },
   ];
-
-  const { data: fetchedData, loading, error } = useFetch(apiEndpoints[activeTable]);
-
-  useEffect(() => {
-    if (fetchedData) {
-      setData(fetchedData);
-      setCurrentPage(1);
-      setSortConfig({ key: null, direction: "ascending" });
-    }
-  }, [fetchedData]);
 
   const tableRef = useRef(null);
   const theadRef = useRef(null);
@@ -65,8 +101,9 @@ const DatabaseTables = () => {
         const tableRect = tableRef.current.getBoundingClientRect();
         const theadRect = theadRef.current.getBoundingClientRect();
         const isOverlapping = tableRect.top < theadRect.bottom;
-        
-        const actionButtons = tableRef.current.querySelectorAll(".database-actions");
+
+        const actionButtons =
+          tableRef.current.querySelectorAll(".database-actions");
         actionButtons.forEach((button) => {
           button.style.background = isOverlapping ? "white" : "transparent";
           button.style.zIndex = isOverlapping ? "1" : "0";
@@ -166,11 +203,21 @@ const DatabaseTables = () => {
 
   const getTableHeaders = () => {
     if (data.length === 0) return [];
-    return Object.keys(data[0]).filter((key) => key !== "id" && key.toLowerCase() !== "userid");
+    const headers = Object.keys(data[0]);
+
+    // UserActivity táblánál minden mezőt megjelenítünk
+    if (activeTable === "UserActivity") {
+      return headers;
+    }
+
+    // Egyéb tábláknál csak a nem kívánt mezőket szűrjük ki
+    return headers.filter(
+      (header) => !["internal_field1", "internal_field2"].includes(header) // Itt add meg a tényleg elrejteni kívánt mezőket
+    );
   };
 
   const renderCell = (row, key) => {
-    if (editingId === row.id && activeTable === "User") {
+    if (editingId === row.id && activeTable === "Users") {
       return (
         <input
           type="text"
@@ -181,14 +228,33 @@ const DatabaseTables = () => {
         />
       );
     }
+  
+    // Képek speciális kezelése
+    if (key === "profilePicture") {
+      if (!row[key]) {
+        return <span>No image</span>;
+      }
+
+      return (
+        <img 
+          src={row[key]} 
+          className="database-profile-picture"
+      
+        />
+      );
+    }
+  
     return row[key]?.toString();
   };
 
   const renderSortIcon = (key) => {
-    if (sortConfig.key !== key) return <FaSort className="database-sort-icon" />;
-    return sortConfig.direction === "ascending" 
-      ? <FaSortUp className="database-sort-icon" /> 
-      : <FaSortDown className="database-sort-icon" />;
+    if (sortConfig.key !== key)
+      return <FaSort className="database-sort-icon" />;
+    return sortConfig.direction === "ascending" ? (
+      <FaSortUp className="database-sort-icon" />
+    ) : (
+      <FaSortDown className="database-sort-icon" />
+    );
   };
 
   const buttonVariants = {
@@ -199,6 +265,8 @@ const DatabaseTables = () => {
 
   return (
     <div className="database-container">
+    {/* Updated table selector with responsive layout */}
+    <div className="database-table-selector-container">
       <div className="database-table-selector">
         {tables.map((table) => (
           <button
@@ -209,12 +277,11 @@ const DatabaseTables = () => {
             onClick={() => handleTableChange(table.name)}
           >
             <FaTable className="database-table-icon" />
-            <span className="database-table-name">
-              {table.displayName}
-            </span>
+            <span className="database-table-name">{table.displayName}</span>
           </button>
         ))}
       </div>
+    </div>
 
       {loading && (
         <div className="database-loading">
@@ -224,7 +291,8 @@ const DatabaseTables = () => {
 
       {error && (
         <div className="database-error">
-          Error loading data: {error.message}
+          Error loading data from {apiEndpoints[activeTable]}
+          <p>{error.message}</p>
         </div>
       )}
 
@@ -235,7 +303,11 @@ const DatabaseTables = () => {
               <FaSearch className="database-search-icon" />
               <input
                 type="text"
-                placeholder={`Search ${tables.find(t => t.name === activeTable)?.displayName.replace(" Table", "") || activeTable}...`}
+                placeholder={`Search ${
+                  tables
+                    .find((t) => t.name === activeTable)
+                    ?.displayName.replace(" Table", "") || activeTable
+                }...`}
                 value={searchTerm}
                 onChange={handleSearch}
               />
@@ -259,16 +331,25 @@ const DatabaseTables = () => {
                           </div>
                         </th>
                       ))}
-                      {activeTable === "User" && <th>Actions</th>}
+                      {activeTable === "Users" && <th>Actions</th>}
                     </tr>
                   </thead>
                   <tbody>
                     {paginatedData.map((row) => (
                       <tr key={row.id}>
                         {getTableHeaders().map((key) => (
-                          <td key={key}>{renderCell(row, key)}</td>
+                          <td key={key}>
+                            {activeTable === "UserActivity" &&
+                            key.endsWith("_id") ? (
+                              <span className="database-id-cell">
+                                {row[key]}
+                              </span>
+                            ) : (
+                              renderCell(row, key)
+                            )}
+                          </td>
                         ))}
-                        {activeTable === "User" && (
+                        {activeTable === "Users" && (
                           <td className="database-actions">
                             {editingId === row.id ? (
                               <div className="database-button-group">
@@ -343,7 +424,9 @@ const DatabaseTables = () => {
             </button>
             <button
               className="database-next-btn"
-              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage(Math.min(currentPage + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
             >
               Next

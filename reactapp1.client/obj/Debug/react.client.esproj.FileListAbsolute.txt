@@ -10,3 +10,4 @@ C:\Users\fulop\Downloads\ReactApp1-loginFull\ReactApp1-loginFull\ReactApp1-login
 C:\Users\fulop\Downloads\ReactApp1-loginFull\TopForm\ReactApp1-loginDesignKesz2\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
 C:\Users\fulop\Downloads\ReactApp1-loginFull\TopForm\TopForm\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
 C:\Users\info.PREMONTREI\Downloads\TopForm\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\info\Downloads\TopForm\TopForm\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache

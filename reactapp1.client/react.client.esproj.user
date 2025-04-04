@@ -2,12 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>LaunchJsonDebugger</DebuggerFlavor>
-    <LaunchJsonTarget>{
-  "name": "localhost (Edge)",
-  "type": "edge",
-  "request": "launch",
-  "url": "https://localhost:52515",
-  "webRoot": "C:\\Users\\fulop\\Desktop\\ReactApp1-loginFull\\ReactApp1-loginDesignKesz2\\reactapp1.client"
-}</LaunchJsonTarget>
+    <LaunchJsonTarget>
+    </LaunchJsonTarget>
   </PropertyGroup>
 </Project>
