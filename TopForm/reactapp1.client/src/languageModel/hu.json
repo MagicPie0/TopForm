@@ -1,0 +1,41 @@
+{
+  "forms": {
+    "login": "Üdv újra!",
+    "loginSubtitle": "Jelentkezz be a fitness utad folytatásához",
+    "register": "Fiók létrehozása",
+    "registerSubtitle": "Kezdd el velünk a fitness utadat",
+    "forgotPassword": "Elfelejtetted a jelszavad?",
+    "forgotPasswordTitle": "Jelszó visszaállítása",
+    "forgotPasswordDescription": "Add meg az email címed és küldünk egy linket a jelszó visszaállításához.",
+    "noAccount": "Nincs még fiókod?",
+    "haveAccount": "Már van fiókod?"
+  },
+  "fields": {
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "passwordAgain": "Jelszó újra",
+    "name": "Teljes név",
+    "birthDate": "Születési dátum",
+    "email": "Email"
+  },
+  "buttons": {
+    "login": "Bejelentkezés",
+    "register": "Regisztráció",
+    "sendResetLink": "Visszaállító link küldése"
+  },
+  "errors": {
+    "emptyFields": "Kérjük töltsd ki az összes mezőt",
+    "passwordsMismatch": "A jelszavak nem egyeznek",
+    "wrongPassword": "Hibás felhasználónév vagy jelszó",
+    "userNotFound": "Felhasználó nem található",
+    "badRequest": "Érvénytelen kérés",
+    "serverError": "Szerver hiba, kérjük próbáld újra később",
+    "general": "Hiba történt, kérjük próbáld újra",
+    "invalidBirthdate": "Kérjük adj meg egy érvényes születési dátumot"
+  },
+  "success": {
+    "login": "Sikeres bejelentkezés!",
+    "registration": "Sikeres regisztráció!",
+    "passwordResetSent": "Jelszó visszaállító link elküldve az email címedre"
+  }
+}

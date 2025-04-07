@@ -1,0 +1,41 @@
+{
+  "forms": {
+    "login": "Welcome Back!",
+    "loginSubtitle": "Sign in to continue your fitness journey",
+    "register": "Create Account",
+    "registerSubtitle": "Start your fitness journey with us",
+    "forgotPassword": "Forgot Password?",
+    "forgotPasswordTitle": "Reset Your Password",
+    "forgotPasswordDescription": "Enter your email and we'll send you a link to reset your password.",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?"
+  },
+  "fields": {
+    "username": "Username",
+    "password": "Password",
+    "passwordAgain": "Confirm Password",
+    "name": "Full Name",
+    "birthDate": "Birth Date",
+    "email": "Email"
+  },
+  "buttons": {
+    "login": "Sign In",
+    "register": "Register",
+    "sendResetLink": "Send Reset Link"
+  },
+  "errors": {
+    "emptyFields": "Please fill in all required fields",
+    "passwordsMismatch": "Passwords don't match",
+    "wrongPassword": "Incorrect username or password",
+    "userNotFound": "User not found",
+    "badRequest": "Invalid request",
+    "serverError": "Server error, please try again later",
+    "general": "An error occurred, please try again",
+    "invalidBirthdate": "Please enter a valid birthdate"
+  },
+  "success": {
+    "login": "Login successful!",
+    "registration": "Registration successful!",
+    "passwordResetSent": "Password reset link sent to your email"
+  }
+}

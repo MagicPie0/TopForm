@@ -1,0 +1,137 @@
+{
+  "Version": 1,
+  "Hash": "mh35RZYeHeazxo/V7gqKpdEZfWoHDFZBxSLRLmY1O8s=",
+  "Source": "asp.Server",
+  "BasePath": "_content/asp.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\reactapp1.client\\react.client.esproj",
+      "Version": 2,
+      "Source": "react.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [
+    {
+      "Name": "asp.Server\\wwwroot",
+      "Source": "asp.Server",
+      "ContentRoot": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
+      "BasePath": "_content/asp.Server",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "SourceId": "asp.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
+      "BasePath": "_content/asp.Server",
+      "RelativePath": "model/men#[.{fingerprint}]?.glb",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ym9m2z47l9",
+      "Integrity": "tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\model\\men.glb"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "model/men.glb",
+      "AssetFile": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4611568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 24 Mar 2025 19:09:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y="
+        }
+      ]
+    },
+    {
+      "Route": "model/men.ym9m2z47l9.glb",
+      "AssetFile": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4611568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 24 Mar 2025 19:09:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ym9m2z47l9"
+        },
+        {
+          "Name": "label",
+          "Value": "model/men.glb"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y="
+        }
+      ]
+    }
+  ]
+}

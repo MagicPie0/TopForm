@@ -1,0 +1,14 @@
+C:\Users\fulop\source\repos\ReactApp1\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+Y:\ReactApp1\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+Y:\ReactApp1-loginDesignKesz\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\fulop\source\repos\ReactApp1-loginDesignKesz\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\fulop\source\repos\ReactApp1-loginDesignKesz2\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+Y:\ReactApp1-loginFull\ReactApp1-loginDesignKesz2\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\fulop\Desktop\ReactApp1-loginFull\ReactApp1-loginDesignKesz2\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\fulop\Desktop\ReactApp1-settingsImage\ReactApp1-loginFull\ReactApp1-loginDesignKesz2\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\fulop\Downloads\ReactApp1-loginFull\ReactApp1-loginFull\ReactApp1-loginDesignKesz2\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\fulop\Downloads\ReactApp1-loginFull\TopForm\ReactApp1-loginDesignKesz2\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\fulop\Downloads\ReactApp1-loginFull\TopForm\TopForm\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\info.PREMONTREI\Downloads\TopForm\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\info\Downloads\TopForm\TopForm\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache
+C:\Users\info.PREMONTREI\Downloads\TopForm\TopForm\reactapp1.client\obj\Debug\react.client.esproj.CoreCompileInputs.cache

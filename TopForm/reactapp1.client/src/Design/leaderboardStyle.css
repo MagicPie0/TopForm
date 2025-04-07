@@ -1,0 +1,348 @@
+    body{
+      overflow: hidden;
+    }
+  .leaderboard-container {
+    max-width: 600px;
+    padding: 70px 20px 20px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    transform: translateX(10%);
+    top: -30px;
+    position: absolute;
+  }
+  
+  .leaderboard {
+    text-align: center;
+    background-color: white;
+    height: 600px;
+    width: 600px;
+    margin: 20px auto;
+    border-radius: 0 0 30px 30px;
+    padding: 20px 0 0 0 ;
+  }
+  
+  .podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    background-color: #f0f0f0;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: -20px;
+    border-bottom: black 2px solid;
+    width: 600px;
+    height: 280px;
+    border-radius: 30px 30px 0 0;
+  }
+  
+  .podium-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    width: 120px;
+    transform: translateX(-20%);
+    margin-bottom: 10px;
+  }
+  
+  .podium-item.rank-1 {
+    background-color: gold;
+    height: 200px;
+  }
+  
+  .podium-item.rank-2 {
+    background-color: silver;
+    height: 150px;
+  }
+  
+  .podium-item.rank-3 {
+    background-color: #cd7f32; /* Bronz */
+    height: 120px;
+  }
+
+  .podium-profile-pic-gold {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: translate(120%, -430%);
+  }
+
+  .podium-profile-pic-silver {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: translate(120%, -330%);
+  }
+
+  .podium-profile-pic-bronze {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: translate(120%, -270%);
+  }
+
+  .podium-span-gold{
+    color: black;
+    font-size: 1rem;
+    font-weight: bolder;
+    transform: translateY(450%);
+  }
+
+  .podium-span-silver{
+    color: black;
+    font-size: 1rem;
+    font-weight: bolder;
+    transform: translateY(230%);
+  }
+
+  .podium-span-bronze{
+    color: black;
+    font-size: 1rem;
+    font-weight: bolder;
+    transform: translateY(130%);
+  }
+  
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  /* Felhasználó lista stílusai */
+  .user-list {
+    display: grid;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 55vh;
+  }
+
+  .user-list::-webkit-scrollbar {
+    width: 8px; /* Görgetősáv szélessége */
+  }
+  
+  .user-list::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Görgetősáv háttere */
+    border-radius: 4px;
+  }
+  
+  .user-list::-webkit-scrollbar-thumb {
+    background: #888; /* Görgetősáv "gombjának" színe */
+    border-radius: 4px;
+  }
+  
+  .user-list::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Görgetősáv "gombjának" színe hover állapotban */
+  }
+  
+  .user-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width:500px;
+    margin: 0 auto;
+    
+  }
+  
+  .user-item.hovered {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .user-name {
+    margin-left: 10px;
+    flex-grow: 1;
+
+  }
+  
+  .rank-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    }
+
+    .podium-profilename-gold{
+      font-size: 1.5rem;
+    }
+
+    .podium-profilename-silver{
+      font-size: 1.5rem;
+    }
+
+    .podium-profilename-bronze{
+      font-size: 1.5rem;
+    }
+
+/* Idézet doboz stílusai */
+.quote-box {
+  position: fixed;
+  bottom: 40px;
+  left: 20px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 550px;
+  text-align: center;
+  transform: translateX(120%);
+}
+
+.quote-box h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bolder;
+}
+
+.quote-box p {
+  font-style: italic;
+  color: #555;
+}
+/* Hírek doboz stílusai */
+.news-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 550px;
+  height: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  transform: translate(118%, 8%);
+}
+
+.news-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  border-radius: 10px;
+  width: 500px;
+  height: 650px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.news-box::-webkit-scrollbar {
+  width: 8px; /* Görgetősáv szélessége */
+}
+
+.news-box::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Görgetősáv háttere */
+  border-radius: 10px;
+}
+
+.news-box::-webkit-scrollbar-thumb {
+  background: #888; /* Görgetősáv "gombjának" színe */
+  border-radius: 4px;
+}
+
+.news-box::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Görgetősáv "gombjának" színe hover állapotban */
+}
+
+.news-box h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333;
+}
+
+.news-item {
+  margin-bottom: 15px;
+}
+
+.news-item h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #007bff;
+}
+
+.news-item p {
+  font-size: 14px;
+  color: #555;
+}
+
+.news-item a {
+  display: inline-block;
+  margin-top: 5px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.news-item a:hover {
+  text-decoration: underline;
+}
+
+.news-item small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #888;
+}
+
+.search-bar{
+  position: fixed;
+  top: 20px;
+  border-radius: 10px;
+  transform: translate(-116%, 125%);
+  z-index: 5;
+  width: 450px;
+}
+
+.search-result{
+  position: fixed;
+  top: 10px;
+  border-radius: 20px;
+  transform: translate(-110%, 7%);
+  background-color: white;
+  width: 500px;
+  height: 680px;
+}
+
+.search-term{
+  position: fixed;  
+  left: 30%;
+  top: 50%;
+}
+
+.search-pic{
+  position: fixed;
+  top: 20%;
+  left: 5%;
+}
+
+.search-name{
+  position: fixed;
+  top: 22%;
+  left: 30%;
+}
+
+.search-username {
+  position: fixed;
+  top: 26%;
+  left: 30%;
+}
+
+.search-rank{
+  position: fixed;
+  top: 20%;
+  right: 5%;
+}
+
+.chart-box{
+  position: fixed;
+  top: 40%;
+  left: -5%;
+  
+  border-radius: 10px;
+  
+}

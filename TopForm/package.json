@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@react-three/fiber": "^8.17.10",
+    "drei": "^2.2.21",
+    "three": "^0.172.0",
+    "three-stdlib": "^2.35.6",
+    "vanta": "^0.5.24"
+  }
+}

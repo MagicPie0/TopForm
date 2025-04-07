@@ -1,0 +1,153 @@
+/* Alapstílusok */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px 40px; /* Nagyobb felső padding a gomb miatt */
+    position: relative;
+}
+
+/* Profil adatok balra igazítva */
+.profile-info {
+    text-align: left;
+    margin-right: 30px; /* Space between profile info and graph */
+}
+
+.profile-title {
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+}
+
+.profile-email {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+
+/* Back to Home gomb */
+.back-home {
+    position: absolute;
+    top: 20px;
+    right: 20px; /* Ensures it doesn't touch the edge */
+    display: inline-block;
+    background-color: #ed0a0a;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.back-home a {
+    height: 200px;
+    width: 350px;
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #ed0a0a;
+    color: white ;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    margin-right: 0;
+}
+
+.back-home:hover {
+    background-color: #c50b0b;
+    transform: translateY(-2px);
+}
+
+/* Hónapok grid-je */
+.month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.month-item {
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+
+.month-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(237,10,10,0.1);
+}
+
+/* Testrészek grid-je */
+.bodypart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.bodypart-item {
+    padding: 18px;
+    background: #ed0a0a;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Grafikon konténer */
+.graph-container {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+    flex-grow: 1; /* Allows the graph to fill remaining space */
+}
+
+.graph-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(237,10,10,0.1);
+}
+
+/* Reszponzív design */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .graph-container {
+        width: 100%;
+        order: 2; /* Graph goes below profile info */
+    }
+    .profile-info {
+        order: 1; /* Profile info goes above */
+        margin-bottom: 20px; /* Space between profile info and graph */
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-title {
+        font-size: 1.5rem;
+    }
+    .back-home {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
