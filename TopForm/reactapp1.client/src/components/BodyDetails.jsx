@@ -1,57 +1,95 @@
-import React, { useState, useEffect, useMemo, useContext, createContext, Suspense, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Html, useGLTF, Bounds } from '@react-three/drei';
-import { useCompleteRegister } from '../scripts/useCompleteRegister'; // Ensure the hook exists
+import { Canvas } from '@react-three/fiber';
+import { Html, useGLTF } from '@react-three/drei';
+import { useCompleteRegister } from '../scripts/useCompleteRegister';
+import { useSelector, useDispatch } from "react-redux";
+import { toggleLanguage } from "../languageModel/languageSlice";
+import en from "../languageModel/en.json";
+import hu from "../languageModel/hu.json";
 import '../Design/bodyDetailsStyle.css';
+import '../Design/SignIn.css'; // Import SignIn styles
 
-const ModelContext = createContext();
+// Egyszerűsített modell komponens
+function SimpleModel({ gender }) {
+  const modelPath = gender === 'female' ? '/model/female.glb' : '/model/male.glb';
+  const { scene } = useGLTF(modelPath);
+  const modelRef = useRef();
 
-function Instances({ gender, children }) {
-  const navigate = useNavigate();
-  const modelPath = gender === 'female' ? '/model/female9.glb' : '/model/man5.glb';
-  const { nodes, materials } = useGLTF(modelPath);
+  // Egyszerű automatikus forgatás
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (modelRef.current) {
+        modelRef.current.rotation.y += 0.01;
+      }
+    }, 16);
 
-  const instances = useMemo(() => {
-    return gender === 'female'
-      ? {
-          body: nodes?.Merged_bodywm || null,
-          material: materials?.Merged_bodywm019_001 || null,
-          scale: [1, 1, 1],
-        }
-      : {
-          body: nodes?.Merged_body || null,
-          material: materials?.Merged_body019_001 || null,
-          scale: [4, 4, 4],
-        };
-  }, [nodes, materials, gender]);
+    return () => clearInterval(interval);
+  }, []);
 
-  return <ModelContext.Provider value={instances}>{children}</ModelContext.Provider>;
-}
-
-function Model() {
-  const instances = useContext(ModelContext);
-  const groupRef = useRef();
-
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotateY(0.01);
-    }
-  });
+  // Skálázás a modell típusa alapján
+  const scale = gender === 'female' ? 3 : 3;
 
   return (
-    <group ref={groupRef} scale={instances.scale}>
-      <mesh geometry={instances.body?.geometry} material={instances.material} />
-    </group>
+    <primitive
+      ref={modelRef}
+      object={scene}
+      scale={[scale, scale, scale]}
+      position={[0, gender === 'female' ? 0 : 0, 0]}
+    />
   );
 }
 
+// Betöltési állapot kezelő
+function LoadingFallback() {
+  return (
+    <Html center>
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.8)',
+        padding: '12px 20px',
+        borderRadius: '8px',
+        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+        textAlign: 'center'
+      }}>
+        <div style={{ marginBottom: '10px', fontSize: '16px', fontWeight: 'bold' }}>
+          Modell betöltése...
+        </div>
+        <div style={{ width: '120px', height: '6px', background: '#eee', borderRadius: '3px', overflow: 'hidden' }}>
+          <div style={{
+            width: '40%',
+            height: '100%',
+            background: '#4a6fa5',
+            animation: 'loading 1.5s infinite ease-in-out'
+          }}></div>
+        </div>
+        <style>
+          {`
+            @keyframes loading {
+              0% { width: 0%; }
+              50% { width: 70%; }
+              100% { width: 100%; }
+            }
+          `}
+        </style>
+      </div>
+    </Html>
+  );
+}
+
+// Fő regisztrációs komponens
 const RegistrationForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const language = useSelector((state) => state.language);
+  const texts = language === "EN" ? en : hu;
+
   const [gender, setGender] = useState('male');
   const [measurements, setMeasurements] = useState({ arm: '', chest: '', thigh: '', calf: '' });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [modelError, setModelError] = useState(null);
+  const [modelLoaded, setModelLoaded] = useState(false);
 
   const completeRegister = useCompleteRegister();
 
@@ -69,16 +107,17 @@ const RegistrationForm = () => {
     setSuccessMessage('');
 
     try {
-      // Fetch a JWT token from localStorage (or wherever you store it)
+      // Fetch a JWT token from localStorage
       const jwt = localStorage.getItem("jwt");
       if (!jwt) {
         throw new Error('JWT token hiányzik');
       }
+
       // Prepare muscle group data
       const muscleGroupData = Object.entries(measurements)
-        .filter(([, value]) => value) // Only non-empty values
+        .filter(([, value]) => value)
         .map(([part, kg]) => ({
-          name: part.charAt(0).toUpperCase() + part.slice(1), // Capitalize first letter
+          name: part.charAt(0).toUpperCase() + part.slice(1),
           kg: kg,
         }));
 
@@ -88,7 +127,8 @@ const RegistrationForm = () => {
 
       // Call the hook with the necessary data
       await completeRegister.mutateAsync({ gender, measurements: muscleGroupData });
-      navigate("/mainPage");
+      setSuccessMessage('Sikeres regisztráció!');
+      setTimeout(() => navigate("/mainPage"), 1000);
     } catch (err) {
       setErrorMessage(err.message || 'Valami hiba történt');
     } finally {
@@ -96,40 +136,128 @@ const RegistrationForm = () => {
     }
   };
 
+  // Model error handler
+  const handleModelError = (error) => {
+    console.error("Model loading error:", error);
+    setModelError(`Hiba a modell betöltésekor: ${error.message}`);
+  };
+
+  // Check if WebGL is available
+  const checkWebGLAvailability = () => {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(window.WebGLRenderingContext &&
+        (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const isWebGLAvailable = checkWebGLAvailability();
+
+  const muscleGroups = [
+    { id: 'arm', label: 'Kar' },
+    { id: 'chest', label: 'Mellkas' },
+    { id: 'thigh', label: 'Comb' },
+    { id: 'calf', label: 'Vádli' }
+  ];
+
   return (
-    <div className="body-details">
-      <div className="canvas-container">
-        <Canvas camera={{ position: [0, 2, 10], fov: 50 }} shadows>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[2, 5, 5]} intensity={0.7} castShadow />
-          <Suspense fallback={<Html center>Betöltés...</Html>}>
-            <Bounds fit clip observe margin={1.2}>
-              <Instances gender={gender}>
-                <Model />
-              </Instances>
-            </Bounds>
-          </Suspense>
-        </Canvas>
+    <div className="signin-container">
+      {/* Animated Background - átvéve a SignIn komponensből */}
+      <div className="signin-background">
+        <div className="gradient-overlay"></div>
       </div>
-      <div className="form-container">
-        <h2>Kérem adja meg, hogy hány kilogrammot tud megemelni!</h2>
-        <select className="gender-selector" onChange={(e) => setGender(e.target.value)} value={gender}>
-          <option value="male">Férfi</option>
-          <option value="female">Nő</option>
-        </select>
-        <div className="form-group">
-          {['arm', 'chest', 'thigh', 'calf'].map((part) => (
-            <div key={part} className="input-container">
-              <label>{part.charAt(0).toUpperCase() + part.slice(1)}</label>
-              <input type="text" name={part} placeholder="kg" value={measurements[part]} onChange={handleInputChange} />
+
+      {/* Main Content */}
+      <div className="signin-content">
+
+
+        <div className="body-details-wrapper">
+          <div className="body-details-container">
+            <div className="model-section">
+              <div className="canvas-wrapper">
+                {modelError && (
+                  <div className="model-error">
+                    <p>{modelError}</p>
+                    <button onClick={() => setModelError(null)}>Újrapróbálkozás</button>
+                  </div>
+                )}
+
+                {!isWebGLAvailable ? (
+                  <div className="webgl-error">
+                    <p>A böngésződ nem támogatja a WebGL-t, ami szükséges a 3D modell megjelenítéséhez.</p>
+                    <p>Próbálj meg másik böngészőt használni vagy frissítsd a jelenlegi böngésződet.</p>
+                  </div>
+                ) : (
+                  <Canvas
+                    camera={{ position: [0, 0, 10], fov: 40 }}
+                    onCreated={({ gl }) => {
+                      gl.setClearColor(0x000000, 0); // Teljesen átlátszó háttér
+                    }}
+                    gl={{ antialias: true, alpha: true }}
+                  >
+                    <ambientLight intensity={1} />
+                    <directionalLight position={[5, 5, 5]} intensity={1} />
+                    <React.Suspense fallback={<LoadingFallback />}>
+                      <SimpleModel gender={gender} />
+                    </React.Suspense>
+                  </Canvas>
+                )}
+
+                <div className="gender-control">
+                  <label htmlFor="gender-select">Nem választása:</label>
+                  <select
+                    id="gender-select"
+                    onChange={(e) => setGender(e.target.value)}
+                    value={gender}
+                  >
+                    <option value="male">Férfi</option>
+                    <option value="female">Nő</option>
+                  </select>
+                </div>
+              </div>
             </div>
-          ))}
+
+            <div className="form-section">
+              <div className="form-content">
+                <h2>Adja meg maximális súlyterhelését</h2>
+                <p className="subtitle">Az edzéstervhez szükséges információk</p>
+
+                <div className="measurements-grid">
+                  {muscleGroups.map((group) => (
+                    <div key={group.id} className="measurement-item">
+                      <label htmlFor={group.id}>{group.label}</label>
+                      <div className="input-group">
+                        <input
+                          type="number"
+                          id={group.id}
+                          name={group.id}
+                          placeholder="0"
+                          value={measurements[group.id]}
+                          onChange={handleInputChange}
+                        />
+                        <span className="unit">kg</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
+                {successMessage && <div className="message success">{successMessage}</div>}
+
+                <button
+                  className="auth-button primary"
+                  onClick={handleSubmitMuscleGroups}
+                  disabled={loading}
+                >
+                  {loading ? 'Feldolgozás...' : 'Regisztráció befejezése'}
+                  <span className="button-overlay"></span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <button className="register-btn" onClick={handleSubmitMuscleGroups} disabled={loading}>
-          {loading ? 'Folyamatban...' : 'Regisztráció befejezése'}
-        </button>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {successMessage && <p className="success-message">{successMessage}</p>}
       </div>
     </div>
   );
@@ -137,5 +265,6 @@ const RegistrationForm = () => {
 
 export default RegistrationForm;
 
-useGLTF.preload('/model/man5.glb');
-useGLTF.preload('/model/female9.glb');
+// Modellek előbetöltése
+useGLTF.preload('/model/male.glb');
+useGLTF.preload('/model/female.glb');

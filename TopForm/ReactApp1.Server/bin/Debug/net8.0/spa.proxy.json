@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:52515",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\..\\reactapp1.client",
+"WorkingDirectory": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\..\\reactapp1.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {}
+    "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {
+    "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
+        "projectUniqueName": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
         "projectName": "asp.Server",
-        "projectPath": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
-        "packagesPath": "C:\\Users\\fulop\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fulop\\Downloads\\ReactApp1-loginFull\\TopForm\\TopForm\\ReactApp1.Server\\obj\\",
+        "projectPath": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
+        "packagesPath": "C:\\Users\\info.PREMONTREI\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\fulop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\info.PREMONTREI\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

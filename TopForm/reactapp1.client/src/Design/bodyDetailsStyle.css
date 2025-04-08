@@ -1,103 +1,227 @@
-canvas {
-  background-color: transparent; /* vagy valami világosabb szín */
-}
-
-/* Globális stílusok */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  color: #333;
-}
-
-/* Fő elrendezés */
-.body-details {
+/* bodyDetailsStyle.css */
+.body-details-container {
+  --primary-color: #4a6fa5;
+  --secondary-color: #ff6b6b;
+  --text-dark: #212529;
+  --text-light: #f8f9fa;
+  --border-radius: 12px;
+  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --transition: all 0.3s ease;
+  
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   width: 100%;
-  height: 100vh;
-  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #212529;
+  line-height: 1.6;
 }
 
-/* Canvas konténer */
-.canvas-container {
-  flex: 1;
+
+/* Modell szekció */
+.body-details-container .model-section {
   position: relative;
-  padding: 20px;
-  background-color: #222;
-  margin: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  z-index: 5;
+  height: 50vh;
+  min-height: 300px;
+  width: 100%;
 }
 
-/* Input overlay (űrlap konténer) */
-.input-overlay {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 20px 30px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+.body-details-container .canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Űrlap szekció */
+.body-details-container .form-section {
+  flex-grow: 1;
+  padding: 2rem;
+  border-radius: 12px 12px 0 0;
+  margin-top: -2rem;
   z-index: 10;
 }
 
-/* Input elemek */
-.input-container {
-  margin-bottom: 15px;
+.body-details-container .form-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.body-details-container h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #4a6fa5;
+}
+
+.body-details-container .form-subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+/* Mérések rács */
+.body-details-container .measurements-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.body-details-container .measurement-item {
   display: flex;
   flex-direction: column;
 }
 
-.input-container label {
-  margin-bottom: 5px;
+.body-details-container .measurement-item label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #212529;
+}
+
+.body-details-container .input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.body-details-container .input-group input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  padding-right: 3rem;
+}
+
+.body-details-container .input-group input:focus {
+  border-color: #4a6fa5;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+}
+
+.body-details-container .input-group .unit {
+  position: absolute;
+  right: 1rem;
+  color: #6c757d;
   font-weight: bold;
 }
 
-.input-container input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-/* Regisztrációs gomb */
-.register-btn {
-  margin-top: 20px;
-  padding: 12px 20px;
-  background-color: #e74c3c;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.register-btn:hover {
-  background-color: #c0392b;
-}
-
-/* Nem kiválasztó */
-.gender-selector {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  font-size: 1rem;
-}
-
-/* Canvas stílus */
-.canvas-container canvas {
+/* Gomb stílusok */
+.body-details-container .submit-button {
   width: 100%;
-  height: 100%;
-  display: block;
-  border-radius: 10px;
-  z-index: inherit;
+  padding: 1rem;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.body-details-container .submit-button:hover {
+  background-color: #e05757;
+  transform: translateY(-2px);
+}
+
+.body-details-container .submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Nem választó */
+.body-details-container .gender-control {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.75rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(8px);
+  z-index: 20;
+}
+
+.body-details-container .gender-control label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.body-details-container .gender-control select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: white;
+  font-size: 0.9rem;
+}
+
+/* Üzenetek */
+.body-details-container .message {
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.body-details-container .message.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-left: 4px solid #c62828;
+}
+
+.body-details-container .message.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-left: 4px solid #2e7d32;
+}
+
+/* Betöltő */
+.body-details-container .loading {
+  padding: 1rem 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* Reszponzív beállítások */
+@media (min-width: 768px) {
+  .body-details-container {
+    flex-direction: row;
+  }
+  
+  .body-details-container .model-section {
+    width: 50%;
+    height: 100vh;
+  }
+  
+  .body-details-container .form-section {
+    width: 50%;
+    margin-top: 0;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .body-details-container .canvas-wrapper {
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .body-details-container .measurements-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .body-details-container .form-section {
+    padding: 1.5rem 1rem;
+  }
 }
