@@ -43,25 +43,6 @@ namespace asp.Server.Controllers
             public List<string> MuscleGroups { get; set; }
         }
 
-        private static readonly Dictionary<string, List<string>> MuscleGroupExercises = new()
-        {
-            { "arm", new List<string> { "Bicep curl", "Tricep dip", "Hammer curl", "Cable tricep pushdown", "Parallel bar dip", "Concentration curl" } },
-            { "chest", new List<string> { "Bench press", "Chest fly", "Push-up", "Incline bench press", "Wide-grip push-up", "Cable chest fly" } },
-            { "thigh", new List<string> { "Squat", "Leg press", "Lunge", "Leg extension", "Romanian deadlift", "Hamstring curl" } },
-            { "calf", new List<string> { "Calf raise", "Seated calf raise", "Single-leg calf raise", "Standing calf raise on step", "Cable calf raise", "Jumping calf raise" } }
-        };
-
-        private static List<string> GetMuscleGroups(string exerciseName)
-        {
-            if (string.IsNullOrEmpty(exerciseName))
-                return new List<string>();
-
-            return MuscleGroupExercises
-                .Where(entry => entry.Value.Contains(exerciseName))
-                .Select(entry => entry.Key)
-                .ToList();
-        }
-
         public static List<ParsedWorkout> ParseWorkoutData(string workoutData)
         {
             if (string.IsNullOrWhiteSpace(workoutData) || workoutData == "[]")
@@ -85,7 +66,6 @@ namespace asp.Server.Controllers
                         Sets = details.GetProperty("sets").EnumerateArray().Select(x => x.GetInt32()).ToList()
                     };
 
-                    workout.MuscleGroups = GetMuscleGroups(workout.ExerciseName);
                     workouts.Add(workout);
                 }
 

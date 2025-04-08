@@ -47,7 +47,12 @@ namespace back_end.Tests
             _controller = new GetWorkoutController(_context);
         }
 
-
+        [TearDown]
+        public void TearDown()
+        {
+            _context.Database.EnsureDeleted();
+            _context.Dispose();
+        }
 
         [Test]
         public async Task GetWorkoutByDate_ReturnsUnauthorized_WhenUserIdIsInvalid()
@@ -99,48 +104,41 @@ namespace back_end.Tests
         [Test]
         public async Task GetWorkoutByDate_ReturnsOk_WhenWorkoutsFoundForDate()
         {
-            // Seed data if necessary
-            var existingWorkout = _context.Workouts.FirstOrDefault(w => w.WorkoutDate.Date == new DateTime(2025, 04, 01).Date);
-            if (existingWorkout == null)
-            {
-                _context.Workouts.Add(new Workouts
-                {
-                    WorkoutDate = new DateTime(2025, 04, 01),
-                    WorkoutData = "[{\"workoutDetails\":{\"exerciseName\":\"Squat\",\"weights\":[60, 70, 80],\"reps\":[12, 10, 8],\"sets\":[4, 4, 4]}}]"
-                });
-                await _context.SaveChangesAsync();
-            }
+            // Arrange
+            SetupControllerContext("1"); // Valid user ID
 
-            // Ensure user association
-            _context.UserActivity.Add(new user_activity { UserId = 1, WorkoutId = existingWorkout.Id });
+            // Seed data
+            var workoutId = new Random().Next(1, 1000); // Dynamically generate a unique Id
+
+            var workout = new Workouts
+            {
+                Id = workoutId,
+                WorkoutDate = new DateTime(2025, 04, 01),
+                WorkoutData = "[{\"workoutDetails\":{\"exerciseName\":\"Squat\",\"weights\":[60, 70, 80],\"reps\":[12, 10, 8],\"sets\":[4, 4, 4]}}]"
+            };
+
+            _context.Workouts.Add(workout);
             await _context.SaveChangesAsync();
 
-            SetupControllerContext("1"); // Valid user ID
+            // Ensure user association
+            _context.UserActivity.Add(new user_activity { UserId = 1, WorkoutId = workoutId });
+            await _context.SaveChangesAsync();
 
             // Act
             var result = await _controller.GetWorkoutByDate("2025-04-01");
 
-            // Log the result type for debugging
-            Console.WriteLine($"Response type: {result.GetType().Name}");
-
             // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
-            Assert.That(okResult?.StatusCode, Is.EqualTo(200)); // Check if status is 200 OK
+            Assert.That(okResult?.StatusCode, Is.EqualTo(200));
         }
 
-
-
-
-
-
-        // Helper method to simulate setting the controller context (such as the user ID)
         private void SetupControllerContext(string userId)
         {
             var httpContext = new DefaultHttpContext();
             httpContext.User = new System.Security.Claims.ClaimsPrincipal(
                 new System.Security.Claims.ClaimsIdentity(
-                    new[] { new System.Security.Claims.Claim("userId", userId ?? "") } // Handle null userId
+                    new[] { new System.Security.Claims.Claim("UserId", userId ?? "") } // "UserId" nagy betűvel
                 )
             );
             _controller.ControllerContext = new ControllerContext

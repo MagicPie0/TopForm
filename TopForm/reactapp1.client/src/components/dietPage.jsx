@@ -14,7 +14,9 @@ import {
   Grid,
   Divider,
   MenuItem,
-  Select
+  Select,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -49,6 +51,20 @@ const DietPage = () => {
   );
   const { mutate: saveFood, isLoading, isError, error } = useDiet();
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("info");
+  
+  const showSnackbar = (message, severity = "info") => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
   // Load saved diet from localStorage on component mount
   useEffect(() => {
     const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -59,9 +75,11 @@ const DietPage = () => {
           setData(parsedData.data);
           setLastSavedData(parsedData.data);
           setHasUnsavedChanges(true);
+          showSnackbar("Betöltöttük az elmentett vázlatot", "success");
         }
       } catch (e) {
         console.error("Failed to parse saved diet data", e);
+        showSnackbar("Hiba történt a vázlat betöltésekor", "error");
       }
     }
   }, []);
@@ -77,56 +95,63 @@ const DietPage = () => {
     }
   }, [data, hasUnsavedChanges, isViewingSavedDiet]);
 
-  // Handle fetched diet data
   useEffect(() => {
-    if (fetchedDiet && fetchedDiet.length > 0) {
-      const dietData = fetchedDiet[0];
+    if (fetchedDiet) {
+      if (fetchedDiet.length > 0) {
+        const dietData = fetchedDiet[0];
 
-      const transformItems = (items) => {
-        if (!items) return [];
-        return items.map((item) => ({
-          name: item.name || "Névtelen",
-          portion: item.portion || "0",
-          kcal: item.calories?.toString() || "0",
-        }));
-      };
-
-      const newData = {
-        meals: {
-          breakfast: {
-            ...initialData.meals.breakfast,
-            items: transformItems(dietData.breakfast),
-          },
-          lunch: {
-            ...initialData.meals.lunch,
-            items: transformItems(dietData.lunch),
-          },
-          dinner: {
-            ...initialData.meals.dinner,
-            items: transformItems(dietData.diner),
-          },
-          snack: {
-            ...initialData.meals.snack,
-            items: transformItems(dietData.dessert),
-          },
-        },
-        newItems: [],
-      };
-
-      if (hasUnsavedChanges) {
-        const currentData = {
-          data: data,
-          savedAt: new Date().toISOString(),
+        const transformItems = (items) => {
+          if (!items) return [];
+          return items.map((item) => ({
+            name: item.name || "Névtelen",
+            portion: item.portion || "0",
+            kcal: item.calories?.toString() || "0",
+          }));
         };
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentData));
-      }
 
-      setData(newData);
-      setIsViewingSavedDiet(true);
-      setHasUnsavedChanges(false);
-    } else if (fetchedDiet) {
-      setIsViewingSavedDiet(false);
+        const newData = {
+          meals: {
+            breakfast: {
+              ...initialData.meals.breakfast,
+              items: transformItems(dietData.breakfast),
+            },
+            lunch: {
+              ...initialData.meals.lunch,
+              items: transformItems(dietData.lunch),
+            },
+            dinner: {
+              ...initialData.meals.dinner,
+              items: transformItems(dietData.diner),
+            },
+            snack: {
+              ...initialData.meals.snack,
+              items: transformItems(dietData.dessert),
+            },
+          },
+          newItems: [],
+        };
+
+        if (hasUnsavedChanges) {
+          const currentData = {
+            data: data,
+            savedAt: new Date().toISOString(),
+          };
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentData));
+          showSnackbar("Az előző vázlat elmentve", "info");
+        }
+
+        setData(newData);
+        setIsViewingSavedDiet(true);
+        setHasUnsavedChanges(false);
+        showSnackbar(`Betöltöttük a ${selectedDate.format("YYYY-MM-DD")} napi étrendet`, "success");
+        console.log(selectedDate);
+
+      } else  {
+        console.log(selectedDate);
+        showSnackbar(`Nincs mentett étrend ${selectedDate.format("YYYY-MM-DD")}-ra`, "warning");
+        setIsViewingSavedDiet(false);
     }
+      }
   }, [fetchedDiet]);
 
   const handleCancelView = () => {
@@ -137,16 +162,20 @@ const DietPage = () => {
         if (parsedData.data) {
           setData(parsedData.data);
           setHasUnsavedChanges(true);
+          showSnackbar("Visszatértél a vázlathoz", "info");
         }
       } catch (e) {
         console.error("Failed to parse saved diet data", e);
+        showSnackbar("Hiba történt a vázlat betöltésekor", "error");
       }
     } else {
       setData(initialData);
+      showSnackbar("Új étrend létrehozva", "info");
     }
     setSelectedDate(null);
     setIsViewingSavedDiet(false);
   };
+
 
   const moveItem = (item, fromMealId, toMealId) => {
     if (fromMealId === toMealId || isViewingSavedDiet) return;
@@ -198,6 +227,13 @@ const DietPage = () => {
   };
 
   const handleSave = async () => {
+    // Check if there are any items to save
+    const hasItems = Object.values(data.meals).some(meal => meal.items.length > 0);
+    if (!hasItems) {
+      showSnackbar("Nincs menteni való étel az étrendben", "warning");
+      return;
+    }
+
     const foodData = {
       Breakfast: data.meals.breakfast.items.map((item) => ({
         Name: item.name,
@@ -236,8 +272,10 @@ const DietPage = () => {
       setHasUnsavedChanges(false);
       setLastSavedData(data);
       localStorage.removeItem(LOCAL_STORAGE_KEY);
+      showSnackbar("Étrend sikeresen mentve!", "success");
     } catch (err) {
       console.error("Hiba történt az adatok mentése közben:", err);
+      showSnackbar("Hiba történt a mentés során", "error");
     }
   };
 
@@ -325,6 +363,34 @@ const DietPage = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
+        {/* Snackbar értesítések */}
+             <Snackbar
+               open={snackbarOpen}
+               autoHideDuration={6000}
+               onClose={handleCloseSnackbar}
+               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+             >
+               <Alert
+                 onClose={handleCloseSnackbar}
+                 severity={snackbarSeverity}
+                 sx={{
+                   width: "100%",
+                   backgroundColor:
+                   snackbarSeverity === "success"
+                       ? "rgba(46, 125, 50, 0.9)"
+                       : snackbarSeverity === "error"
+                       ? "rgba(211, 47, 47, 0.9)"
+                       : snackbarSeverity === "warning"
+                       ? "rgba(237, 108, 2, 0.9)"
+                       : "rgba(2, 136, 209, 0.9)",
+                   color: "#fff",
+                   fontWeight: 500,
+                 }}
+                 variant="filled"
+               >
+                 {snackbarMessage}
+               </Alert>
+             </Snackbar>
       <Box sx={{
         minHeight: '100vh',
         background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',

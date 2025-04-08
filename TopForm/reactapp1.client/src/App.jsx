@@ -5,7 +5,6 @@ import { lazy, Suspense } from "react";
 
 // Lazy loaded components
 const PageNotFound = lazy(() => import("./ErrorPages/PageNotFound.jsx"));
-const Login = lazy(() => import("./components/loginRegister"));
 const MainPageLayout = lazy(() => import("./components/mainPage"));
 const Settings = lazy(() => import("./components/settings.jsx"));
 const Reg = lazy(() => import("./components/BodyDetails"));
@@ -18,7 +17,7 @@ const Leaderboard = lazy(() => import("./components/leaderboard"));
 
 // Static import
 import WelcomePage from "./components/WelcomePage";
-
+import Login from "./components/loginRegister.jsx";
 const queryClient = new QueryClient();
 
 const MainLayoutWrapper = () => {

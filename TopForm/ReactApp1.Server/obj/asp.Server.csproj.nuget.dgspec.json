@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {}
+    "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {
+    "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
+        "projectUniqueName": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
         "projectName": "asp.Server",
-        "projectPath": "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
-        "packagesPath": "C:\\Users\\info\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\obj\\",
+        "projectPath": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
+        "packagesPath": "C:\\Users\\fulop\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\info\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fulop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,7 +39,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -140,7 +151,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

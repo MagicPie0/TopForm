@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { 
@@ -13,7 +13,9 @@ import {
   List, 
   ListItem, 
   ListItemText,
-  Button
+  Button,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import { ArrowBack, FitnessCenter, Star, Whatshot, Equalizer } from '@mui/icons-material';
 import { useFetcProfile } from '../scripts/useFetchProfile';
@@ -33,61 +35,97 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const { data: profileData, isLoading, isError } = useFetcProfile();
 
-  const handleBackClick = () => {
-    navigate('/mainPage');
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'info' // 'error', 'warning', 'info', 'success'
+  });
+
+  const handleCloseSnackbar = () => {
+    setSnackbar(prev => ({ ...prev, open: false }));
   };
+
+  const showSnackbar = (message, severity = 'info') => {
+    setSnackbar({
+      open: true,
+      message,
+      severity
+    });
+  };
+
+  useEffect(() => {
+    if (isError) {
+      showSnackbar('Hiba történt a profiladatok betöltésekor', 'error');
+    }
+  }, [isError]);
+
 
   const processWorkoutData = () => {
-    if (!profileData?.workouts) return [];
-
-    const initialMuscleData = {};
-    profileData.muscles?.groups?.forEach(group => {
-      initialMuscleData[group.name.toLowerCase()] = group.kg;
-    });
-
-    const muscleGroupMap = {};
-
-    if (Object.keys(initialMuscleData).length > 0) {
-      muscleGroupMap['Initial'] = initialMuscleData;
+    if (!profileData?.workouts) {
+      return { data: [], status: 'warning', message: 'Nincs edzés adat a megjelenítéshez' };
     }
-
-    profileData.workouts.forEach(workout => {
-      workout.exercises.forEach(exercise => {
-        const muscleGroup = getMuscleGroupForExercise(exercise.name);
-        if (muscleGroup) {
-          if (!muscleGroupMap[workout.date]) {
-            muscleGroupMap[workout.date] = {};
-          }
-          if (!muscleGroupMap[workout.date][muscleGroup] || 
-              exercise.maxWeight > muscleGroupMap[workout.date][muscleGroup]) {
-            muscleGroupMap[workout.date][muscleGroup] = exercise.maxWeight;
-          }
-        }
+  
+    try {
+      const initialMuscleData = {};
+      profileData.muscles?.groups?.forEach(group => {
+        initialMuscleData[group.name.toLowerCase()] = group.kg;
       });
-    });
-
-    const dates = Object.keys(muscleGroupMap).filter(d => d !== 'Initial');
-    dates.sort((a, b) => new Date(a) - new Date(b));
-    
-    const chartData = [];
-    if (muscleGroupMap['Initial']) {
-      chartData.push({
-        date: 'Initial',
-        ...muscleGroupMap['Initial']
+  
+      const muscleGroupMap = {};
+      if (Object.keys(initialMuscleData).length > 0) {
+        muscleGroupMap['Initial'] = initialMuscleData;
+      }
+  
+      profileData.workouts.forEach(workout => {
+        workout.exercises.forEach(exercise => {
+          const muscleGroup = getMuscleGroupForExercise(exercise.name);
+          if (muscleGroup) {
+            if (!muscleGroupMap[workout.date]) {
+              muscleGroupMap[workout.date] = {};
+            }
+            if (!muscleGroupMap[workout.date][muscleGroup] || 
+                exercise.maxWeight > muscleGroupMap[workout.date][muscleGroup]) {
+              muscleGroupMap[workout.date][muscleGroup] = exercise.maxWeight;
+            }
+          }
+        });
       });
+  
+      const dates = Object.keys(muscleGroupMap).filter(d => d !== 'Initial');
+      dates.sort((a, b) => new Date(a) - new Date(b));
+  
+      const chartData = [];
+      if (muscleGroupMap['Initial']) {
+        chartData.push({ date: 'Initial', ...muscleGroupMap['Initial'] });
+      }
+  
+      dates.forEach(date => {
+        chartData.push({ date, ...muscleGroupMap[date] });
+      });
+  
+      let status = 'info';
+      let message = 'Csak kezdeti adatok érhetőek el';
+      if (chartData.length > 1) {
+        status = 'success';
+        message = 'Edzés előrehaladás betöltve';
+      }
+  
+      return { data: chartData, status, message };
+    } catch (error) {
+      return { data: [], status: 'error', message: 'Hiba történt az edzésadatok feldolgozásakor' };
     }
-
-    dates.forEach(date => {
-      chartData.push({
-        date,
-        ...muscleGroupMap[date]
-      });
-    });
-
-    return chartData;
   };
+  
 
-  const workoutChartData = processWorkoutData();
+
+  const [workoutChartData, setWorkoutChartData] = useState([]);
+
+  useEffect(() => {
+    const { data, status, message } = processWorkoutData();
+    setWorkoutChartData(data);
+  }, [profileData]);
+  
+  
 
   if (isLoading) {
     return (
@@ -141,26 +179,6 @@ const ProfilePage = () => {
         zIndex: 0
       }
     }}>
-      {/* Vissza gomb */}
-      <motion.div
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        style={{ position: 'fixed', top: 24, left: 24, zIndex: 1000 }}
-      >
-        <IconButton 
-          onClick={handleBackClick}
-          sx={{
-            backgroundColor: 'rgba(212, 175, 55, 0.2)',
-            border: '1px solid #d4af37',
-            color: '#d4af37',
-            '&:hover': {
-              backgroundColor: 'rgba(212, 175, 55, 0.4)'
-            }
-          }}
-        >
-          <ArrowBack />
-        </IconButton>
-      </motion.div>
 
       {/* Fő tartalom */}
       <Box sx={{
@@ -433,6 +451,51 @@ const ProfilePage = () => {
           </Grid>
         </Grid>
       </Box>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{
+          '& .MuiPaper-root': {
+            background: snackbar.severity === 'error' 
+              ? 'linear-gradient(90deg, #8B0000, #d4af37)'
+              : snackbar.severity === 'warning'
+                ? 'linear-gradient(90deg, #FFA500, #d4af37)'
+                : snackbar.severity === 'success'
+                  ? 'linear-gradient(90deg, #006400, #d4af37)'
+                  : 'linear-gradient(90deg, #1a1a1a, #d4af37)',
+            color: '#fff',
+            fontWeight: 600,
+            borderRadius: '0',
+            boxShadow: '0 4px 30px rgba(212, 175, 55, 0.4)',
+            borderBottom: '2px solid #d4af37',
+            minWidth: '300px',
+            textAlign: 'center'
+          }
+        }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbar.severity}
+          sx={{
+            width: '100%',
+            backgroundColor: 'transparent',
+            color: '#fff',
+            '& .MuiAlert-icon': {
+              color: '#fff'
+            }
+          }}
+          iconMapping={{
+            success: <Star fontSize="inherit" />,
+            error: <Whatshot fontSize="inherit" />,
+            warning: <FitnessCenter fontSize="inherit" />,
+            info: <Equalizer fontSize="inherit" />
+          }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

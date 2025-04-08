@@ -56,7 +56,6 @@ const Settings = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const handleBack = () => navigate(-1);
 
   const handleUpdate = async () => {
     if (passwords.newPassword && passwords.newPassword !== passwords.confirmPassword) {
@@ -258,24 +257,7 @@ const Settings = () => {
         position: 'relative',
         zIndex: 1
       }}>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button
-            startIcon={<ArrowBack />}
-            variant="outlined"
-            sx={{
-              color: '#d4af37',
-              borderColor: '#d4af37',
-              textTransform: 'none',
-              '&:hover': {
-                borderColor: '#d4af37',
-                backgroundColor: 'rgba(212, 175, 55, 0.1)'
-              }
-            }}
-            onClick={handleBack}
-          >
-            {texts.buttons?.back || "Back"}
-          </Button>
-        </motion.div>
+       
 
         <Typography
           variant="h5"

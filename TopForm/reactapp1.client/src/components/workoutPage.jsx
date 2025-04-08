@@ -10,7 +10,9 @@ import {
   IconButton,
   Divider,
   Card,
-  CardContent
+  CardContent,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -30,32 +32,48 @@ const WorkoutApp = () => {
   const [showWorkoutContainer, setShowWorkoutContainer] = useState(false);
   const [isViewingSavedWorkout, setIsViewingSavedWorkout] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  
+  // Snackbar állapotok
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success", // success, error, warning, info
+  });
 
   const { mutate: saveWorkout, isLoading, isError, error } = useWorkout();
   const { data, isLoading: isFetching } = useFetchWorkout(
     selectedDate ? selectedDate.format("YYYY-MM-DD") : null
   );
 
+  // Snackbar bezárása
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
+
   // AI funkció kezelése
   const handleAIClick = () => {
     // Ide jön az AI logika
-    alert("AI edzéstervezés hamarosan elérhető lesz!");
+    setSnackbar({
+      open: true,
+      message: "AI edzéstervezés hamarosan elérhető lesz!",
+      severity: "info",
+    });
   };
 
   // Load saved workout from localStorage
   useEffect(() => {
-    const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (savedData) {
+    const savedDraft = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (savedDraft) {
       try {
-        const parsedData = JSON.parse(savedData);
-        if (parsedData.workout && parsedData.workout.length > 0 && parsedData.workout.category != undefined) {
-          setWorkout(parsedData.workout);
+        const parsedDraft = JSON.parse(savedDraft);
+        if (parsedDraft.workout && parsedDraft.workout.length > 0) {
+          setWorkout(parsedDraft.workout);
           setShowWorkoutContainer(true);
           setIsViewingSavedWorkout(false);
           setHasUnsavedChanges(true);
         }
       } catch (e) {
-        console.error("Failed to parse saved workout data", e);
+        console.error("Failed to parse saved draft data", e);
       }
     }
   }, []);
@@ -63,13 +81,40 @@ const WorkoutApp = () => {
   // Save workout to localStorage
   useEffect(() => {
     if (workout.length > 0 && !isViewingSavedWorkout && hasUnsavedChanges) {
-      const dataToSave = {
+      const draftData = {
         workout: workout,
-        savedAt: new Date().toISOString()
+        lastModified: new Date().toISOString(),
       };
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataToSave));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(draftData));
     }
   }, [workout, isViewingSavedWorkout, hasUnsavedChanges]);
+
+  // Clear draft when viewing saved workout or when empty
+  useEffect(() => {
+    if (isViewingSavedWorkout || workout.length === 0) {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+    }
+  }, [isViewingSavedWorkout, workout]);
+
+  // Dátum változás kezelése
+  useEffect(() => {
+    if (selectedDate && !isFetching) {
+      // Ha nincs adat, mutasson erről értesítést
+      if (!data || (Array.isArray(data) && data.length === 0)) {
+        setSnackbar({
+          open: true,
+          message: `Nincs mentett edzés a kiválasztott dátumra: ${selectedDate.format("YYYY-MM-DD")}`,
+          severity: "info",
+        });
+      } else {
+        setSnackbar({
+          open: true,
+          message: `Edzés betöltve: ${selectedDate.format("YYYY-MM-DD")}`,
+          severity: "success",
+        });
+      }
+    }
+  }, [data, isFetching, selectedDate]);
 
   const GetMuscleGroups = (exerciseName) => {
     if (!exerciseName) return [];
@@ -86,13 +131,15 @@ const WorkoutApp = () => {
     setShowWorkoutContainer(true);
     setIsViewingSavedWorkout(false);
     setHasUnsavedChanges(true);
-    setWorkout([{
-      category: "",
-      edzesTipus: "",
-      suly: "",
-      ismetles: "",
-      sorozatok: [],
-    }]);
+    setWorkout([
+      {
+        category: "",
+        edzesTipus: "",
+        suly: "",
+        ismetles: "",
+        sorozatok: [],
+      },
+    ]);
     localStorage.removeItem(LOCAL_STORAGE_KEY);
   };
 
@@ -121,33 +168,44 @@ const WorkoutApp = () => {
 
   useEffect(() => {
     if (!selectedDate) return;
-
+  
     if (data) {
       if (Array.isArray(data) && data.length > 0) {
         const allWorkoutDetails = data.flatMap(
           (workoutItem) => workoutItem.workoutDetails || []
         );
-
+  
         const formattedWorkout = allWorkoutDetails.map((detail) => {
-          const weights = Array.isArray(detail.weights) ? detail.weights : [detail.weights || 0];
-          const reps = Array.isArray(detail.reps) ? detail.reps : [detail.reps || 0];
-          const sets = Array.isArray(detail.sets) ? detail.sets : [detail.sets || 0];
+          const weights = Array.isArray(detail.weights)
+            ? detail.weights
+            : [detail.weights || 0];
+          const reps = Array.isArray(detail.reps)
+            ? detail.reps
+            : [detail.reps || 0];
+          const sets = Array.isArray(detail.sets)
+            ? detail.sets
+            : [detail.sets || 0];
           const numSets = sets.length > 0 ? sets[0] : 1;
-
+  
           const sorozatok = Array.from({ length: numSets }, (_, i) => ({
             suly: weights[i] || weights[0] || 0,
             ismetles: reps[i] || reps[0] || 0,
           }));
-
+  
+          // Itt használjuk a GetMuscleGroups függvényt, ha a szerver nem küldi el az izomcsoportokat
+          const muscleGroups = detail.muscleGroups || GetMuscleGroups(detail.exerciseName);
+          
           return {
-            category: detail.muscleGroups?.join(", ") || "Unknown",
+            category: Array.isArray(muscleGroups) 
+              ? muscleGroups.join(", ") 
+              : muscleGroups || "Unknown",
             edzesTipus: detail.exerciseName || "Unknown",
             suly: weights.join(", "),
             ismetles: reps.join(", "),
             sorozatok: sorozatok,
           };
         });
-
+  
         setWorkout(formattedWorkout);
         setShowWorkoutContainer(true);
         setIsViewingSavedWorkout(true);
@@ -178,6 +236,7 @@ const WorkoutApp = () => {
     const updatedWorkout = [...workout];
     updatedWorkout[index][field] = value;
     setWorkout(updatedWorkout);
+    setHasUnsavedChanges(true);
   };
 
   const handleSorozatChange = (cardIndex, sorozatIndex, field, value) => {
@@ -185,14 +244,15 @@ const WorkoutApp = () => {
       prev.map((card, index) =>
         index === cardIndex
           ? {
-            ...card,
-            sorozatok: card.sorozatok.map((sorozat, i) =>
-              i === sorozatIndex ? { ...sorozat, [field]: value } : sorozat
-            ),
-          }
+              ...card,
+              sorozatok: card.sorozatok.map((sorozat, i) =>
+                i === sorozatIndex ? { ...sorozat, [field]: value } : sorozat
+              ),
+            }
           : card
       )
     );
+    setHasUnsavedChanges(true);
   };
 
   const addSorozat = (cardIndex) => {
@@ -200,20 +260,25 @@ const WorkoutApp = () => {
       prev.map((card, index) =>
         index === cardIndex
           ? {
-            ...card,
-            sorozatok: [
-              ...(card.sorozatok || []),
-              { ismetles: "", suly: "" },
-            ],
-          }
+              ...card,
+              sorozatok: [
+                ...(card.sorozatok || []),
+                { ismetles: "", suly: "" },
+              ],
+            }
           : card
       )
     );
+    setHasUnsavedChanges(true);
   };
 
   const handleSave = () => {
     if (workout.length === 0) {
-      console.error("Nincs workout adat a mentéshez!");
+      setSnackbar({
+        open: true,
+        message: "Nincs workout adat a mentéshez!",
+        severity: "error",
+      });
       return;
     }
 
@@ -227,7 +292,11 @@ const WorkoutApp = () => {
     });
 
     if (!isValid) {
-      console.error("Néhány mező üres! Kérlek, töltsd ki az összes mezőt.");
+      setSnackbar({
+        open: true,
+        message: "Néhány mező üres! Kérlek, töltsd ki az összes mezőt.",
+        severity: "warning",
+      });
       return;
     }
 
@@ -242,39 +311,62 @@ const WorkoutApp = () => {
       sets: workout.map((card) => (card.sorozatok?.length || 0).toString()),
     };
 
-    saveWorkout(workoutData);
-    setHasUnsavedChanges(false);
-    setWorkout([]);
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    saveWorkout(workoutData, {
+      onSuccess: () => {
+        setSnackbar({
+          open: true,
+          message: "Edzés sikeresen mentve!",
+          severity: "success",
+        });
+        setHasUnsavedChanges(false);
+        setWorkout([]);
+        localStorage.removeItem(LOCAL_STORAGE_KEY); // Clear draft after successful save
+        setShowWorkoutContainer(false);
+      },
+      onError: (error) => {
+        setSnackbar({
+          open: true,
+          message: `Hiba történt: ${error.message || "Ismeretlen hiba"}`,
+          severity: "error",
+        });
+      }
+    });
   };
 
   return (
-    <Box sx={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
-      color: '#fff',
-      fontFamily: '"Montserrat", sans-serif',
-      position: 'relative',
-      padding: 4
-    }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #000000 0%, #1a1a1a 100%)",
+        color: "#fff",
+        fontFamily: '"Montserrat", sans-serif',
+        position: "relative",
+        padding: 4,
+      }}
+    >
       {/* Fejléc */}
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        mb: 4,
-        borderBottom: '1px solid rgba(212, 175, 55, 0.3)',
-        pb: 2
-      }}>
-        <Typography variant="h4" sx={{
-          background: 'linear-gradient(90deg, #d4af37, #8B0000)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          fontWeight: 700
-        }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 4,
+          borderBottom: "1px solid rgba(212, 175, 55, 0.3)",
+          pb: 2,
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            background: "linear-gradient(90deg, #d4af37, #8B0000)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontWeight: 700,
+          }}
+        >
           EDZÉSNAPLÓ
         </Typography>
-        <Box sx={{ display: 'flex', gap: 2 }}>
+        <Box sx={{ display: "flex", gap: 2 }}>
           {/* AI gomb hozzáadva */}
           <Tooltip title="AI Edzéstervező" placement="bottom">
             <Button
@@ -282,11 +374,11 @@ const WorkoutApp = () => {
               onClick={handleAIClick}
               startIcon={<AutoFixHigh />}
               sx={{
-                background: 'linear-gradient(90deg, #4a148c, #7b1fa2)',
-                color: '#fff',
-                '&:hover': {
-                  background: 'linear-gradient(90deg, #7b1fa2, #4a148c)'
-                }
+                background: "linear-gradient(90deg, #4a148c, #7b1fa2)",
+                color: "#fff",
+                "&:hover": {
+                  background: "linear-gradient(90deg, #7b1fa2, #4a148c)",
+                },
               }}
             >
               AI
@@ -299,12 +391,12 @@ const WorkoutApp = () => {
                 variant="outlined"
                 onClick={newWorkout}
                 sx={{
-                  color: '#d4af37',
-                  borderColor: '#d4af37',
-                  '&:hover': {
-                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                    borderColor: '#d4af37'
-                  }
+                  color: "#d4af37",
+                  borderColor: "#d4af37",
+                  "&:hover": {
+                    backgroundColor: "rgba(212, 175, 55, 0.1)",
+                    borderColor: "#d4af37",
+                  },
                 }}
               >
                 Új Edzés
@@ -317,73 +409,81 @@ const WorkoutApp = () => {
                 variant="outlined"
                 onClick={handleCancelView}
                 sx={{
-                  color: '#d4af37',
-                  borderColor: '#d4af37',
-                  '&:hover': {
-                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                    borderColor: '#d4af37'
-                  }
+                  color: "#d4af37",
+                  borderColor: "#d4af37",
+                  "&:hover": {
+                    backgroundColor: "rgba(212, 175, 55, 0.1)",
+                    borderColor: "#d4af37",
+                  },
                 }}
               >
                 Mégse
               </Button>
             </Tooltip>
           )}
-
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               value={selectedDate}
               onChange={(date) => setSelectedDate(date || null)}
-              renderInput={({ inputRef, inputProps }) => (
-                <Box sx={{
-                  position: 'relative',
-                  '& .MuiInputBase-root': {
-                    color: '#fff',
-                    '& fieldset': {
-                      borderColor: '#d4af37'
+              slotProps={{
+                textField: {
+                  sx: {
+                    "& .MuiInputBase-root": {
+                      color: "#fff",
+                      "& fieldset": {
+                        borderColor: "#d4af37",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#d4af37",
+                      },
+                      // Az ikon színének beállítása
+                      "& .MuiSvgIcon-root": {
+                        color: "white",
+                      },
                     },
-                    '&:hover fieldset': {
-                      borderColor: '#d4af37'
-                    }
-                  }
-                }}>
-                  <input
-                    ref={inputRef}
-                    {...inputProps}
-                    style={{
-                      width: '180px',
-                      padding: '10px',
-                      background: 'rgba(26, 26, 26, 0.7)',
-                      border: '1px solid #d4af37',
-                      borderRadius: '4px',
-                      color: '#fff'
-                    }}
-                  />
-                </Box>
-              )}
+                  },
+                  variant: "outlined",
+                  size: "small",
+                },
+                // Alternatív megoldás az ikon színének beállítására
+                inputAdornment: {
+                  sx: {
+                    "& .MuiSvgIcon-root": {
+                      color: "white",
+                    },
+                  },
+                },
+              }}
             />
           </LocalizationProvider>
         </Box>
       </Box>
 
+      {/* Betöltés visszajelzés */}
+      {isFetching && (
+        <Box sx={{ textAlign: "center", my: 4 }}>
+          <Typography variant="body1">Edzés betöltése...</Typography>
+        </Box>
+      )}
+
       {/* Edzés kártyák */}
-      {(showWorkoutContainer && workout.length > 0) && (
+      {showWorkoutContainer && workout.length > 0 && (
         <Box
           ref={containerRef}
           sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
+            display: "flex",
+            flexWrap: "wrap",
             gap: 3,
-            maxHeight: 'calc(100vh - 200px)',
-            overflowY: 'auto',
+            maxHeight: "calc(100vh - 200px)",
+            overflowY: "auto",
             padding: 2,
-            '&::-webkit-scrollbar': {
-              width: '6px'
+            "&::-webkit-scrollbar": {
+              width: "6px",
             },
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#d4af37',
-              borderRadius: '3px'
-            }
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#d4af37",
+              borderRadius: "3px",
+            },
           }}
         >
           {Array.isArray(workout) &&
@@ -394,29 +494,30 @@ const WorkoutApp = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: cardIndex * 0.1 }}
               >
-                <Card sx={{
-                  width: 320,
-                  background: 'rgba(26, 26, 26, 0.8)',
-                  border: '1px solid rgba(212, 175, 55, 0.3)',
-                  borderRadius: '8px',
-                  position: 'relative',
-                  color: 'white',
-                  paddingTop: '25px', // Adj egy kis paddinget, hogy az X gomb ne fedje el a tartalmat
+                <Card
+                  sx={{
+                    width: 320,
+                    background: "rgba(26, 26, 26, 0.8)",
+                    border: "1px solid rgba(212, 175, 55, 0.3)",
+                    borderRadius: "8px",
+                    position: "relative",
+                    color: "white",
+                    paddingTop: "25px", // Adj egy kis paddinget, hogy az X gomb ne fedje el a tartalmat
 
-                  '&:hover': {
-                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.2)'
-                  }
-                }}>
+                    "&:hover": {
+                      boxShadow: "0 0 20px rgba(212, 175, 55, 0.2)",
+                    },
+                  }}
+                >
                   {!isViewingSavedWorkout && (
                     <IconButton
                       onClick={() => removeCard(cardIndex)}
                       sx={{
-                        position: 'absolute',
+                        position: "absolute",
                         top: 8,
                         right: 8,
-                        color: '#d4af37',
+                        color: "#d4af37",
                         zIndex: 1, // Biztosítja, hogy a gomb a kategória fölött legyen
-
                       }}
                     >
                       <Close />
@@ -429,27 +530,47 @@ const WorkoutApp = () => {
                         <Select
                           value={card.category || ""}
                           onChange={(e) =>
-                            handleInputChange(cardIndex, "category", e.target.value)
+                            handleInputChange(
+                              cardIndex,
+                              "category",
+                              e.target.value
+                            )
                           }
                           displayEmpty
                           fullWidth
                           sx={{
                             mb: 2,
-                            '& .MuiSelect-select': {
-                              color: '#fff',
-                              fontSize: '0.875rem'
+                            "& .MuiSelect-select": {
+                              fontSize: "0.875rem",
+                              color: "#fff",
+                              backgroundColor: isViewingSavedWorkout ? "#2c2c2c" : "transparent",
                             },
-                            '& .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#d4af37'
+                            "&.Mui-disabled .MuiSelect-select": {
+                              WebkitTextFillColor: "#fff !important", // fehér betű
+                              backgroundColor: "#2c2c2c", // háttér
                             },
-                            '& .MuiSelect-icon': {
-                              color: '#fff', // <- ez konkrétan a nyíl ikon
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              borderColor: isViewingSavedWorkout ? "#555" : "#d4af37", // keret szín
+                            },
+                            "& .MuiSelect-icon": {
+                              color: "#fff",
                             },
                           }}
                           disabled={isViewingSavedWorkout}
+                          MenuProps={{
+                            PaperProps: {
+                              style: {
+                                backgroundColor: "#1a1a1a",
+                              },
+                            },
+                          }}
                         >
-                          <MenuItem value="" disabled>
-                            <Typography variant="body2" color="white">
+                          <MenuItem
+                            value=""
+                            disabled
+                            sx={{ color: "#fff", bgcolor: "#1a1a1a" }}
+                          >
+                            <Typography sx={{ color: "white" }}>
                               Kategória
                             </Typography>
                           </MenuItem>
@@ -457,7 +578,14 @@ const WorkoutApp = () => {
                             <MenuItem
                               key={category}
                               value={category}
-                              sx={{ fontSize: '0.875rem'}}
+                              sx={{
+                                fontSize: "0.875rem",
+                                color: "#fff",
+                                bgcolor: "#1a1a1a",
+                                "&:hover": {
+                                  bgcolor: "rgba(212, 175, 55, 0.1)",
+                                },
+                              }}
                             >
                               {category}
                             </MenuItem>
@@ -469,35 +597,63 @@ const WorkoutApp = () => {
                           <Select
                             value={card.edzesTipus || ""}
                             onChange={(e) =>
-                              handleInputChange(cardIndex, "edzesTipus", e.target.value)
+                              handleInputChange(
+                                cardIndex,
+                                "edzesTipus",
+                                e.target.value
+                              )
                             }
                             displayEmpty
                             fullWidth
                             sx={{
                               mb: 2,
-                              '& .MuiSelect-select': {
-                                color: '#fff',
-                                fontSize: '0.875rem'
+                              "& .MuiSelect-select": {
+                                fontSize: "0.875rem",
+                                color: "#fff",
+                                backgroundColor: isViewingSavedWorkout ? "#2c2c2c" : "transparent",
                               },
-                              '& .MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#d4af37'
+                              "&.Mui-disabled .MuiSelect-select": {
+                                WebkitTextFillColor: "#fff !important", 
+                                backgroundColor: "#2c2c2c", 
                               },
-                              '& .MuiSelect-icon': {
-                                color: '#fff', // <- ez konkrétan a nyíl ikon
+                              "& .MuiOutlinedInput-notchedOutline": {
+                                borderColor: isViewingSavedWorkout ? "#555" : "#d4af37", 
+                              },
+                              "& .MuiSelect-icon": {
+                                color: "#fff",
                               },
                             }}
+                            
                             disabled={isViewingSavedWorkout}
+                            MenuProps={{
+                              PaperProps: {
+                                style: {
+                                  backgroundColor: "#1a1a1a",
+                                },
+                              },
+                            }}
                           >
-                            <MenuItem value="" disabled>
-                              <Typography variant="body2" color="white">
+                            <MenuItem
+                              value=""
+                              disabled
+                              sx={{ color: "#fff", bgcolor: "#1a1a1a" }}
+                            >
+                              <Typography sx={{ color: "white" }}>
                                 Gyakorlat
                               </Typography>
                             </MenuItem>
-                            {exercises[card.category].map((exercise) => (
+                            {exercises[card.category]?.map((exercise) => (
                               <MenuItem
                                 key={exercise}
                                 value={exercise}
-                                sx={{ fontSize: '0.875rem' }}
+                                sx={{
+                                  fontSize: "0.875rem",
+                                  color: "#fff",
+                                  bgcolor: "#1a1a1a",
+                                  "&:hover": {
+                                    bgcolor: "rgba(212, 175, 55, 0.1)",
+                                  },
+                                }}
                               >
                                 {exercise}
                               </MenuItem>
@@ -513,11 +669,11 @@ const WorkoutApp = () => {
                         startIcon={<Add />}
                         sx={{
                           mt: 1,
-                          color: '#d4af37',
-                          borderColor: '#d4af37',
-                          '&:hover': {
-                            backgroundColor: 'rgba(212, 175, 55, 0.1)'
-                          }
+                          color: "#d4af37",
+                          borderColor: "#d4af37",
+                          "&:hover": {
+                            backgroundColor: "rgba(212, 175, 55, 0.1)",
+                          },
                         }}
                         variant="outlined"
                         size="small"
@@ -531,10 +687,10 @@ const WorkoutApp = () => {
                         <Box
                           key={sorozatIndex}
                           sx={{
-                            display: 'flex',
-                            alignItems: 'center',
+                            display: "flex",
+                            alignItems: "center",
                             gap: 1,
-                            mb: 1
+                            mb: 1,
                           }}
                         >
                           <Typography variant="body2" sx={{ minWidth: 24 }}>
@@ -545,16 +701,21 @@ const WorkoutApp = () => {
                             placeholder="Ismétlés"
                             value={sorozat.ismetles || ""}
                             onChange={(e) =>
-                              handleSorozatChange(cardIndex, sorozatIndex, "ismetles", e.target.value)
+                              handleSorozatChange(
+                                cardIndex,
+                                sorozatIndex,
+                                "ismetles",
+                                e.target.value
+                              )
                             }
                             style={{
                               flex: 1,
-                              padding: '8px',
-                              borderRadius: '4px',
-                              background: 'rgba(255,255,255,0.1)',
-                              border: '1px solid rgba(212, 175, 55, 0.3)',
-                              color: '#fff',
-                              minWidth: 0
+                              padding: "8px",
+                              borderRadius: "4px",
+                              background: "rgba(255,255,255,0.1)",
+                              border: "1px solid rgba(212, 175, 55, 0.3)",
+                              color: "#fff",
+                              minWidth: 0,
                             }}
                             disabled={isViewingSavedWorkout}
                           />
@@ -563,16 +724,21 @@ const WorkoutApp = () => {
                             placeholder="Súly (kg)"
                             value={sorozat.suly || ""}
                             onChange={(e) =>
-                              handleSorozatChange(cardIndex, sorozatIndex, "suly", e.target.value)
+                              handleSorozatChange(
+                                cardIndex,
+                                sorozatIndex,
+                                "suly",
+                                e.target.value
+                              )
                             }
                             style={{
                               flex: 1,
-                              padding: '8px',
-                              borderRadius: '4px',
-                              background: 'rgba(255,255,255,0.1)',
-                              border: '1px solid rgba(212, 175, 55, 0.3)',
-                              color: '#fff',
-                              minWidth: 0
+                              padding: "8px",
+                              borderRadius: "4px",
+                              background: "rgba(255,255,255,0.1)",
+                              border: "1px solid rgba(212, 175, 55, 0.3)",
+                              color: "#fff",
+                              minWidth: 0,
                             }}
                             disabled={isViewingSavedWorkout}
                           />
@@ -585,12 +751,14 @@ const WorkoutApp = () => {
             ))}
 
           {workout.length > 0 && !isViewingSavedWorkout && (
-            <Box sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              mt: 2
-            }}>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                mt: 2,
+              }}
+            >
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -600,12 +768,12 @@ const WorkoutApp = () => {
                   sx={{
                     minWidth: 60,
                     height: 60,
-                    borderRadius: '50%',
-                    border: '2px dashed #d4af37',
-                    color: '#d4af37',
-                    '&:hover': {
-                      backgroundColor: 'rgba(212, 175, 55, 0.1)'
-                    }
+                    borderRadius: "50%",
+                    border: "2px dashed #d4af37",
+                    color: "#d4af37",
+                    "&:hover": {
+                      backgroundColor: "rgba(212, 175, 55, 0.1)",
+                    },
                   }}
                 >
                   <Add fontSize="large" />
@@ -615,19 +783,19 @@ const WorkoutApp = () => {
           )}
 
           {workout.length > 0 && !isViewingSavedWorkout && (
-            <Box sx={{
-              position: 'sticky',
-              bottom: 20,
-              left: 0,
-              right: 0,
-              display: 'flex',
-              justifyContent: 'center',
-              mt: 3,
-              zIndex: 1
-            }}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-              >
+            <Box
+              sx={{
+                position: "sticky",
+                bottom: 20,
+                left: 0,
+                right: 0,
+                display: "flex",
+                justifyContent: "center",
+                mt: 3,
+                zIndex: 1,
+              }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }}>
                 <Button
                   onClick={handleSave}
                   disabled={isLoading}
@@ -635,11 +803,11 @@ const WorkoutApp = () => {
                   sx={{
                     px: 4,
                     py: 1.5,
-                    background: 'linear-gradient(90deg, #8B0000, #d4af37)',
-                    color: '#fff',
-                    '&:hover': {
-                      boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)'
-                    }
+                    background: "linear-gradient(90deg, #8B0000, #d4af37)",
+                    color: "#fff",
+                    "&:hover": {
+                      boxShadow: "0 0 20px rgba(212, 175, 55, 0.5)",
+                    },
                   }}
                 >
                   {isLoading ? "Mentés..." : "Edzés mentése"}
@@ -650,22 +818,54 @@ const WorkoutApp = () => {
         </Box>
       )}
 
-      {isError && (
-        <Box sx={{
-          position: 'fixed',
-          bottom: 20,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          backgroundColor: '#8B0000',
-          color: '#fff',
-          px: 3,
-          py: 2,
-          borderRadius: '4px',
-          zIndex: 10
-        }}>
-          Hiba történt: {error.message}
+      {/* Nincs edzés kiválasztva és nincs elmentett edzés */}
+      {!showWorkoutContainer && !isFetching && selectedDate && !data && (
+        <Box sx={{ textAlign: "center", my: 4 }}>
+          <Typography variant="h6">
+            Nincs elmentett edzés erre a napra: {selectedDate.format("YYYY-MM-DD")}
+          </Typography>
+          <Button
+            onClick={newWorkout}
+            variant="contained"
+            sx={{
+              mt: 2,
+              background: "linear-gradient(90deg, #d4af37, #8B0000)",
+              color: "#fff",
+            }}
+          >
+            Új edzés létrehozása
+          </Button>
         </Box>
       )}
+
+      {/* Snackbar értesítések */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbar.severity}
+          sx={{
+            width: "100%",
+            backgroundColor:
+              snackbar.severity === "success"
+                ? "rgba(46, 125, 50, 0.9)"
+                : snackbar.severity === "error"
+                ? "rgba(211, 47, 47, 0.9)"
+                : snackbar.severity === "warning"
+                ? "rgba(237, 108, 2, 0.9)"
+                : "rgba(2, 136, 209, 0.9)",
+            color: "#fff",
+            fontWeight: 500,
+          }}
+          variant="filled"
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
