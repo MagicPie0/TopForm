@@ -1,73 +1,88 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import '../Design/accessDenied.css'; // CSS fájl importálása
+import '../Design/accessDenied.css';
+
 function BodyguardModel() {
   const { scene } = useGLTF('/model/bodyguard.glb');
-  return <primitive object={scene} scale={0.5} position-y={-1} />;
+  return <primitive object={scene} scale={2} position-y={0} rotation-y={Math.PI/4} />;
 }
 
 const AccessDeniedPage = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.body.classList.add('fitness-theme');
+    return () => {
+      document.body.classList.remove('fitness-theme');
+    };
+  }, []);
+
   return (
-    <div className="access-denied-container">
-      {/* Fejléc */}
-      <div className="header">
-        <h2 className="title">Hozzáférés</h2>
-        <h1 className="subtitle">Megtagadva</h1>
-        <div className="divider" />
+    <div className="fitness-container">
+      {/* Animated pulse elements */}
+      <div className="pulse-circle pulse-1"></div>
+      <div className="pulse-circle pulse-2"></div>
+      
+      {/* Header with subtle animation */}
+      <div className="fitness-header">
+        <h2 className="fitness-title animate-text">ACCESS</h2>
+        <h1 className="fitness-denied animate-text">RESTRICTED</h1>
+        <div className="fitness-divider pulse" />
       </div>
 
-      {/* Tartalom */}
-      <div className="content">
-        {/* 3D Modell */}
-        <div className="model-container">
-          <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-            <ambientLight intensity={0.7} />
-            <directionalLight position={[10, 10, 5]} intensity={0.8} />
-            <Suspense fallback={null}>
-              <BodyguardModel />
-            </Suspense>
-            <OrbitControls 
-              enableZoom={false}
-              enablePan={false} 
-              autoRotate
-              autoRotateSpeed={1.5}
-            />
-          </Canvas>
+      {/* Content area with side-by-side layout */}
+      <div className="fitness-content fade-in">
+        <div className="text-content">
+          <div className="fitness-text">
+            <h3 className="fitness-warning slide-in">MEMBERS ONLY AREA</h3>
+            <p className="fitness-message slide-in">
+              This section is reserved for authorized personnel only.
+              <br />
+              Please sign in with your credentials or return to the main page.
+            </p>
+
+            <div className="fitness-buttons">
+              <button 
+                onClick={() => navigate('/login')}
+                className="fitness-button fitness-primary hover-grow"
+              >
+                SIGN IN
+              </button>
+              
+              <button 
+                onClick={() => navigate('/')}
+                className="fitness-button fitness-secondary hover-grow"
+              >
+                RETURN HOME
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Szöveg és gombok */}
-        <div className="text-container">
-          <h3 className="text-title">Nincs hozzáférésed ehhez az oldalhoz</h3>
-          <p className="text-description">
-            Ez a tartalom védett terület. A megtekintéséhez be kell jelentkezned egy érvényes felhasználói fiókkal.
-            Ha véletlenül kerültél ide, visszatérhetsz a főoldalra.
-          </p>
-
-          <div className="button-group">
-            <button 
-              onClick={() => navigate('/login')}
-              className="primary-button"
-            >
-              Bejelentkezés
-            </button>
-            
-            <button 
-              onClick={() => navigate('/')}
-              className="secondary-button"
-            >
-              Főoldal
-            </button>
+        <div className="model-wrapper">
+          <div className="fitness-model-container hover-glow">
+            <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+              <ambientLight intensity={0.7} />
+              <directionalLight position={[10, 10, 5]} intensity={0.8} />
+              <Suspense fallback={null}>
+                <BodyguardModel />
+              </Suspense>
+              <OrbitControls 
+                enableZoom={false}
+                enablePan={false} 
+                autoRotate
+                autoRotateSpeed={1.5}
+              />
+            </Canvas>
           </div>
         </div>
       </div>
 
-      {/* Lábléc */}
-      <div className="footer">
-        © {new Date().getFullYear()} Minden jog fenntartva
+      {/* Footer with subtle animation */}
+      <div className="fitness-footer slide-up">
+        © {new Date().getFullYear()} TOPFORM - ALL RIGHTS RESERVED
       </div>
     </div>
   );

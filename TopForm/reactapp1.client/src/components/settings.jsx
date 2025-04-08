@@ -17,18 +17,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleLanguage } from "../languageModel/languageSlice";
-import en from "../languageModel/en.json";
-import hu from "../languageModel/hu.json";
+
 import { Diamond, ArrowBack } from "@mui/icons-material";
 import { motion } from "framer-motion";
 
 const Settings = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const language = useSelector((state) => state.language);
-  const texts = language === "EN" ? en : hu;
+
 
   // User data state
   const [userData, setUserData] = useState({
@@ -59,7 +54,7 @@ const Settings = () => {
 
   const handleUpdate = async () => {
     if (passwords.newPassword && passwords.newPassword !== passwords.confirmPassword) {
-      setError(texts.errors?.passwordMismatch || "Passwords don't match");
+      setError("Passwords don't match");
       return;
     }
 
@@ -92,10 +87,10 @@ const Settings = () => {
         });
       } else {
         const data = await response.json();
-        setError(data.message || texts.errors?.updateFailed || "Update failed");
+        setError(data.message);
       }
     } catch (error) {
-      setError(texts.errors?.generalError || "An error occurred");
+      setError("An error occurred while updating settings");
     }
   };
 
@@ -157,10 +152,10 @@ const Settings = () => {
 
         if (!response.ok) {
           const errorData = await response.json();
-          setError(errorData.message || texts.errors?.imageUploadFailed || "Image upload failed");
+          setError(errorData.message);
         }
       } catch (error) {
-        setError(texts.errors?.imageUploadFailed || "Image upload failed");
+        setError("Image upload failed");
       }
     };
     reader.readAsDataURL(file);
@@ -203,7 +198,7 @@ const Settings = () => {
         ]);
 
         if (!detailsResponse.ok) {
-          throw new Error(texts.errors?.fetchFailed || "Failed to fetch data");
+          throw new Error("Failed to fetch data");
         }
 
         const data = await detailsResponse.json();
@@ -221,7 +216,7 @@ const Settings = () => {
     };
 
     fetchUserData();
-  }, [language, navigate, texts]);
+  }, [ navigate]);
 
   if (loading) {
     return (
@@ -268,7 +263,7 @@ const Settings = () => {
             color: '#d4af37'
           }}
         >
-          {texts.headers?.settings || "Settings"}
+          {"Settings"}
         </Typography>
 
         <Box sx={{ display: 'flex', gap: '10px' }}>
@@ -286,7 +281,8 @@ const Settings = () => {
                 }
               }}
             >
-              {language}
+
+              HU
             </Button>
           </motion.div>
         </Box>
@@ -316,7 +312,7 @@ const Settings = () => {
             borderTopRightRadius: '8px'
           }}>
             <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: '0.1em', color: 'white' }}>
-              {texts.headers?.profile || "Profile"}
+              {"Profile"}
             </Typography>
           </Box>
           
@@ -387,7 +383,7 @@ const Settings = () => {
                   accept="image/*"
                   onChange={handleProfileImageChange}
                 />
-                {texts.buttons?.changeImage || "Change Image"}
+                {"Change Image"}
               </Button>
             </motion.div>
           </CardContent>
@@ -403,7 +399,7 @@ const Settings = () => {
         }}>
           <CardContent>
             <TextField
-              label={texts.labels?.username || "Username"}
+              label={"Username"}
               type="text"
               name="username"
               value={userData.username}
@@ -448,13 +444,13 @@ const Settings = () => {
             color: 'white'
           }}>
             <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: '0.1em' }}>
-              {texts.headers?.changePassword || "Change Password"}
+              {"Change Password"}
             </Typography>
           </Box>
           
           <CardContent>
             <TextField
-              label={texts.labels?.oldPassword || "Old Password"}
+              label={"Old Password"}
               name="oldPassword"
               type={visibility.oldPassword ? "text" : "password"}
               value={passwords.oldPassword}
@@ -493,7 +489,7 @@ const Settings = () => {
             />
 
             <TextField
-              label={texts.labels?.newPassword || "New Password"}
+              label={"New Password"}
               name="newPassword"
               type={visibility.newPassword ? "text" : "password"}
               value={passwords.newPassword}
@@ -532,7 +528,7 @@ const Settings = () => {
             />
 
             <TextField
-              label={texts.labels?.confirmPassword || "Confirm Password"}
+              label={"Confirm Password"}
               name="confirmPassword"
               type={visibility.confirmPassword ? "text" : "password"}
               value={passwords.confirmPassword}
@@ -595,7 +591,7 @@ const Settings = () => {
             }}
             onClick={handleUpdate}
           >
-            {texts.buttons?.saveSettings || "Save Settings"}
+            {"Save Settings"}
           </Button>
         </motion.div>
       </Box>
@@ -619,7 +615,7 @@ const Settings = () => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
         <Alert severity="success" sx={{ width: '100%' }}>
-          {texts.success?.updateSuccess || "Settings updated successfully"}
+          {"Settings updated successfully"}
         </Alert>
       </Snackbar>
     </Box>

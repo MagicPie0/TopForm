@@ -34,25 +34,25 @@ const navigate = useNavigate();
   const menuItems = [
     { 
       path: 'home', 
-      label: "Home", 
+      label: "Főoldal", 
       icon: <HomeIcon />,
       badge: null
     },
     { 
       path: 'workout', 
-      label: "Workout", 
+      label: "Edzésnapló", 
       icon: <NotesIcon />,
       badge: <Diamond sx={{ color: "#d4af37", ml: 1, fontSize: "1rem" }} />
     },
     { 
       path: 'diet', 
-      label: "Diet", 
+      label: "Étrendnapló", 
       icon: <RestaurantIcon />,
       badge: <Star sx={{ color: "#d4af37", ml: 1, fontSize: "1rem" }} />
     },
     { 
       path: 'leaderboard', 
-      label: "Leaderboard", 
+      label: "Ranglista", 
       icon: <EmojiEventsIcon />,
       badge: <Whatshot sx={{ color: "#FF4500", ml: 1, fontSize: "1rem" }} />
     },
@@ -227,7 +227,7 @@ const navigate = useNavigate();
                   }),
                 }}
               >
-                Logout
+                Kijelentkezés
               </Typography>
             </ListItem>
           </Tooltip>

@@ -20,6 +20,7 @@ const Leaderboard = lazy(() => import("./components/leaderboard"));
 import WelcomePage from "./components/WelcomePage";
 import Login from "./components/loginRegister.jsx";
 import LoadingPage from "./ErrorPages/loadingPage"; // Import your loading page component
+import AcessDenied from "./ErrorPages/AccessDeniedPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -39,7 +40,7 @@ const App = () => {
       <Routes>
             <Route path="/" element={<WelcomePage />} />
             <Route path="/login" element={<Login />} />
-
+            
             {/* Routes that show bodyguard when unauthorized */}
             <Route element={<ProtectedRoute showBodyguard={true} />}>
               <Route path="/registration" element={<Reg />} />
@@ -51,6 +52,7 @@ const App = () => {
                 <Route path="leaderboard" element={<Leaderboard />} />
                 <Route path="settings" element={<Settings />} />
                 <Route path="profil" element={<Profil />} />
+                
               </Route>
             </Route>
 
@@ -59,6 +61,7 @@ const App = () => {
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/loading" element={<LoadingPage />} />
               <Route path="*" element={<PageNotFound />} />
+              <Route path="/access-denied" element={<AcessDenied />} />
             </Route>
             
           </Routes>

@@ -71,6 +71,48 @@ const WorkoutApp = () => {
     );
   };
 
+  const extractWeight = (info) => {
+    if (!info) return "";
+    const weightMatch = info.match(/(\d+)\s*kg/i);
+    return weightMatch
+      ? weightMatch[1]
+      : info.toLowerCase().includes("test")
+      ? "BW"
+      : "";
+  };
+
+  const normalizeCategory = (cat) =>
+    Object.keys(exercises).find(
+      (k) => k.toLowerCase() === cat?.toLowerCase()
+    ) || Object.keys(exercises)[0];
+
+  const calculateRecommendedWeight = (category, exercise, reps) => {
+    const WEIGHT_RANGES = {
+      kar: { min: 5, max: 20 },
+      mell: { min: 20, max: 100 },
+      hát: { min: 15, max: 80 },
+      láb: { min: 30, max: 120 },
+    };
+
+    const range = WEIGHT_RANGES[category] || { min: 10, max: 50 };
+    const baseWeight = Math.round((range.min + range.max) / 2 / 5) * 5;
+
+    return reps < 8
+      ? baseWeight * 1.2
+      : reps > 12
+      ? baseWeight * 0.8
+      : baseWeight;
+  };
+
+  // Helper functions
+  const createDefaultExercise = () => ({
+    category: Object.keys(exercises)[0],
+    edzesTipus: exercises[Object.keys(exercises)[0]][0],
+    suly: "",
+    ismetles: "10",
+    sorozatok: Array.from({ length: 3 }, () => ({ suly: "", ismetles: "10" })),
+  });
+
   // AI generálás kezelése
   const handleGenerateWorkout = async () => {
     if (selectedMuscleGroups.length === 0) {
@@ -86,44 +128,39 @@ const WorkoutApp = () => {
 
     try {
       const prompt = generatePrompt(selectedMuscleGroups, difficulty);
-      
-      const response = await fetch('https://localhost:7196/api/GenerateWorkout/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          InputText: prompt
-        }),
-      });
-  
+      const response = await fetch(
+        "https://localhost:7196/api/GenerateWorkout/generate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            InputText: prompt,
+          }),
+        }
+      );
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       const generatedWorkout = parseAIResponse(data);
-      
 
-      if (response.ok) {
-        // 3. A válasz feldolgozása és átalakítása a komponens formátumára
-        const generatedWorkout = parseAIResponse(data);
-        setWorkout(generatedWorkout);
-        setShowWorkoutContainer(true);
-        setIsViewingSavedWorkout(false);
-        setHasUnsavedChanges(true);
-        setAiDialogOpen(false);
+      setWorkout(generatedWorkout);
+      setShowWorkoutContainer(true);
+      setIsViewingSavedWorkout(false);
+      setHasUnsavedChanges(true);
+      setAiDialogOpen(false);
 
-        setSnackbar({
-          open: true,
-          message: "AI generálás sikeres!",
-          severity: "success",
-        });
-      } else {
-        throw new Error(data.error || "Failed to generate workout");
-      }
+      setSnackbar({
+        open: true,
+        message: "AI generálás sikeres!",
+        severity: "success",
+      });
     } catch (error) {
-      console.error('Error during AI workout generation:', error);
+      console.error("Error during AI workout generation:", error);
       setSnackbar({
         open: true,
         message: `Hiba történt: ${error.message}`,
@@ -135,74 +172,158 @@ const WorkoutApp = () => {
   };
 
   // Prompt generáló segédfüggvény
+  // Improved prompt generator to guide the AI toward using your specific exercises
   const generatePrompt = (muscleGroups, difficulty) => {
     let prompt = `Készíts egy ${difficulty} szintű edzéstervet a következő izomcsoportokra: ${muscleGroups.join(
       ", "
-    )}.\n`;
-    prompt += "A válasz formátuma legyen:\n";
-    prompt += "Izomcsoport: Gyakorlatnév - Ismétlésszám x Sorozatszám\n\n";
-    prompt += "Példa:\n";
-    prompt += "Mell: Fekvenyomás - 10x3\n";
-    prompt += "Mell: Guggolás - 12x4\n\n";
-    prompt += "Edzésterv:\n";
+    )}.\n\n`;
+    prompt +=
+      "Kizárólag a következő gyakorlatokat használhatod az edzéstervben:\n\n";
+
+    for (const category of muscleGroups) {
+      if (exercises[category]) {
+        prompt += `${category}: ${exercises[category].join(", ")}\n`;
+      }
+    }
+
+    prompt +=
+      "\nA válasz minden sora egy gyakorlatot tartalmazzon, a következő formátumban:\n";
+    prompt +=
+      "Izomcsoport: Gyakorlatnév - IsmétlésszámxSorozatszám (súly kg)\n\n";
+    prompt += "Példák:\n";
+
+    let exampleCount = 0;
+    for (const category of muscleGroups) {
+      if (
+        exercises[category] &&
+        exercises[category].length > 0 &&
+        exampleCount < 3
+      ) {
+        const exercise = exercises[category][0];
+        let reps, sets, weight;
+
+        if (difficulty === "kezdő") {
+          reps = "8";
+          sets = "3";
+          weight = "10";
+        } else if (difficulty === "közepes") {
+          reps = "10";
+          sets = "3";
+          weight = "20";
+        } else {
+          reps = "12";
+          sets = "4";
+          weight = "30";
+        }
+
+        prompt += `${category}: ${exercise} - ${reps}x${sets} (${weight} kg)\n`;
+        exampleCount++;
+      }
+    }
+
+    prompt += "\nHasználj kizárólag a fenti listában szereplő gyakorlatokat!\n";
+
+    if (difficulty === "kezdő") {
+      prompt +=
+        "Kezdőknek több pihenővel, kevesebb sorozattal (2-3) és közepes ismétléssel (8-10) tervezz.\n";
+    } else if (difficulty === "közepes") {
+      prompt +=
+        "Közepes szinten 3-4 sorozatot és 10-12 ismétlést tervezz gyakorlatonként.\n";
+    } else if (difficulty === "haladó") {
+      prompt +=
+        "Haladóknak összetett gyakorlatokat, 4-5 sorozatot és 8-15 ismétlést tervezz.\n";
+    }
+
+    prompt += "Csak a kiválasztott izomcsoportokra adj gyakorlatokat.\n";
+    prompt += "Edzésterv:";
     return prompt;
   };
 
   // AI válasz feldolgozása
+  // Improved AI response parsing function that ensures exercises come from the predefined JSON
   const parseAIResponse = (response) => {
-    // Feltételezzük, hogy a válasz a generatedText-ben van
-    const generatedText = response.generatedText || "";
+    if (!response?.generatedText) {
+      console.error("Invalid AI response format", response);
+      return [createDefaultExercise()];
+    }
 
-    // Szétvágás sorokra és szűrés
-    const lines = generatedText
+    const lines = response.generatedText
+      .trim()
       .split("\n")
-      .filter((line) => line.trim() !== "")
-      .slice(0, 6); // Maximum 6 gyakorlat
+      .filter((line) => line.trim())
+      .slice(0, 6);
+
+    if (lines.length === 0) {
+      return [createDefaultExercise()];
+    }
 
     return lines.map((line) => {
-      // Formátum: "Izomcsoport: Gyakorlatnév - Ismétlésszám x Sorozatszám"
-      const match = line.match(/(.+?):\s*(.+?)\s*-\s*(\d+)x(\d+)/i);
+      let match = line.match(
+        /(.+?):\s*(.+?)\s*-\s*(\d+)x(\d+)(?:\s*\(([^)]+)\))?/i
+      );
 
-      if (match) {
-        const category = match[1].trim();
-        const exercise = match[2].trim();
-        const reps = parseInt(match[3]);
-        const sets = parseInt(match[4]);
-
-        // Ellenőrizzük, hogy létezik-e az izomcsoport
-        const validCategory = Object.keys(exercises).includes(category)
-          ? category
-          : "Egyéb";
-
-        // Ellenőrizzük, hogy a gyakorlat létezik-e az izomcsoportban
-        const validExercise = exercises[validCategory]?.includes(exercise)
-          ? exercise
-          : exercise; // Ha nem létezik, mégis megjelenítjük
-
-        return {
-          category: validCategory,
-          edzesTipus: validExercise,
-          suly: "",
-          ismetles: reps.toString(),
-          sorozatok: Array.from({ length: sets }, () => ({
-            suly: "",
-            ismetles: reps.toString(),
-          })),
-        };
+      if (!match) {
+        match = line.match(/(.+?)\s*-\s*(\d+)x(\d+)(?:\s*\(([^)]+)\))?/i);
+        if (match) {
+          match = [
+            "",
+            findCategory(line),
+            match[1],
+            match[2],
+            match[3],
+            match[4],
+          ];
+        } else {
+          return handleMalformedLine(line);
+        }
       }
 
-      // Ha a sor nem illeszkedik a formátumra, alapértelmezett értékekkel térünk vissza
+      const [category, exerciseName, reps, sets, weightInfo] = [
+        normalizeCategory(match[1]),
+        match[2].trim(),
+        parseInt(match[3]) || 10,
+        parseInt(match[4]) || 3,
+        match[5] || "",
+      ];
+
+      let weight = extractWeight(weightInfo);
+      if (!weight) {
+        weight = calculateRecommendedWeight(category, exerciseName, reps);
+      }
+
       return {
-        category: "Egyéb",
-        edzesTipus: line.trim(),
-        suly: "",
-        ismetles: "10",
-        sorozatok: Array.from({ length: 3 }, () => ({
-          suly: "",
-          ismetles: "10",
+        category: validateCategory(category, exerciseName),
+        edzesTipus: validateExercise(exerciseName, category),
+        suly: weight,
+        ismetles: reps.toString(),
+        sorozatok: Array.from({ length: sets }, () => ({
+          suly: weight,
+          ismetles: reps.toString(),
         })),
       };
     });
+  };
+
+  const validateCategory = (category, exerciseName) => {
+    if (!Object.keys(exercises).includes(category.toLowerCase())) {
+      let foundCategory = null;
+      for (const [cat, exerciseList] of Object.entries(exercises)) {
+        if (exerciseList.includes(exerciseName)) {
+          foundCategory = cat;
+          break;
+        }
+      }
+      return foundCategory || Object.keys(exercises)[0];
+    }
+    return category;
+  };
+
+  const validateExercise = (exerciseName, category) => {
+    const validExercises = exercises[category];
+    const validExercise = validExercises.find(
+      (ex) => ex.toLowerCase() === exerciseName.toLowerCase()
+    );
+    return validExercise || validExercises[0];
   };
 
   // Load saved workout from localStorage
@@ -1113,18 +1234,34 @@ const WorkoutApp = () => {
                 color: "#fff",
               },
               mb: 3,
+              "& .MuiSelect-select": {
+                backgroundColor: "#2a2a2a", // Sötét háttér a kiválasztott értéknek
+              },
+            }}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  bgcolor: "#1a1a1a", // Sötét háttér a dropdown menühöz
+                  "& .MuiMenuItem-root": {
+                    color: "#fff", // Fehér szöveg a menüpontokhoz
+                    "&:hover": {
+                      bgcolor: "rgba(212, 175, 55, 0.2)", // Aranyos hover effekt
+                    },
+                    "&.Mui-selected": {
+                      bgcolor: "rgba(212, 175, 55, 0.4)", // Kiemelés a kiválasztottnál
+                    },
+                  },
+                },
+              },
             }}
           >
-            <MenuItem value="kezdő" sx={{ color: "#fff", bgcolor: "#1a1a1a" }}>
+            <MenuItem value="kezdő" sx={{ color: "#fff" }}>
               Kezdő
             </MenuItem>
-            <MenuItem
-              value="közepes"
-              sx={{ color: "#fff", bgcolor: "#1a1a1a" }}
-            >
+            <MenuItem value="közepes" sx={{ color: "#fff" }}>
               Közepes
             </MenuItem>
-            <MenuItem value="haladó" sx={{ color: "#fff", bgcolor: "#1a1a1a" }}>
+            <MenuItem value="haladó" sx={{ color: "#fff" }}>
               Haladó
             </MenuItem>
           </Select>

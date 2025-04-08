@@ -41,6 +41,7 @@
     <PackageJsonDependenciesReactRouterDom Condition="$(PackageJsonDependenciesReactRouterDom) == ''">^7.1.1</PackageJsonDependenciesReactRouterDom>
     <PackageJsonDependenciesRecharts Condition="$(PackageJsonDependenciesRecharts) == ''">^2.15.1</PackageJsonDependenciesRecharts>
     <PackageJsonDependenciesRun Condition="$(PackageJsonDependenciesRun) == ''">^1.5.0</PackageJsonDependenciesRun>
+    <PackageJsonDependenciesSeleniumWebdriver Condition="$(PackageJsonDependenciesSeleniumWebdriver) == ''">^4.31.0</PackageJsonDependenciesSeleniumWebdriver>
     <PackageJsonDependenciesStyledComponents Condition="$(PackageJsonDependenciesStyledComponents) == ''">^6.1.17</PackageJsonDependenciesStyledComponents>
     <PackageJsonDependenciesTailwindcss Condition="$(PackageJsonDependenciesTailwindcss) == ''">^4.0.0</PackageJsonDependenciesTailwindcss>
     <PackageJsonDependenciesThree Condition="$(PackageJsonDependenciesThree) == ''">^0.172.0</PackageJsonDependenciesThree>
@@ -50,11 +51,14 @@
     <PackageJsonDevdependenciesTypesReact Condition="$(PackageJsonDevdependenciesTypesReact) == ''">^18.3.18</PackageJsonDevdependenciesTypesReact>
     <PackageJsonDevdependenciesTypesReactDom Condition="$(PackageJsonDevdependenciesTypesReactDom) == ''">^18.3.5</PackageJsonDevdependenciesTypesReactDom>
     <PackageJsonDevdependenciesVitejsPluginReact Condition="$(PackageJsonDevdependenciesVitejsPluginReact) == ''">^4.3.4</PackageJsonDevdependenciesVitejsPluginReact>
+    <PackageJsonDevdependenciesCypress Condition="$(PackageJsonDevdependenciesCypress) == ''">^14.2.1</PackageJsonDevdependenciesCypress>
     <PackageJsonDevdependenciesEslint Condition="$(PackageJsonDevdependenciesEslint) == ''">^9.15.0</PackageJsonDevdependenciesEslint>
     <PackageJsonDevdependenciesEslintPluginReact Condition="$(PackageJsonDevdependenciesEslintPluginReact) == ''">^7.37.2</PackageJsonDevdependenciesEslintPluginReact>
     <PackageJsonDevdependenciesEslintPluginReactHooks Condition="$(PackageJsonDevdependenciesEslintPluginReactHooks) == ''">^5.0.0</PackageJsonDevdependenciesEslintPluginReactHooks>
     <PackageJsonDevdependenciesEslintPluginReactRefresh Condition="$(PackageJsonDevdependenciesEslintPluginReactRefresh) == ''">^0.4.14</PackageJsonDevdependenciesEslintPluginReactRefresh>
     <PackageJsonDevdependenciesGlobals Condition="$(PackageJsonDevdependenciesGlobals) == ''">^15.12.0</PackageJsonDevdependenciesGlobals>
+    <PackageJsonDevdependenciesJest Condition="$(PackageJsonDevdependenciesJest) == ''">^29.7.0</PackageJsonDevdependenciesJest>
     <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">^6.0.7</PackageJsonDevdependenciesVite>
+    <PackageJsonDevdependenciesWebdriverManager Condition="$(PackageJsonDevdependenciesWebdriverManager) == ''">^12.1.9</PackageJsonDevdependenciesWebdriverManager>
   </PropertyGroup>
 </Project>

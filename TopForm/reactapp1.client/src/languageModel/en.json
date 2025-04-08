@@ -1,13 +1,12 @@
 {
+  "language": "EN",
   "forms": {
-    "login": "Welcome Back!",
+    "login": "Welcome back, {username}!",
     "loginSubtitle": "Sign in to continue your fitness journey",
     "register": "Create Account",
     "registerSubtitle": "Start your fitness journey with us",
-    "forgotPassword": "Forgot Password?",
-    "forgotPasswordTitle": "Reset Your Password",
-    "forgotPasswordDescription": "Enter your email and we'll send you a link to reset your password.",
-    "noAccount": "Don't have an account?",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account yet?",
     "haveAccount": "Already have an account?"
   },
   "fields": {
@@ -15,27 +14,152 @@
     "password": "Password",
     "passwordAgain": "Confirm Password",
     "name": "Full Name",
-    "birthDate": "Birth Date",
-    "email": "Email"
+    "birthDate": "Date of Birth",
+    "email": "Email",
+    "arm": "Arm",
+    "chest": "Chest",
+    "thigh": "Thigh",
+    "calf": "Calf"
   },
   "buttons": {
-    "login": "Sign In",
+    "login": "Login",
     "register": "Register",
-    "sendResetLink": "Send Reset Link"
+    "showPassword": "Show Password",
+    "hidePassword": "Hide Password",
+    "switchToRegister": "Register →",
+    "switchToLogin": "← Login",
+    "tryAgain": "Try Again",
+    "processing": "Processing...",
+    "completeRegistration": "Complete Registration"
   },
   "errors": {
-    "emptyFields": "Please fill in all required fields",
+    "emptyFields": "Please fill in all fields",
     "passwordsMismatch": "Passwords don't match",
     "wrongPassword": "Incorrect username or password",
     "userNotFound": "User not found",
     "badRequest": "Invalid request",
     "serverError": "Server error, please try again later",
     "general": "An error occurred, please try again",
-    "invalidBirthdate": "Please enter a valid birthdate"
+    "invalidBirthdate": "Please enter a valid date of birth",
+    "invalidEmail": "Invalid email address",
+    "missingToken": "JWT token missing",
+    "atLeastOneMuscle": "Please provide at least one muscle group!",
+    "generalError": "Something went wrong",
+    "modelError": "Error loading model:",
+    "webglNotSupported": "Your browser doesn't support WebGL which is required to display the 3D model.",
+    "tryDifferentBrowser": "Try using a different browser or update your current browser."
   },
   "success": {
     "login": "Login successful!",
     "registration": "Registration successful!",
-    "passwordResetSent": "Password reset link sent to your email"
+    "registrationComplete": "Registration complete! Redirecting..."
+  },
+  "titles": {
+    "enterMaxWeight": "Enter your maximum weight"
+  },
+  "subtitles": {
+    "workoutInfo": "Information needed for workout plan"
+  },
+  "labels": {
+    "gender": "Gender:"
+  },
+  "options": {
+    "male": "Male",
+    "female": "Female"
+  },
+  "units": {
+    "kg": "kg"
+  },
+  "navigation": {
+    "home": "Home",
+    "workout": "Workout",
+    "diet": "Diet",
+    "leaderboard": "Leaderboard",
+    "logout": "Logout"
+  },
+  "mainPage": {
+    "welcomeNotification": "WELCOME,",
+    "profileMenu": {
+      "member": "MEMBER",
+      "profile": "Profile",
+      "settings": "Settings"
+    },
+    "slogan": "THE HIGHEST QUALITY FITNESS PLATFORM",
+    "features": {
+      "workoutPlans": {
+        "title": "WORKOUT PLANS",
+        "description": "Professional AI-based programs designed by personal trainers."
+      },
+      "dietPlans": {
+        "title": "DIET PLANS",
+        "description": "Optimized diets by nutrition specialists, tailored to body types."
+      },
+      "leaderboard": {
+        "title": "LEADERBOARD",
+        "description": "Compete with others and earn exclusive rewards!"
+      }
+    },
+    "accessButton": "ACCESS",
+    "copyright": "© {year} TOPFORM. ALL RIGHTS RESERVED.",
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "new": "New",
+      "generate": "Generate",
+      "refresh": "Refresh",
+      "readMore": "Read more"
+    },
+    "workout": {
+      "title": "WORKOUT JOURNAL",
+      "newWorkout": "New workout",
+      "saveWorkout": "Save workout",
+      "category": "Category",
+      "exercise": "Exercise",
+      "reps": "Reps",
+      "weight": "Weight (kg)",
+      "set": "Set",
+      "loading": "Loading workout...",
+      "noWorkout": "No saved workout for this date: {{date}}",
+      "createNew": "Create new workout",
+      "aiTitle": "AI Workout Planner",
+      "selectMuscles": "Select muscle groups:",
+      "selectDifficulty": "Difficulty level:",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "aiSuccess": "AI workout generated successfully!",
+      "aiError": "Error occurred: {{error}}",
+      "noMuscleGroup": "Please select at least one muscle group!"
+    },
+    "title": "Leaderboard",
+    "subtitle": "Compete with others to get the first place!",
+    "search": {
+      "placeholder": "Search in leaderboard..."
+    },
+    "podium": {
+      "place": "place"
+    },
+    "globalRanking": "GLOBAL RANKING",
+    "level": "level",
+    "performance": {
+      "title": "Performance statistics",
+      "muscleGroups": "MUSCLE GROUP FITNESS"
+    },
+    "chart": {
+      "arm": "Arm",
+      "chest": "Chest",
+      "leg": "Leg",
+      "calf": "Calf"
+    },
+    "news": {
+      "title": "FITNESS NEWS",
+      "loading": "Loading news...",
+      "error": "Could not load news"
+    },
+    "quote": {
+      "title": "DAILY MOTIVATION",
+      "button": "New quote",
+      "hashtag": "#FitnessMotivation"
+    }
   }
 }

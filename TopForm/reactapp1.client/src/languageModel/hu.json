@@ -1,12 +1,11 @@
 {
+  "language": "HU",
   "forms": {
-    "login": "Üdv újra!",
+    "login": "Üdv újra, {username}!",
     "loginSubtitle": "Jelentkezz be a fitness utad folytatásához",
     "register": "Fiók létrehozása",
     "registerSubtitle": "Kezdd el velünk a fitness utadat",
     "forgotPassword": "Elfelejtetted a jelszavad?",
-    "forgotPasswordTitle": "Jelszó visszaállítása",
-    "forgotPasswordDescription": "Add meg az email címed és küldünk egy linket a jelszó visszaállításához.",
     "noAccount": "Nincs még fiókod?",
     "haveAccount": "Már van fiókod?"
   },
@@ -16,12 +15,22 @@
     "passwordAgain": "Jelszó újra",
     "name": "Teljes név",
     "birthDate": "Születési dátum",
-    "email": "Email"
+    "email": "Email",
+    "arm": "Kar",
+    "chest": "Mellkas",
+    "thigh": "Comb",
+    "calf": "Vádli"
   },
   "buttons": {
     "login": "Bejelentkezés",
     "register": "Regisztráció",
-    "sendResetLink": "Visszaállító link küldése"
+    "showPassword": "Mutasd a jelszót",
+    "hidePassword": "Rejtsd el a jelszót",
+    "switchToRegister": "Regisztráció →",
+    "switchToLogin": "← Bejelentkezés",
+    "tryAgain": "Újrapróbálkozás",
+    "processing": "Feldolgozás...",
+    "completeRegistration": "Regisztráció befejezése"
   },
   "errors": {
     "emptyFields": "Kérjük töltsd ki az összes mezőt",
@@ -31,11 +40,126 @@
     "badRequest": "Érvénytelen kérés",
     "serverError": "Szerver hiba, kérjük próbáld újra később",
     "general": "Hiba történt, kérjük próbáld újra",
-    "invalidBirthdate": "Kérjük adj meg egy érvényes születési dátumot"
+    "invalidBirthdate": "Kérjük adj meg egy érvényes születési dátumot",
+    "invalidEmail": "Érvénytelen email cím",
+    "missingToken": "JWT token hiányzik",
+    "atLeastOneMuscle": "Kérjük, adjon meg legalább egy izomcsoportot!",
+    "generalError": "Valami hiba történt",
+    "modelError": "Hiba a modell betöltésekor:",
+    "webglNotSupported": "A böngésződ nem támogatja a WebGL-t, ami szükséges a 3D modell megjelenítéséhez.",
+    "tryDifferentBrowser": "Próbálj meg másik böngészőt használni vagy frissítsd a jelenlegi böngésződet."
   },
   "success": {
     "login": "Sikeres bejelentkezés!",
     "registration": "Sikeres regisztráció!",
-    "passwordResetSent": "Jelszó visszaállító link elküldve az email címedre"
+    "registrationComplete": "Sikeres regisztráció! Átirányítás..."
+  },
+  "titles": {
+    "enterMaxWeight": "Adja meg maximális súlyterhelését"
+  },
+  "subtitles": {
+    "workoutInfo": "Az edzéstervhez szükséges információk"
+  },
+  "labels": {
+    "gender": "Neme:"
+  },
+  "options": {
+    "male": "Férfi",
+    "female": "Nő"
+  },
+  "units": {
+    "kg": "kg"
+  },
+  "navigation": {
+    "home": "Kezdőlap",
+    "workout": "Edzés",
+    "diet": "Étrend",
+    "leaderboard": "Ranglista",
+    "logout": "Kijelentkezés"
+  },
+  "mainPage": {
+    "welcomeNotification": "ÜDVÖZÖLJÜK,",
+    "profileMenu": {
+      "member": "TAG",
+      "profile": "Profil",
+      "settings": "Beállítások"
+    },
+    "slogan": "A LEGMAGASABB SZÍNVONALÚ FITNESS PLATFORM",
+    "features": {
+      "workoutPlans": {
+        "title": "EDZÉSTERVEK",
+        "description": "Professzionális személyi edzők által tervezett, AI-alapú programok."
+      },
+      "dietPlans": {
+        "title": "ÉTRENDTERVEK",
+        "description": "Táplálkozási szakértők által optimalizált étrendek, testtípus szerint."
+      },
+      "leaderboard": {
+        "title": "RANGLISTA",
+        "description": "Versenyzz másokkal és szerezd meg az exkluzív jutalmakat!"
+      }
+    },
+    "accessButton": "HOZZÁFÉRÉS",
+    "copyright": "© {year} TOPFORM. MINDEN JOG FENNTARTVA.",
+    "buttons": {
+      "cancel": "Mégse",
+      "save": "Mentés",
+      "new": "Új",
+      "generate": "Generálás",
+      "refresh": "Frissítés",
+      "readMore": "Tovább olvasom"
+    },
+    "workout": {
+      "title": "EDZÉSNAPLÓ",
+      "newWorkout": "Új edzés",
+      "saveWorkout": "Edzés mentése",
+      "category": "Kategória",
+      "exercise": "Gyakorlat",
+      "reps": "Ismétlés",
+      "weight": "Súly (kg)",
+      "set": "Sorozat",
+      "loading": "Edzés betöltése...",
+      "noWorkout": "Nincs elmentett edzés erre a napra: {{date}}",
+      "createNew": "Új edzés létrehozása",
+      "aiTitle": "AI Edzéstervező",
+      "selectMuscles": "Válaszd ki az izomcsoportokat:",
+      "selectDifficulty": "Nehézségi szint:",
+      "beginner": "Kezdő",
+      "intermediate": "Közepes",
+      "advanced": "Haladó",
+      "aiSuccess": "AI generálás sikeres!",
+      "aiError": "Hiba történt: {{error}}",
+      "noMuscleGroup": "Válassz legalább egy izomcsoportot!"
+    },
+    "title": "Ranglista",
+    "subtitle": "Versenyzz másokkal hogy megszerezd az első helyet!",
+    "search": {
+      "placeholder": "Keresés a ranglistán..."
+    },
+    "podium": {
+      "place": "helyezett"
+    },
+    "globalRanking": "GLOBÁLIS RANGLISTA",
+    "level": "szint",
+    "performance": {
+      "title": "Teljesítmény statisztikák",
+      "muscleGroups": "IZOMCSOPORT ERŐNLÉT"
+    },
+    "chart": {
+      "arm": "Kar",
+      "chest": "Mell",
+      "leg": "Láb",
+      "calf": "Vádli"
+    },
+    "news": {
+      "title": "FITNESS HÍREK",
+      "loading": "Hírek betöltése...",
+      "error": "Nem sikerült betölteni a híreket"
+    },
+    "quote": {
+      "title": "NAPI MOTIVÁCIÓ",
+      "button": "Új idézet",
+      "hashtag": "#FitnessMotiváció"
+    }
   }
 }

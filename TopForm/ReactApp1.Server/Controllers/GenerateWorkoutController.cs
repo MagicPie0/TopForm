@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
-using System.Text;
+using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System;
 
@@ -11,37 +12,68 @@ namespace WorkoutPlanner.Controllers
     public class GenerateWorkoutController : ControllerBase
     {
         private readonly HttpClient _httpClient;
+        private readonly ILogger<GenerateWorkoutController> _logger;
+        private readonly string _pythonApiUrl = "http://localhost:5000/generate";
 
-        public GenerateWorkoutController(HttpClient httpClient)
+        public GenerateWorkoutController(HttpClient httpClient, ILogger<GenerateWorkoutController> logger)
         {
             _httpClient = httpClient;
+            _logger = logger;
         }
 
         [HttpPost("generate")]
         public async Task<IActionResult> GenerateWorkout([FromBody] AiRequest request)
         {
+            if (string.IsNullOrEmpty(request?.InputText))
+            {
+                return BadRequest(new { error = "InputText is required" });
+            }
+
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/generate", new
+                _logger.LogInformation($"Sending request to Python API: {request.InputText.Substring(0, Math.Min(100, request.InputText.Length))}...");
+
+                var response = await _httpClient.PostAsJsonAsync(_pythonApiUrl, new
                 {
-                    InputText = request.InputText
+                    inputText = request.InputText
                 });
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    _logger.LogError($"Python API returned error: {(int)response.StatusCode} - {errorContent}");
+                    return StatusCode((int)response.StatusCode, new { error = $"Python API error: {errorContent}" });
                 }
 
-                var result = await response.Content.ReadAsStringAsync();
-                return Ok(result);
+                var resultContent = await response.Content.ReadAsStringAsync();
+                _logger.LogInformation($"Python API response received: {resultContent.Substring(0, Math.Min(100, resultContent.Length))}...");
+
+                // Parse and validate the response
+                try
+                {
+                    // Try to parse as JSON first
+                    var jsonResponse = JsonSerializer.Deserialize<JsonElement>(resultContent);
+                    return Ok(jsonResponse);
+                }
+                catch
+                {
+                    // If not valid JSON, return as text
+                    return Ok(new { generatedText = resultContent });
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError($"HTTP request error: {ex.Message}");
+                return StatusCode(503, new { error = $"Could not connect to Python API: {ex.Message}" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { error = ex.Message });
+                _logger.LogError($"Unexpected error: {ex.Message}");
+                return StatusCode(500, new { error = $"Server error: {ex.Message}" });
             }
         }
 
-        [HttpGet("health")]  // Will be available at /api/GenerateWorkout/health
+        [HttpGet("health")]
         public IActionResult HealthCheck()
         {
             return Ok(new
@@ -52,19 +84,20 @@ namespace WorkoutPlanner.Controllers
             });
         }
 
-        [HttpGet("python-status")]  // Will be available at /api/GenerateWorkout/python-status
+        [HttpGet("python-status")]
         public async Task<IActionResult> PythonApiStatus()
         {
             try
             {
-                var testRequest = new { InputText = "test connection" };
-                var generateResponse = await _httpClient.PostAsJsonAsync("http://localhost:5000/generate", testRequest);
+                var testRequest = new { InputText = "Connection test" };
+                var response = await _httpClient.PostAsJsonAsync(_pythonApiUrl, testRequest);
 
                 return Ok(new
                 {
-                    status =  "online",
+                    status = response.IsSuccessStatusCode ? "online" : "error",
+                    statusCode = (int)response.StatusCode,
                     lastChecked = DateTime.UtcNow,
-                    details = "Fully operational"
+                    details = response.IsSuccessStatusCode ? "Fully operational" : await response.Content.ReadAsStringAsync()
                 });
             }
             catch (HttpRequestException ex)
@@ -81,6 +114,6 @@ namespace WorkoutPlanner.Controllers
 
     public class AiRequest
     {
-        public string InputText { get; set; }
+        public string InputText { get; set; } = string.Empty;
     }
 }

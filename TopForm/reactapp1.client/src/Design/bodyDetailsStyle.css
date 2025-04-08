@@ -17,7 +17,6 @@
   line-height: 1.6;
 }
 
-
 /* Modell szekció */
 .body-details-container .model-section {
   position: relative;
@@ -49,7 +48,7 @@
 }
 
 .body-details-container .submit-button:hover {
-  background-color: #ff6b00; /* Orange on hover */
+  background-color: #ff6b00;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -62,19 +61,18 @@
 
 /* Űrlap szekció */
 .body-details-container .form-section {
+  position: relative;
   flex-grow: 1;
   padding: 2rem;
   border-radius: 12px 12px 0 0;
   margin-top: -2rem;
   z-index: 10;
-  /* Background styling added here */
 }
 
 .body-details-container .form-content {
   max-width: 600px;
   margin: 0 auto;
   padding: 1.5rem;
-  /* Adding rounded corners to the form content */
   background-color: white;
   border-radius: var(--border-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -83,9 +81,7 @@
 .body-details-container h2 {
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
-  color: #8b0000; /* Dark red - looks professional */
-  /* Alternative: color: #212529; for pure black */
-  
+  color: #8b0000;
   font-weight: 700;
 }
 
@@ -241,8 +237,8 @@
 }
 
 /* Success Snackbar styles */
-.snackbar {
-  position: relative;
+.snackbar-center {
+  position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
@@ -255,6 +251,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   overflow: hidden;
+  text-align: center;
 }
 
 .snackbar-content {
@@ -354,5 +351,11 @@
 
   .body-details-container .form-subtitle {
     font-size: 0.9rem;
+  }
+
+  .snackbar {
+    min-width: 250px;
+    right: 10px;
+    bottom: 10px;
   }
 }

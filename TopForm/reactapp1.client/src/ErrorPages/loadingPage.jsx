@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 
 const LoadingPage = () => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Progress bar animáció
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -20,6 +24,24 @@ const LoadingPage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    // Ha az animáció befejeződött, indítsunk egy időzítőt az átirányításhoz
+    if (isComplete) {
+      const redirectTimer = setTimeout(() => {
+        setShouldRedirect(true);
+      }, 1500); // 1.5 másodperc múlva állítsa true-ra a redirect állapotot
+
+      return () => clearTimeout(redirectTimer);
+    }
+  }, [isComplete]);
+
+  useEffect(() => {
+    // Ha a redirect állapot true, navigáljunk a főoldalra
+    if (shouldRedirect) {
+      navigate('/mainPage');
+    }
+  }, [shouldRedirect, navigate]);
 
   return (
     <LoadingContainer>
