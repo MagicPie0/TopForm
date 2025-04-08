@@ -58,7 +58,6 @@
     margin-bottom: 20px; /* Ez hozzáadja a távolságot a mezők felett */
     width: 100%; /* Igazítás a form-container szélességéhez */
 }
-
 .form-toggle {
     cursor: pointer;
     font-size: 18px;

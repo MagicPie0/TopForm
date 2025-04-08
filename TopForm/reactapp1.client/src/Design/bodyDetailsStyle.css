@@ -34,6 +34,32 @@
   overflow: hidden;
 }
 
+.body-details-container .submit-button {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.body-details-container .submit-button:hover {
+  background-color: #ff6b00; /* Orange on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.body-details-container .submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Űrlap szekció */
 .body-details-container .form-section {
   flex-grow: 1;
@@ -41,18 +67,26 @@
   border-radius: 12px 12px 0 0;
   margin-top: -2rem;
   z-index: 10;
+  /* Background styling added here */
 }
 
 .body-details-container .form-content {
   max-width: 600px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1.5rem;
+  /* Adding rounded corners to the form content */
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .body-details-container h2 {
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
-  color: #4a6fa5;
+  color: #8b0000; /* Dark red - looks professional */
+  /* Alternative: color: #212529; for pure black */
+  
+  font-weight: 700;
 }
 
 .body-details-container .form-subtitle {
@@ -135,32 +169,47 @@
   transform: none;
 }
 
-/* Nem választó */
-.body-details-container .gender-control {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 0.75rem;
-  border-radius: 12px;
+.body-details-container .form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+.body-details-container .gender-selector {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  backdrop-filter: blur(8px);
-  z-index: 20;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+/* Nem választó */
+.body-details-container .gender-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: white;
+  margin-top: auto;
 }
 
 .body-details-container .gender-control label {
   font-weight: 600;
-  margin-right: 0.5rem;
+  white-space: nowrap;
+  color: var(--text-dark);
 }
 
 .body-details-container .gender-control select {
   padding: 0.5rem;
   border: 1px solid #ddd;
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: white;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 
 /* Üzenetek */
@@ -214,6 +263,11 @@
   .body-details-container .canvas-wrapper {
     border-radius: 0;
   }
+
+  .body-details-container .form-content {
+    max-width: 90vw !important;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 576px) {
@@ -223,5 +277,20 @@
   
   .body-details-container .form-section {
     padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .body-details-container .form-content {
+    max-width: 95vw !important;
+    padding: 1rem !important;
+  }
+
+  .body-details-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .body-details-container .form-subtitle {
+    font-size: 0.9rem;
   }
 }

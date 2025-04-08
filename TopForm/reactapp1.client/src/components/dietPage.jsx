@@ -304,10 +304,10 @@ const DietPage = () => {
             }
           }}
         >
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              marginBottom: 2, 
+          <Typography
+            variant="h6"
+            sx={{
+              marginBottom: 2,
               textAlign: "center",
               color: '#d4af37',
               fontWeight: 600
@@ -399,19 +399,32 @@ const DietPage = () => {
                         '& .MuiInputBase-root': {
                           color: '#fff',
                           '& fieldset': {
-                            borderColor: '#d4af37'
+                            borderColor: '#d4af37',
                           },
                           '&:hover fieldset': {
-                            borderColor: '#d4af37'
-                          }
-                        }
+                            borderColor: '#d4af37',
+                          },
+                          // Az ikon színének beállítása
+                          '& .MuiSvgIcon-root': {
+                            color: 'white',
+                          },
+                        },
                       },
                       variant: 'outlined',
-                      size: 'small'
-                    }
+                      size: 'small',
+                    },
+                    // Alternatív megoldás az ikon színének beállítására
+                    inputAdornment: {
+                      sx: {
+                        '& .MuiSvgIcon-root': {
+                          color: 'white',
+                        },
+                      },
+                    },
                   }}
                 />
               </LocalizationProvider>
+
             </Box>
           </Box>
         </Box>
@@ -452,10 +465,10 @@ const DietPage = () => {
                   }
                 }}
               >
-                <Typography 
-                  variant="h6" 
-                  sx={{ 
-                    marginBottom: 2, 
+                <Typography
+                  variant="h6"
+                  sx={{
+                    marginBottom: 2,
                     textAlign: "center",
                     color: '#d4af37',
                     fontWeight: 600
@@ -617,7 +630,7 @@ const DietPage = () => {
           <Button
             fullWidth
             variant="contained"
-            sx={{ 
+            sx={{
               marginTop: 2,
               background: 'linear-gradient(90deg, #8B0000, #d4af37)',
               color: '#fff'

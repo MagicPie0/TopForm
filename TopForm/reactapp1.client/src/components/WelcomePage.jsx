@@ -1,41 +1,55 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../Design/Welcome.css';
-
-const WelcomePage = () => {
+import React from 'react'
+import '../Design/Welcome.css'
+import { useNavigate } from 'react-router-dom'
+const TopformIntro = () => {
     const navigate = useNavigate();
-
-    const handleLoginClick = () => {
+    const handleClick = () => {
         navigate('/login');
-    };
+    } 
+  return (
+    <div className="topform-container">
+      <div className="topform-logo-container">
+        <img src="/topformlogo.png" alt="TopForm logó" className="topform-logo topform-logo-big" />
+        <img src="/topformlogo2.png" alt="TopForm ikon" className="topform-logo2" />
+      </div>
 
-    return (
-        <div className="welcome-page">
-            <div className="overlay">
-                <div className="content">
-                    <h1>Üdvözöllek a <span>TopForm</span>-ban!</h1>
-                    <p className="intro-text">
-                        A legjobb hely, ahol elérheted a csúcsformád! Kövesd a fejlődésed, kapj személyre szabott edzésterveket, és légy része egy támogató közösségnek.
-                    </p>
-                    <div className="features">
-                        <div className="feature">
-                            <h2>📊 Teljesítménykövetés</h2>
-                            <p>Naplózd az edzéseid és nézd meg, hogyan fejlődsz.</p>
-                        </div>
-                        <div className="feature">
-                            <h2>💪 Személyre szabott tervek</h2>
-                            <p>Kapj egyéni edzéstervet és étrendet a céljaidnak megfelelően.</p>
-                        </div>
-                        <div className="feature">
-                            <h2>🤝 Közösségi támogatás!</h2>
-                            <p>Csatlakozz egy inspiráló közösséghez és motiváljátok egymást.</p>
-                        </div>
-                    </div>
-                    <button className="login-button" onClick={handleLoginClick}>Lépj be most</button>
-                </div>
-            </div>
+      <div className="topform-content">
+        <div className="topform-image">
+          <img src="/edzesnagykep.png" alt="Edzőtermi kép" />
         </div>
-    );
-};
 
-export default WelcomePage;
+        <div className="topform-info">
+          <div className="topform-feature">
+            <img src="/edzesterv.jpg" alt="Edzésterv ikon" />
+            <div>
+              <h3>Edzéstervek</h3>
+              <p>Kapd meg saját edzésterved személyre szabva, vagy építsd fel magadnak pár kattintással!</p>
+            </div>
+          </div>
+
+          <div className="topform-feature">
+            <img src="/dieta2.jpg" alt="Étrend ikon" />
+            <div>
+              <h3>Étrendek</h3>
+              <p>Kapj személyre szabott étrendet vagy rakd össze sajátodat pár kattintással!</p>
+            </div>
+          </div>
+
+          <div className="topform-feature">
+            <img src="/trophy.jpg" alt="Verseny ikon" />
+            <div>
+              <h3>Versenyezz</h3>
+              <p>Küzdj az első helyért a többi felhasználóval és nézd meg hogy hol állsz a ranglistán!</p>
+            </div>
+          </div>
+
+          <div className="topform-buttons">
+            <button className="login" onClick={handleClick}>Belépés</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default TopformIntro

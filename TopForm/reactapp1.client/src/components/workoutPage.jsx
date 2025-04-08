@@ -400,6 +400,9 @@ const WorkoutApp = () => {
                   border: '1px solid rgba(212, 175, 55, 0.3)',
                   borderRadius: '8px',
                   position: 'relative',
+                  color: 'white',
+                  paddingTop: '25px', // Adj egy kis paddinget, hogy az X gomb ne fedje el a tartalmat
+
                   '&:hover': {
                     boxShadow: '0 0 20px rgba(212, 175, 55, 0.2)'
                   }
@@ -411,7 +414,9 @@ const WorkoutApp = () => {
                         position: 'absolute',
                         top: 8,
                         right: 8,
-                        color: '#d4af37'
+                        color: '#d4af37',
+                        zIndex: 1, // Biztosítja, hogy a gomb a kategória fölött legyen
+
                       }}
                     >
                       <Close />
@@ -436,12 +441,15 @@ const WorkoutApp = () => {
                             },
                             '& .MuiOutlinedInput-notchedOutline': {
                               borderColor: '#d4af37'
-                            }
+                            },
+                            '& .MuiSelect-icon': {
+                              color: '#fff', // <- ez konkrétan a nyíl ikon
+                            },
                           }}
                           disabled={isViewingSavedWorkout}
                         >
                           <MenuItem value="" disabled>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="white">
                               Kategória
                             </Typography>
                           </MenuItem>
@@ -449,7 +457,7 @@ const WorkoutApp = () => {
                             <MenuItem
                               key={category}
                               value={category}
-                              sx={{ fontSize: '0.875rem' }}
+                              sx={{ fontSize: '0.875rem'}}
                             >
                               {category}
                             </MenuItem>
@@ -473,12 +481,15 @@ const WorkoutApp = () => {
                               },
                               '& .MuiOutlinedInput-notchedOutline': {
                                 borderColor: '#d4af37'
-                              }
+                              },
+                              '& .MuiSelect-icon': {
+                                color: '#fff', // <- ez konkrétan a nyíl ikon
+                              },
                             }}
                             disabled={isViewingSavedWorkout}
                           >
                             <MenuItem value="" disabled>
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography variant="body2" color="white">
                                 Gyakorlat
                               </Typography>
                             </MenuItem>

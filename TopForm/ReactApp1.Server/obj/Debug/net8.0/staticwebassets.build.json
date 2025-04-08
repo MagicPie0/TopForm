@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "bCajxFJ64RF07oADlux8DVHcVahPdUQwJGQGqZ3EXnM=",
+  "Hash": "J+3aSejpAcK78zj4gnDa6b71c5mQMXgFJFLjopF5pLE=",
   "Source": "asp.Server",
   "BasePath": "_content/asp.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\reactapp1.client\\react.client.esproj",
+      "Identity": "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\reactapp1.client\\react.client.esproj",
       "Version": 2,
       "Source": "react.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
@@ -22,116 +22,30 @@
     {
       "Name": "asp.Server\\wwwroot",
       "Source": "asp.Server",
-      "ContentRoot": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
       "BasePath": "_content/asp.Server",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "Identity": "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
       "SourceId": "asp.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
       "BasePath": "_content/asp.Server",
-      "RelativePath": "model/men#[.{fingerprint}]?.glb",
+      "RelativePath": "model/men.glb",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
+      "AssetMergeBehavior": "PreferTarget",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "ym9m2z47l9",
-      "Integrity": "tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\model\\men.glb"
-    }
-  ],
-  "Endpoints": [
-    {
-      "Route": "model/men.glb",
-      "AssetFile": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "4611568"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/octet-stream"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 08 Apr 2025 06:16:15 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y="
-        }
-      ]
-    },
-    {
-      "Route": "model/men.ym9m2z47l9.glb",
-      "AssetFile": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "4611568"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/octet-stream"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 08 Apr 2025 06:16:15 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "ym9m2z47l9"
-        },
-        {
-          "Name": "label",
-          "Value": "model/men.glb"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-tneveg81l4P5sCdvpXD1C+Jndtdfao+3JEYnaIV2Z6Y="
-        }
-      ]
     }
   ]
 }

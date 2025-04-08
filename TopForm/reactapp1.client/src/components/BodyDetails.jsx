@@ -128,7 +128,7 @@ const RegistrationForm = () => {
       // Call the hook with the necessary data
       await completeRegister.mutateAsync({ gender, measurements: muscleGroupData });
       setSuccessMessage('Sikeres regisztráció!');
-      setTimeout(() => navigate("/mainPage"), 1000);
+      setTimeout(() => navigate("/login"), 1000);
     } catch (err) {
       setErrorMessage(err.message || 'Valami hiba történt');
     } finally {
@@ -205,23 +205,13 @@ const RegistrationForm = () => {
                   </Canvas>
                 )}
 
-                <div className="gender-control">
-                  <label htmlFor="gender-select">Nem választása:</label>
-                  <select
-                    id="gender-select"
-                    onChange={(e) => setGender(e.target.value)}
-                    value={gender}
-                  >
-                    <option value="male">Férfi</option>
-                    <option value="female">Nő</option>
-                  </select>
-                </div>
+                
               </div>
             </div>
 
             <div className="form-section">
               <div className="form-content">
-                <h2>Adja meg maximális súlyterhelését</h2>
+                <h2 color='black'>Adja meg maximális súlyterhelését</h2>
                 <p className="subtitle">Az edzéstervhez szükséges információk</p>
 
                 <div className="measurements-grid">
@@ -245,15 +235,28 @@ const RegistrationForm = () => {
 
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
                 {successMessage && <div className="message success">{successMessage}</div>}
-
+                <div className='form-actions'>
                 <button
-                  className="auth-button primary"
+                  className="submit-button"
                   onClick={handleSubmitMuscleGroups}
                   disabled={loading}
                 >
                   {loading ? 'Feldolgozás...' : 'Regisztráció befejezése'}
                   <span className="button-overlay"></span>
                 </button>
+
+                <div className="gender-control">
+                  <label htmlFor="gender-select">Neme:</label>
+                  <select
+                    id="gender-select"
+                    onChange={(e) => setGender(e.target.value)}
+                    value={gender}
+                  >
+                    <option value="male">Férfi</option>
+                    <option value="female">Nő</option>
+                  </select>
+                </div>
+                </div>
               </div>
             </div>
           </div>

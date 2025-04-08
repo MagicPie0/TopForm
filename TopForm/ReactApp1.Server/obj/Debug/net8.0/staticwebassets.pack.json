@@ -1,12 +1,8 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\info.PREMONTREI\\Downloads\\topform\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "Id": "C:\\Users\\info\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
       "PackagePath": "staticwebassets\\model\\men.glb"
-    },
-    {
-      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.asp.Server.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
-      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.asp.Server.Microsoft.AspNetCore.StaticWebAssets.props",

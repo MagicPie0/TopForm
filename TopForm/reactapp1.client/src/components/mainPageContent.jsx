@@ -146,7 +146,8 @@ const MainPageContent = () => {
               border: '2px solid #d4af37',
               backgroundColor: 'rgba(0, 0, 0, 0.7)',
               boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+
             }}
             onClick={handleMenuOpen}
           />
@@ -167,7 +168,8 @@ const MainPageContent = () => {
               backdropFilter: 'blur(10px)',
               '& .MuiMenuItem-root:hover': {
                 background: 'rgba(212, 175, 55, 0.1)'
-              }
+              },
+              color: 'white',
             }
           }}
         >
