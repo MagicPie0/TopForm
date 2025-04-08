@@ -8,15 +8,46 @@ import { toggleLanguage } from "../languageModel/languageSlice";
 import en from "../languageModel/en.json";
 import hu from "../languageModel/hu.json";
 import '../Design/bodyDetailsStyle.css';
-import '../Design/SignIn.css'; // Import SignIn styles
+import '../Design/SignIn.css';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// Egyszerűsített modell komponens
+// Success-only Snackbar component
+const SuccessSnackbar = ({ message, onClose }) => {
+  return (
+    <AnimatePresence>
+      {message && (
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 50, opacity: 0 }}
+          transition={{ type: 'spring', damping: 25 }}
+          className="snackbar success"
+        >
+          <div className="snackbar-content">
+            <span className="snackbar-icon">✓</span>
+            <span className="snackbar-message">{message}</span>
+            <button className="snackbar-close" onClick={onClose}>
+              &times;
+            </button>
+          </div>
+          <motion.div 
+            className="snackbar-progress"
+            initial={{ scaleX: 1 }}
+            animate={{ scaleX: 0 }}
+            transition={{ duration: 5, ease: "linear" }}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+// Simplified model component
 function SimpleModel({ gender }) {
   const modelPath = gender === 'female' ? '/model/female.glb' : '/model/male.glb';
   const { scene } = useGLTF(modelPath);
   const modelRef = useRef();
 
-  // Egyszerű automatikus forgatás
   useEffect(() => {
     const interval = setInterval(() => {
       if (modelRef.current) {
@@ -27,7 +58,6 @@ function SimpleModel({ gender }) {
     return () => clearInterval(interval);
   }, []);
 
-  // Skálázás a modell típusa alapján
   const scale = gender === 'female' ? 3 : 3;
 
   return (
@@ -40,7 +70,7 @@ function SimpleModel({ gender }) {
   );
 }
 
-// Betöltési állapot kezelő
+// Loading fallback component
 function LoadingFallback() {
   return (
     <Html center>
@@ -62,21 +92,12 @@ function LoadingFallback() {
             animation: 'loading 1.5s infinite ease-in-out'
           }}></div>
         </div>
-        <style>
-          {`
-            @keyframes loading {
-              0% { width: 0%; }
-              50% { width: 70%; }
-              100% { width: 100%; }
-            }
-          `}
-        </style>
       </div>
     </Html>
   );
 }
 
-// Fő regisztrációs komponens
+// Main registration component
 const RegistrationForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -84,12 +105,17 @@ const RegistrationForm = () => {
   const texts = language === "EN" ? en : hu;
 
   const [gender, setGender] = useState('male');
-  const [measurements, setMeasurements] = useState({ arm: '', chest: '', thigh: '', calf: '' });
+  const [measurements, setMeasurements] = useState({ 
+    arm: '', 
+    chest: '', 
+    thigh: '', 
+    calf: '' 
+  });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [modelError, setModelError] = useState(null);
-  const [modelLoaded, setModelLoaded] = useState(false);
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const completeRegister = useCompleteRegister();
 
@@ -101,19 +127,22 @@ const RegistrationForm = () => {
     }));
   };
 
+  const showSuccessSnackbar = (message) => {
+    setSnackbarMessage(message);
+    setShowSnackbar(true);
+    setTimeout(() => setShowSnackbar(false), 5000);
+  };
+
   const handleSubmitMuscleGroups = async () => {
     setLoading(true);
     setErrorMessage('');
-    setSuccessMessage('');
 
     try {
-      // Fetch a JWT token from localStorage
       const jwt = localStorage.getItem("jwt");
       if (!jwt) {
         throw new Error('JWT token hiányzik');
       }
 
-      // Prepare muscle group data
       const muscleGroupData = Object.entries(measurements)
         .filter(([, value]) => value)
         .map(([part, kg]) => ({
@@ -125,10 +154,9 @@ const RegistrationForm = () => {
         throw new Error('Kérjük, adjon meg legalább egy izomcsoportot!');
       }
 
-      // Call the hook with the necessary data
       await completeRegister.mutateAsync({ gender, measurements: muscleGroupData });
-      setSuccessMessage('Sikeres regisztráció!');
-      setTimeout(() => navigate("/login"), 1000);
+      showSuccessSnackbar('Sikeres regisztráció! Átirányítás...');
+      setTimeout(() => navigate("/login"), 3000);
     } catch (err) {
       setErrorMessage(err.message || 'Valami hiba történt');
     } finally {
@@ -136,13 +164,11 @@ const RegistrationForm = () => {
     }
   };
 
-  // Model error handler
   const handleModelError = (error) => {
     console.error("Model loading error:", error);
     setModelError(`Hiba a modell betöltésekor: ${error.message}`);
   };
 
-  // Check if WebGL is available
   const checkWebGLAvailability = () => {
     try {
       const canvas = document.createElement('canvas');
@@ -164,15 +190,16 @@ const RegistrationForm = () => {
 
   return (
     <div className="signin-container">
-      {/* Animated Background - átvéve a SignIn komponensből */}
+      <SuccessSnackbar 
+        message={snackbarMessage} 
+        onClose={() => setShowSnackbar(false)} 
+      />
+
       <div className="signin-background">
         <div className="gradient-overlay"></div>
       </div>
 
-      {/* Main Content */}
       <div className="signin-content">
-
-
         <div className="body-details-wrapper">
           <div className="body-details-container">
             <div className="model-section">
@@ -193,7 +220,7 @@ const RegistrationForm = () => {
                   <Canvas
                     camera={{ position: [0, 0, 10], fov: 40 }}
                     onCreated={({ gl }) => {
-                      gl.setClearColor(0x000000, 0); // Teljesen átlátszó háttér
+                      gl.setClearColor(0x000000, 0);
                     }}
                     gl={{ antialias: true, alpha: true }}
                   >
@@ -204,8 +231,6 @@ const RegistrationForm = () => {
                     </React.Suspense>
                   </Canvas>
                 )}
-
-                
               </div>
             </div>
 
@@ -234,28 +259,28 @@ const RegistrationForm = () => {
                 </div>
 
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
-                {successMessage && <div className="message success">{successMessage}</div>}
+                
                 <div className='form-actions'>
-                <button
-                  className="submit-button"
-                  onClick={handleSubmitMuscleGroups}
-                  disabled={loading}
-                >
-                  {loading ? 'Feldolgozás...' : 'Regisztráció befejezése'}
-                  <span className="button-overlay"></span>
-                </button>
-
-                <div className="gender-control">
-                  <label htmlFor="gender-select">Neme:</label>
-                  <select
-                    id="gender-select"
-                    onChange={(e) => setGender(e.target.value)}
-                    value={gender}
+                  <button
+                    className="submit-button"
+                    onClick={handleSubmitMuscleGroups}
+                    disabled={loading}
                   >
-                    <option value="male">Férfi</option>
-                    <option value="female">Nő</option>
-                  </select>
-                </div>
+                    {loading ? 'Feldolgozás...' : 'Regisztráció befejezése'}
+                    <span className="button-overlay"></span>
+                  </button>
+
+                  <div className="gender-control">
+                    <label htmlFor="gender-select">Neme:</label>
+                    <select
+                      id="gender-select"
+                      onChange={(e) => setGender(e.target.value)}
+                      value={gender}
+                    >
+                      <option value="male">Férfi</option>
+                      <option value="female">Nő</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -268,6 +293,5 @@ const RegistrationForm = () => {
 
 export default RegistrationForm;
 
-// Modellek előbetöltése
 useGLTF.preload('/model/male.glb');
 useGLTF.preload('/model/female.glb');

@@ -240,6 +240,68 @@
   font-weight: 600;
 }
 
+/* Success Snackbar styles */
+.snackbar {
+  position: relative;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  max-width: 90%;
+  background: #4CAF50;
+  color: white;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.snackbar-content {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.snackbar-icon {
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+.snackbar-message {
+  flex: 1;
+  font-size: 14px;
+}
+
+.snackbar-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 12px;
+  padding: 0;
+  line-height: 1;
+}
+
+.snackbar-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  transform-origin: left;
+  z-index: 1;
+}
+
+@keyframes loading {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
 /* Reszponzív beállítások */
 @media (min-width: 768px) {
   .body-details-container {

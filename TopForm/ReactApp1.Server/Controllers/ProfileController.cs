@@ -110,19 +110,33 @@ namespace asp.Server.Controllers
                 .Select(r => new {r.rankName, r.points})
                 .FirstOrDefaultAsync();
 
-            var workouts = await _context.Workouts
-                .Where(w => workoutIds.Contains(w.Id))
-                .Select(w => new {
-                    w.Id,
-                    w.WorkoutData,
-                    w.WorkoutDate
-                })
-                .OrderByDescending(w => w.WorkoutDate) 
-                .ToListAsync();
+            var workouts = new List<object>();
 
-            var Profile = new
+            if (workoutIds.Any())
             {
-                User = new Dictionary<string, object>
+                var workoutEntities = await _context.Workouts
+                    .Where(w => workoutIds.Contains(w.Id))
+                    .Select(w => new {
+                        w.Id,
+                        w.WorkoutData,
+                        w.WorkoutDate
+                    })
+                    .OrderByDescending(w => w.WorkoutDate)
+                    .ToListAsync();
+
+                workouts = workoutEntities.Select(w => new
+                {
+                    Id = w.Id,
+                    Date = w.WorkoutDate.ToString("yyyy-MM-dd"),
+                    Exercises = ParseWorkoutData(w.WorkoutData)
+                        .OrderByDescending(e => e.MaxWeight)
+                        .ToList()
+                }).Cast<object>().ToList();
+            }
+
+            var profile = new
+            {
+                User = new Dictionary<string, object?>
                 {
                     ["Name"] = user.Name,
                     ["Username"] = user.Username,
@@ -134,31 +148,27 @@ namespace asp.Server.Controllers
                 {
                     Groups = new[]
                     {
-                        new { Name = muscleGroup.name1, Kg = muscleGroup.kg1 },
-                        new { Name = muscleGroup.name2, Kg = muscleGroup.kg2 },
-                        new { Name = muscleGroup.name3, Kg = muscleGroup.kg3 },
-                        new { Name = muscleGroup.name4, Kg = muscleGroup.kg4 }
-                    },
-                    Date = muscleGroup.date
+            new { Name = muscleGroup.name1, Kg = muscleGroup.kg1 },
+            new { Name = muscleGroup.name2, Kg = muscleGroup.kg2 },
+            new { Name = muscleGroup.name3, Kg = muscleGroup.kg3 },
+            new { Name = muscleGroup.name4, Kg = muscleGroup.kg4 }
+        },
+                    Date = muscleGroup.date?.ToString("yyyy-MM-dd") ?? "N/A"
                 },
 
-                workouts = workouts.Select(w => new
-                {
-                    Id = w.Id,
-                    Date = w.WorkoutDate.ToString("yyyy-MM-dd"),
-                    Exercises = ParseWorkoutData(w.WorkoutData)
-                        .OrderByDescending(e => e.MaxWeight)
-                        .ToList()
-                }).OrderByDescending(w => w.Date).ToList(),
+                Workouts = workouts,
 
-                Rank = new Dictionary<string, object>
-                {
-                    ["Name"] = rank.rankName,
-                    ["Points"] = rank.points
-                }
+                Rank = rank != null
+                    ? new Dictionary<string, object?>
+                    {
+                        ["Name"] = rank.rankName,
+                        ["Points"] = rank.points
+                    }
+                    : null
             };
 
-            return Ok(Profile);
+            return Ok(profile);
+
         }
 
     }

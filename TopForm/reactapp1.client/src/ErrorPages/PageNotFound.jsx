@@ -13,7 +13,7 @@ const PageNotFound = () => {
         <ErrorCode>404</ErrorCode>
         <ErrorMessage>Oops! Az oldal nem található</ErrorMessage>
         <Description>Úgy tűnik, az oldal amit keresel nem létezik.</Description>
-        <HomeButton href="/mainPage">Vissza a főoldalra</HomeButton>
+        <HomeButton href="/">Vissza a főoldalra</HomeButton>
       </Content>
 
       <ModelContainer>

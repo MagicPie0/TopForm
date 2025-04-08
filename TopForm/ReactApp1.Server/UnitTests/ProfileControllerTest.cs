@@ -3,14 +3,13 @@ using back_end.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using NUnit.Framework;
 using System.Security.Claims;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-using asp.Server.Models;
 using back_end.Models;
+using asp.Server.Models;
 
 namespace back_end.Tests
 {
@@ -26,15 +25,13 @@ namespace back_end.Tests
                 .UseInMemoryDatabase(databaseName: "ProfileTestDb")
                 .Options;
 
-            // Clear the database before each test
             _context = new ApplicationDbContext(options);
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
 
-            // Seed data - either remove explicit IDs or ensure they're unique
+            // Seed: User
             var user = new User
             {
-                // Id = 1, // Either remove this or make sure it's unique
                 Username = "testuser",
                 Email = "test@example.com",
                 Name = "Test Elek",
@@ -42,11 +39,11 @@ namespace back_end.Tests
                 Password = "mockpassword"
             };
             _context.Users.Add(user);
-            _context.SaveChanges(); // Save here to get the generated ID
+            _context.SaveChanges();
 
+            // Seed: MuscleGroup, Rank, Workout
             var muscleGroup = new MuscleGroup
             {
-                // id = 1,
                 name1 = "Chest",
                 kg1 = 50,
                 name2 = "Back",
@@ -59,24 +56,21 @@ namespace back_end.Tests
             };
             _context.MuscleGroups.Add(muscleGroup);
 
-            var rank = new Ranks { /* id = 1, */ rankName = "Champion", points = 500 };
+            var rank = new Ranks { rankName = "Champion", points = 500 };
             _context.Ranks.Add(rank);
 
             var workout = new Workouts
             {
-                // Id = 1,
                 WorkoutDate = DateTime.Today,
                 WorkoutData = "[{\"workoutDetails\":{\"exerciseName\":\"Bench Press\",\"weights\":[50,60,70]}}]"
             };
             _context.Workouts.Add(workout);
+            _context.SaveChanges();
 
-            _context.SaveChanges(); // Save all first to get IDs
-
-            // Now add the user_activity with proper foreign keys
+            // Seed: UserActivity
             var userActivity = new user_activity
             {
-                // id = 1,
-                UserId = user.Id, // Use the generated ID
+                UserId = user.Id,
                 MuscleGroupId = muscleGroup.id,
                 RanksID = rank.id,
                 WorkoutId = workout.Id
@@ -84,14 +78,14 @@ namespace back_end.Tests
             _context.UserActivity.Add(userActivity);
             _context.SaveChanges();
 
+            // Setup controller with claims
             _controller = new ProfileController(_context);
 
-            var userClaims = new List<Claim>
-    {
-        new Claim("UserId", user.Id.ToString()) // Use the actual user ID
-    };
-
-            var identity = new ClaimsIdentity(userClaims, "TestAuth");
+            var claims = new List<Claim>
+            {
+                new Claim("UserId", user.Id.ToString())
+            };
+            var identity = new ClaimsIdentity(claims, "TestAuth");
             var userPrincipal = new ClaimsPrincipal(identity);
 
             _controller.ControllerContext = new ControllerContext
@@ -118,45 +112,47 @@ namespace back_end.Tests
             var okResult = result as OkObjectResult;
             Assert.That(okResult, Is.Not.Null);
 
-            dynamic profile = okResult.Value;
+            dynamic profile = okResult!.Value;
             Assert.That(profile, Is.Not.Null);
 
             // USER
-            Assert.That(profile.User["Name"], Is.EqualTo("Test Elek"));
-            Assert.That(profile.User["Username"], Is.EqualTo("testuser"));
-            Assert.That(profile.User["Email"], Is.EqualTo("test@example.com"));
-            Assert.That(profile.User["ProfilePicture"], Is.EqualTo("pic.jpg"));
+            Assert.That((string)profile.User["Name"], Is.EqualTo("Test Elek"));
+            Assert.That((string)profile.User["Username"], Is.EqualTo("testuser"));
+            Assert.That((string)profile.User["Email"], Is.EqualTo("test@example.com"));
+            Assert.That((byte[])profile.User["ProfilePicture"], Is.EqualTo(System.Text.Encoding.UTF8.GetBytes("pic.jpg")));
 
             // RANK
-            Assert.That(profile.Rank["Name"], Is.EqualTo("Champion"));
-            Assert.That(profile.Rank["Points"], Is.EqualTo(500));
+            Assert.That((string)profile.Rank["Name"], Is.EqualTo("Champion"));
+            Assert.That((int)profile.Rank["Points"], Is.EqualTo(500));
 
             // MUSCLES
-            Assert.That(profile.Muscles.Groups[0].Name, Is.EqualTo("Chest"));
-            Assert.That(profile.Muscles.Groups[0].Kg, Is.EqualTo(50));
+            Assert.That((string)profile.Muscles.Groups[0].Name, Is.EqualTo("Chest"));
+            Assert.That((int)profile.Muscles.Groups[0].Kg, Is.EqualTo(50));
 
             // WORKOUTS
-            Assert.That(profile.workouts.Count, Is.GreaterThan(0));
-            Assert.That(profile.workouts[0].Exercises.Count, Is.GreaterThan(0));
-            Assert.That(profile.workouts[0].Exercises[0].Name, Is.EqualTo("Bench Press"));
-            Assert.That(profile.workouts[0].Exercises[0].MaxWeight, Is.EqualTo(70));
+            Assert.That(profile.Workouts.Count, Is.GreaterThan(0));
+            Assert.That(profile.Workouts[0].Exercises.Count, Is.GreaterThan(0));
+            Assert.That(profile.Workouts[0].Exercises[0].Name, Is.EqualTo("Bench Press"));
+            Assert.That(profile.Workouts[0].Exercises[0].MaxWeight, Is.EqualTo(70));
+
         }
+
         [Test]
         public async Task GetProfile_ReturnsUnauthorizedWhenNoUserIdClaim()
         {
-            // Arrange
+            // Arrange - simulate no user
             _controller.ControllerContext = new ControllerContext
             {
-                HttpContext = new DefaultHttpContext() // nincs user
+                HttpContext = new DefaultHttpContext()
             };
 
             // Act
             var result = await _controller.GetProfile();
 
             // Assert
-            var unauthorizedResult = result as ObjectResult;
-            Assert.That(unauthorizedResult?.StatusCode, Is.EqualTo(401));
+            Assert.That(result, Is.InstanceOf<ObjectResult>());
+            var unauthorized = result as ObjectResult;
+            Assert.That(unauthorized?.StatusCode, Is.EqualTo(401));
         }
-
     }
 }

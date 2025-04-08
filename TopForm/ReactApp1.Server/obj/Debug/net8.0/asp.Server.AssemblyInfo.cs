@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("asp.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fe5c25a0ac4946368e5cfebe2588e10035b9cff7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ffc87ba2d5c1e3b7b44828bafb57c96e0c8e98a")]
 [assembly: System.Reflection.AssemblyProductAttribute("asp.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("asp.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -13,6 +13,10 @@ import {
   CardContent,
   Snackbar,
   Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -32,7 +36,12 @@ const WorkoutApp = () => {
   const [showWorkoutContainer, setShowWorkoutContainer] = useState(false);
   const [isViewingSavedWorkout, setIsViewingSavedWorkout] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-  
+
+  const [aiDialogOpen, setAiDialogOpen] = useState(false);
+  const [selectedMuscleGroups, setSelectedMuscleGroups] = useState([]);
+  const [difficulty, setDifficulty] = useState("közepes");
+  const [isGenerating, setIsGenerating] = useState(false);
+
   // Snackbar állapotok
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -52,11 +61,147 @@ const WorkoutApp = () => {
 
   // AI funkció kezelése
   const handleAIClick = () => {
-    // Ide jön az AI logika
-    setSnackbar({
-      open: true,
-      message: "AI edzéstervezés hamarosan elérhető lesz!",
-      severity: "info",
+    setAiDialogOpen(true);
+  };
+
+  // Izomcsoport kiválasztása
+  const handleMuscleGroupToggle = (group) => {
+    setSelectedMuscleGroups((prev) =>
+      prev.includes(group) ? prev.filter((g) => g !== group) : [...prev, group]
+    );
+  };
+
+  // AI generálás kezelése
+  const handleGenerateWorkout = async () => {
+    if (selectedMuscleGroups.length === 0) {
+      setSnackbar({
+        open: true,
+        message: "Válassz legalább egy izomcsoportot!",
+        severity: "warning",
+      });
+      return;
+    }
+
+    setIsGenerating(true);
+
+    try {
+      const prompt = generatePrompt(selectedMuscleGroups, difficulty);
+      
+      const response = await fetch('https://localhost:7196/api/GenerateWorkout/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          InputText: prompt
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      const generatedWorkout = parseAIResponse(data);
+      
+
+      if (response.ok) {
+        // 3. A válasz feldolgozása és átalakítása a komponens formátumára
+        const generatedWorkout = parseAIResponse(data);
+        setWorkout(generatedWorkout);
+        setShowWorkoutContainer(true);
+        setIsViewingSavedWorkout(false);
+        setHasUnsavedChanges(true);
+        setAiDialogOpen(false);
+
+        setSnackbar({
+          open: true,
+          message: "AI generálás sikeres!",
+          severity: "success",
+        });
+      } else {
+        throw new Error(data.error || "Failed to generate workout");
+      }
+    } catch (error) {
+      console.error('Error during AI workout generation:', error);
+      setSnackbar({
+        open: true,
+        message: `Hiba történt: ${error.message}`,
+        severity: "error",
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Prompt generáló segédfüggvény
+  const generatePrompt = (muscleGroups, difficulty) => {
+    let prompt = `Készíts egy ${difficulty} szintű edzéstervet a következő izomcsoportokra: ${muscleGroups.join(
+      ", "
+    )}.\n`;
+    prompt += "A válasz formátuma legyen:\n";
+    prompt += "Izomcsoport: Gyakorlatnév - Ismétlésszám x Sorozatszám\n\n";
+    prompt += "Példa:\n";
+    prompt += "Mell: Fekvenyomás - 10x3\n";
+    prompt += "Mell: Guggolás - 12x4\n\n";
+    prompt += "Edzésterv:\n";
+    return prompt;
+  };
+
+  // AI válasz feldolgozása
+  const parseAIResponse = (response) => {
+    // Feltételezzük, hogy a válasz a generatedText-ben van
+    const generatedText = response.generatedText || "";
+
+    // Szétvágás sorokra és szűrés
+    const lines = generatedText
+      .split("\n")
+      .filter((line) => line.trim() !== "")
+      .slice(0, 6); // Maximum 6 gyakorlat
+
+    return lines.map((line) => {
+      // Formátum: "Izomcsoport: Gyakorlatnév - Ismétlésszám x Sorozatszám"
+      const match = line.match(/(.+?):\s*(.+?)\s*-\s*(\d+)x(\d+)/i);
+
+      if (match) {
+        const category = match[1].trim();
+        const exercise = match[2].trim();
+        const reps = parseInt(match[3]);
+        const sets = parseInt(match[4]);
+
+        // Ellenőrizzük, hogy létezik-e az izomcsoport
+        const validCategory = Object.keys(exercises).includes(category)
+          ? category
+          : "Egyéb";
+
+        // Ellenőrizzük, hogy a gyakorlat létezik-e az izomcsoportban
+        const validExercise = exercises[validCategory]?.includes(exercise)
+          ? exercise
+          : exercise; // Ha nem létezik, mégis megjelenítjük
+
+        return {
+          category: validCategory,
+          edzesTipus: validExercise,
+          suly: "",
+          ismetles: reps.toString(),
+          sorozatok: Array.from({ length: sets }, () => ({
+            suly: "",
+            ismetles: reps.toString(),
+          })),
+        };
+      }
+
+      // Ha a sor nem illeszkedik a formátumra, alapértelmezett értékekkel térünk vissza
+      return {
+        category: "Egyéb",
+        edzesTipus: line.trim(),
+        suly: "",
+        ismetles: "10",
+        sorozatok: Array.from({ length: 3 }, () => ({
+          suly: "",
+          ismetles: "10",
+        })),
+      };
     });
   };
 
@@ -103,7 +248,9 @@ const WorkoutApp = () => {
       if (!data || (Array.isArray(data) && data.length === 0)) {
         setSnackbar({
           open: true,
-          message: `Nincs mentett edzés a kiválasztott dátumra: ${selectedDate.format("YYYY-MM-DD")}`,
+          message: `Nincs mentett edzés a kiválasztott dátumra: ${selectedDate.format(
+            "YYYY-MM-DD"
+          )}`,
           severity: "info",
         });
       } else {
@@ -168,13 +315,13 @@ const WorkoutApp = () => {
 
   useEffect(() => {
     if (!selectedDate) return;
-  
+
     if (data) {
       if (Array.isArray(data) && data.length > 0) {
         const allWorkoutDetails = data.flatMap(
           (workoutItem) => workoutItem.workoutDetails || []
         );
-  
+
         const formattedWorkout = allWorkoutDetails.map((detail) => {
           const weights = Array.isArray(detail.weights)
             ? detail.weights
@@ -186,18 +333,19 @@ const WorkoutApp = () => {
             ? detail.sets
             : [detail.sets || 0];
           const numSets = sets.length > 0 ? sets[0] : 1;
-  
+
           const sorozatok = Array.from({ length: numSets }, (_, i) => ({
             suly: weights[i] || weights[0] || 0,
             ismetles: reps[i] || reps[0] || 0,
           }));
-  
+
           // Itt használjuk a GetMuscleGroups függvényt, ha a szerver nem küldi el az izomcsoportokat
-          const muscleGroups = detail.muscleGroups || GetMuscleGroups(detail.exerciseName);
-          
+          const muscleGroups =
+            detail.muscleGroups || GetMuscleGroups(detail.exerciseName);
+
           return {
-            category: Array.isArray(muscleGroups) 
-              ? muscleGroups.join(", ") 
+            category: Array.isArray(muscleGroups)
+              ? muscleGroups.join(", ")
               : muscleGroups || "Unknown",
             edzesTipus: detail.exerciseName || "Unknown",
             suly: weights.join(", "),
@@ -205,7 +353,7 @@ const WorkoutApp = () => {
             sorozatok: sorozatok,
           };
         });
-  
+
         setWorkout(formattedWorkout);
         setShowWorkoutContainer(true);
         setIsViewingSavedWorkout(true);
@@ -329,7 +477,7 @@ const WorkoutApp = () => {
           message: `Hiba történt: ${error.message || "Ismeretlen hiba"}`,
           severity: "error",
         });
-      }
+      },
     });
   };
 
@@ -543,14 +691,18 @@ const WorkoutApp = () => {
                             "& .MuiSelect-select": {
                               fontSize: "0.875rem",
                               color: "#fff",
-                              backgroundColor: isViewingSavedWorkout ? "#2c2c2c" : "transparent",
+                              backgroundColor: isViewingSavedWorkout
+                                ? "#2c2c2c"
+                                : "transparent",
                             },
                             "&.Mui-disabled .MuiSelect-select": {
                               WebkitTextFillColor: "#fff !important", // fehér betű
                               backgroundColor: "#2c2c2c", // háttér
                             },
                             "& .MuiOutlinedInput-notchedOutline": {
-                              borderColor: isViewingSavedWorkout ? "#555" : "#d4af37", // keret szín
+                              borderColor: isViewingSavedWorkout
+                                ? "#555"
+                                : "#d4af37", // keret szín
                             },
                             "& .MuiSelect-icon": {
                               color: "#fff",
@@ -610,20 +762,23 @@ const WorkoutApp = () => {
                               "& .MuiSelect-select": {
                                 fontSize: "0.875rem",
                                 color: "#fff",
-                                backgroundColor: isViewingSavedWorkout ? "#2c2c2c" : "transparent",
+                                backgroundColor: isViewingSavedWorkout
+                                  ? "#2c2c2c"
+                                  : "transparent",
                               },
                               "&.Mui-disabled .MuiSelect-select": {
-                                WebkitTextFillColor: "#fff !important", 
-                                backgroundColor: "#2c2c2c", 
+                                WebkitTextFillColor: "#fff !important",
+                                backgroundColor: "#2c2c2c",
                               },
                               "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: isViewingSavedWorkout ? "#555" : "#d4af37", 
+                                borderColor: isViewingSavedWorkout
+                                  ? "#555"
+                                  : "#d4af37",
                               },
                               "& .MuiSelect-icon": {
                                 color: "#fff",
                               },
                             }}
-                            
                             disabled={isViewingSavedWorkout}
                             MenuProps={{
                               PaperProps: {
@@ -822,7 +977,8 @@ const WorkoutApp = () => {
       {!showWorkoutContainer && !isFetching && selectedDate && !data && (
         <Box sx={{ textAlign: "center", my: 4 }}>
           <Typography variant="h6">
-            Nincs elmentett edzés erre a napra: {selectedDate.format("YYYY-MM-DD")}
+            Nincs elmentett edzés erre a napra:{" "}
+            {selectedDate.format("YYYY-MM-DD")}
           </Typography>
           <Button
             onClick={newWorkout}
@@ -866,6 +1022,151 @@ const WorkoutApp = () => {
           {snackbar.message}
         </Alert>
       </Snackbar>
+
+      <Dialog
+        open={aiDialogOpen}
+        onClose={() => setAiDialogOpen(false)}
+        PaperProps={{
+          sx: {
+            background: "linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)",
+            color: "#fff",
+            minWidth: "400px",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            bgcolor: "transparent",
+            color: "#d4af37",
+            borderBottom: "1px solid rgba(212, 175, 55, 0.3)",
+            fontSize: "1.2rem",
+          }}
+        >
+          AI Edzéstervező
+        </DialogTitle>
+        <DialogContent sx={{ pt: 3 }}>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ color: "#d4af37", mb: 2 }}
+          >
+            Válaszd ki az izomcsoportokat:
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 1,
+              mb: 3,
+            }}
+          >
+            {Object.keys(exercises).map((group) => (
+              <Button
+                key={group}
+                variant={
+                  selectedMuscleGroups.includes(group)
+                    ? "contained"
+                    : "outlined"
+                }
+                onClick={() => handleMuscleGroupToggle(group)}
+                sx={{
+                  color: selectedMuscleGroups.includes(group)
+                    ? "#000"
+                    : "#d4af37",
+                  bgcolor: selectedMuscleGroups.includes(group)
+                    ? "#d4af37"
+                    : "transparent",
+                  borderColor: "#d4af37",
+                  "&:hover": {
+                    bgcolor: selectedMuscleGroups.includes(group)
+                      ? "#c19b2e"
+                      : "rgba(212, 175, 55, 0.1)",
+                    borderColor: "#d4af37",
+                  },
+                  fontSize: "0.8rem",
+                  px: 1,
+                  py: 0.5,
+                }}
+              >
+                {group}
+              </Button>
+            ))}
+          </Box>
+
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ color: "#d4af37", mb: 2 }}
+          >
+            Nehézségi szint:
+          </Typography>
+          <Select
+            value={difficulty}
+            onChange={(e) => setDifficulty(e.target.value)}
+            fullWidth
+            sx={{
+              color: "#fff",
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "#d4af37",
+              },
+              "& .MuiSvgIcon-root": {
+                color: "#fff",
+              },
+              mb: 3,
+            }}
+          >
+            <MenuItem value="kezdő" sx={{ color: "#fff", bgcolor: "#1a1a1a" }}>
+              Kezdő
+            </MenuItem>
+            <MenuItem
+              value="közepes"
+              sx={{ color: "#fff", bgcolor: "#1a1a1a" }}
+            >
+              Közepes
+            </MenuItem>
+            <MenuItem value="haladó" sx={{ color: "#fff", bgcolor: "#1a1a1a" }}>
+              Haladó
+            </MenuItem>
+          </Select>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            bgcolor: "transparent",
+            borderTop: "1px solid rgba(212, 175, 55, 0.3)",
+            p: 2,
+          }}
+        >
+          <Button
+            onClick={() => setAiDialogOpen(false)}
+            sx={{
+              color: "#d4af37",
+              "&:hover": {
+                bgcolor: "rgba(212, 175, 55, 0.1)",
+              },
+            }}
+          >
+            Mégse
+          </Button>
+          <Button
+            onClick={handleGenerateWorkout}
+            disabled={isGenerating || selectedMuscleGroups.length === 0}
+            sx={{
+              bgcolor: "#d4af37",
+              color: "#000",
+              "&:hover": {
+                bgcolor: "#c19b2e",
+              },
+              "&:disabled": {
+                bgcolor: "rgba(212, 175, 55, 0.3)",
+                color: "rgba(255,255,255,0.5)",
+              },
+              px: 3,
+            }}
+          >
+            {isGenerating ? "Generálás..." : "Generálás"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

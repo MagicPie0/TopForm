@@ -20,18 +20,25 @@ namespace WorkoutPlanner.Controllers
         [HttpPost("generate")]
         public async Task<IActionResult> GenerateWorkout([FromBody] AiRequest request)
         {
-            var json = System.Text.Json.JsonSerializer.Serialize(request);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await _httpClient.PostAsync("http://localhost:5000/generate", content);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
+                var response = await _httpClient.PostAsJsonAsync("http://localhost:5000/generate", new
+                {
+                    InputText = request.InputText
+                });
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+                }
+
                 var result = await response.Content.ReadAsStringAsync();
                 return Ok(result);
             }
-
-            return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
         }
 
         [HttpGet("health")]  // Will be available at /api/GenerateWorkout/health

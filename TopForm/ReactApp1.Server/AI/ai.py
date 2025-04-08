@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from datetime import datetime
@@ -30,34 +31,29 @@ def health_check():
             "timestamp": datetime.utcnow().isoformat()
         }), 500
 
-@app.route('/generate', methods=['POST'])
-def generate_workout():
+@app.route('/generate', methods=['POST'])  # Megváltoztattuk a végpontot
+def generate_workout_plan():
     try:
         data = request.get_json()
-        if not data or 'InputText' not in data:
+        if not data or 'InputText' not in data:  # Most már csak az InputText-re van szükség
             return jsonify({"error": "InputText is required"}), 400
 
-        inputs = tokenizer(data['InputText'], 
-                         return_tensors="pt", 
-                         padding="max_length", 
-                         truncation=True, 
-                         max_length=50)
-
+        # Generálás a kapott prompt alapján
+        inputs = tokenizer(data['InputText'], return_tensors="pt", max_length=100, truncation=True)
         output = model.generate(
             inputs["input_ids"],
-            attention_mask=inputs['attention_mask'],
-            max_length=100,
+            max_length=500,
             num_return_sequences=1,
-            pad_token_id=tokenizer.eos_token_id,
-            temperature=1,
-            top_k=10,
-            top_p=0.7,
+            temperature=0.7,
+            top_k=50,
+            top_p=0.9,
             do_sample=True,
-            repetition_penalty=1.5,
-            eos_token_id=tokenizer.eos_token_id
+            pad_token_id=tokenizer.eos_token_id
         )
 
         generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+        
+        # Válasz formátuma megegyezik a React elvárásaival
         return jsonify({
             'generatedText': generated_text,
             'timestamp': datetime.utcnow().isoformat()
