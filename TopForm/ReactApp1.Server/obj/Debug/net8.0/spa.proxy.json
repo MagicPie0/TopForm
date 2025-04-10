@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:52515",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "C:\\Users\\info.PREMONTREI\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\..\\reactapp1.client",
+"WorkingDirectory": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\..\\reactapp1.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

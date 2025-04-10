@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\info.PREMONTREI\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {}
+    "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\info.PREMONTREI\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {
+    "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\info.PREMONTREI\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
+        "projectUniqueName": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
         "projectName": "asp.Server",
-        "projectPath": "C:\\Users\\info.PREMONTREI\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
-        "packagesPath": "C:\\Users\\info.PREMONTREI\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\info.PREMONTREI\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\obj\\",
+        "projectPath": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\asp.Server.csproj",
+        "packagesPath": "C:\\Users\\JustHurky\\.nuget\\packages\\",
+        "outputPath": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\info.PREMONTREI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\JustHurky\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -151,7 +151,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

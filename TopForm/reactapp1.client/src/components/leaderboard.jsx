@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Search, Close, Refresh, OpenInNew, Diamond, Whatshot, Star } from "@mui/icons-material";
-import UserDetailsPopup from "./userDetailsPopup";
 import quotes from "../workout/quotes.json";
 import { useLeaderboardData } from "../scripts/leaderboard.js";
 
@@ -148,6 +147,211 @@ const Leaderboard = () => {
     setSelectedUserForChart(null);
   };
 
+  const UserDetailsPopup = ({ user, onClose }) => {
+    return (
+      <Box 
+        sx={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1300,
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          backdropFilter: 'blur(4px)',
+        }}
+        onClick={(e) => e.target === e.currentTarget && onClose()}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.2 }}
+          style={{
+            width: '100%',
+            maxWidth: '420px',
+            margin: '0 20px'
+          }}
+        >
+          <Card sx={{
+            background: 'linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%)',
+            padding: '30px',
+            borderRadius: '8px',
+            textAlign: 'center',
+            position: 'relative',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6)',
+            border: '1px solid rgba(212, 175, 55, 0.3)',
+            color: '#ffffff',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              background: 'radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 70%)',
+              zIndex: -1,
+            }
+          }}>
+            <IconButton
+              sx={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                color: 'rgba(212, 175, 55, 0.8)',
+                '&:hover': {
+                  color: '#d4af37',
+                  backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                }
+              }}
+              onClick={onClose}
+            >
+              <Close />
+            </IconButton>
+            
+            <Box sx={{ marginBottom: '20px', position: 'relative' }}>
+              <Avatar
+                src={getProfilePicture(user)}
+                sx={{
+                  width: '100px',
+                  height: '100px',
+                  margin: '0 auto 15px',
+                  border: '3px solid #d4af37',
+                  boxShadow: '0 0 20px rgba(212, 175, 55, 0.3)'
+                }}
+              />
+              <Typography variant="h5" sx={{ color: '#d4af37', fontWeight: 700 }}>
+                {user.username}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)' }}>
+                {user.rank?.rankName || "Kezdő"} szint
+              </Typography>
+              <Box
+                component="img"
+                src={getRankImages(user.rank)}
+                alt="Rank"
+                sx={{
+                  width: '60px',
+                  height: '60px',
+                  margin: '10px auto',
+                  display: 'block'
+                }}
+              />
+            </Box>
+            
+            <Box sx={{ 
+              marginTop: '20px',
+              textAlign: 'left',
+              background: 'rgba(30, 30, 30, 0.5)',
+              padding: '20px',
+              borderRadius: '6px',
+              border: '1px solid rgba(255, 255, 255, 0.05)'
+            }}>
+              <Box component="ul" sx={{ 
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                '& li': {
+                  margin: '12px 0',
+                  padding: '8px 0',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  fontSize: '0.95rem',
+                },
+                '& li:last-child': {
+                  borderBottom: 'none'
+                },
+                '& li span:first-child': {
+                  color: '#d4af37',
+                  fontWeight: 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                },
+                '& li span:last-child': {
+                  fontWeight: 600,
+                  color: '#ffffff'
+                }
+              }}>
+                <li><span>Pontok:</span> <span>{user.rank?.points || 0}</span></li>
+                <li><span>Szint:</span> <span>{user.rank?.rankName || "Kezdő"}</span></li>
+              </Box>
+              
+              <Grid container spacing={2} sx={{ marginTop: '20px' }}>
+                <Grid item xs={6}>
+                  <Box sx={{ 
+                    background: 'rgba(40, 40, 40, 0.7)',
+                    padding: '12px',
+                    borderRadius: '6px',
+                    borderLeft: '3px solid #d4af37',
+                    color: '#d4af37',
+                    height: '100%'
+                  }}>
+                    <Typography variant="body2">Kar edzés</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                      {user.muscleGroup?.kg1 || 0} kg
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box sx={{ 
+                    background: 'rgba(40, 40, 40, 0.7)',
+                    padding: '12px',
+                    borderRadius: '6px',
+                    borderLeft: '3px solid #8B0000',
+                    color: '#8B0000',
+                    height: '100%'
+                  }}>
+                    <Typography variant="body2">Mell edzés</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                      {user.muscleGroup?.kg2 || 0} kg
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box sx={{ 
+                    background: 'rgba(40, 40, 40, 0.7)',
+                    padding: '12px',
+                    borderRadius: '6px',
+                    borderLeft: '3px solid #555',
+                    color: '#555',
+                    height: '100%'
+                  }}>
+                    <Typography variant="body2">Comb edzés</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                      {user.muscleGroup?.kg3 || 0} kg
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box sx={{ 
+                    background: 'rgba(40, 40, 40, 0.7)',
+                    padding: '12px',
+                    borderRadius: '6px',
+                    borderLeft: '3px solid #999',
+                    color: '#999',
+                    height: '100%'
+                  }}>
+                    <Typography variant="body2">Vádli edzés</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                      {user.muscleGroup?.kg4 || 0} kg
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Card>
+        </motion.div>
+      </Box>
+    );
+  };
+
   return (
     <Box sx={{
       minHeight: '100vh',
@@ -178,7 +382,6 @@ const Leaderboard = () => {
         position: 'relative',
         zIndex: 1
       }}>
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -794,9 +997,9 @@ const Leaderboard = () => {
       </Box>
 
       {selectedUserForPopup && (
-        <UserDetailsPopup
-          user={selectedUserForPopup}
-          onClose={() => setSelectedUserForPopup(null)}
+        <UserDetailsPopup 
+          user={selectedUserForPopup} 
+          onClose={() => setSelectedUserForPopup(null)} 
         />
       )}
     </Box>

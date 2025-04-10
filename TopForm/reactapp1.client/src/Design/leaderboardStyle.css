@@ -112,7 +112,6 @@
     border-radius: 50%;
   }
   
-  /* Felhasználó lista stílusai */
   .user-list {
     display: grid;
     gap: 10px;
@@ -121,21 +120,21 @@
   }
 
   .user-list::-webkit-scrollbar {
-    width: 8px; /* Görgetősáv szélessége */
+    width: 8px; 
   }
   
   .user-list::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Görgetősáv háttere */
+    background: #f1f1f1; 
     border-radius: 4px;
   }
   
   .user-list::-webkit-scrollbar-thumb {
-    background: #888; /* Görgetősáv "gombjának" színe */
+    background: #888; 
     border-radius: 4px;
   }
   
   .user-list::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Görgetősáv "gombjának" színe hover állapotban */
+    background: #555; 
   }
   
   .user-item {
@@ -180,7 +179,6 @@
       font-size: 1.5rem;
     }
 
-/* Idézet doboz stílusai */
 .quote-box {
   position: fixed;
   bottom: 40px;
@@ -205,7 +203,6 @@
   font-style: italic;
   color: #555;
 }
-/* Hírek doboz stílusai */
 .news-container {
   position: fixed;
   top: 20px;
@@ -233,21 +230,21 @@
 }
 
 .news-box::-webkit-scrollbar {
-  width: 8px; /* Görgetősáv szélessége */
+  width: 8px; 
 }
 
 .news-box::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Görgetősáv háttere */
+  background: #f1f1f1; 
   border-radius: 10px;
 }
 
 .news-box::-webkit-scrollbar-thumb {
-  background: #888; /* Görgetősáv "gombjának" színe */
+  background: #888; 
   border-radius: 4px;
 }
 
 .news-box::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Görgetősáv "gombjának" színe hover állapotban */
+  background: #555; 
 }
 
 .news-box h3 {
