@@ -43,7 +43,6 @@ namespace back_end.Tests
 
             _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
 
-            // Mock user claims (user id in JWT)
             var userClaims = new List<Claim>
     {
         new Claim("UserId", "1")
@@ -77,7 +76,6 @@ namespace back_end.Tests
         [Test]
         public async Task PostWorkout_ExceptionDuringSave_ReturnsServerError()
         {
-            // Arrange
             var workoutRequest = new WorkoutRequest
             {
                 WorkoutNames = new List<string> { "Push Up" },
@@ -86,7 +84,6 @@ namespace back_end.Tests
                 Sets = new List<string> { "3" }
             };
 
-            // Mock AddAsync to throw an exception when called
             _mockContext.Setup(x => x.Workouts.AddAsync(It.IsAny<Workouts>(), default))
                        .ThrowsAsync(new System.Exception("Database error"));
 
@@ -105,10 +102,8 @@ namespace back_end.Tests
                 }
             };
 
-            // Act
             var result = await controller.PostWorkout(workoutRequest);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<ObjectResult>());
             var errorResult = result as ObjectResult;
             Assert.That(errorResult?.StatusCode, Is.EqualTo(200));
@@ -119,19 +114,16 @@ namespace back_end.Tests
         [Test]
         public async Task PostWorkout_InvalidRequest_ReturnsBadRequest()
         {
-            // Arrange
             var workoutRequest = new WorkoutRequest
             {
-                WorkoutNames = null, // Missing workout names
+                WorkoutNames = null,
                 WeightsKg = new List<string> { "10" },
                 Reps = new List<string> { "15" },
                 Sets = new List<string> { "3" }
             };
 
-            // Act
             var result = await _controller.PostWorkout(workoutRequest);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = result as BadRequestObjectResult;
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(400));
@@ -140,8 +132,7 @@ namespace back_end.Tests
         [Test]
         public async Task PostWorkout_UnauthorizedRequest_ReturnsUnauthorized()
         {
-            // Arrange
-            _mockHttpContextAccessor.Setup(x => x.HttpContext.User).Returns(new ClaimsPrincipal()); // Empty claims
+            _mockHttpContextAccessor.Setup(x => x.HttpContext.User).Returns(new ClaimsPrincipal());
 
             var workoutRequest = new WorkoutRequest
             {
@@ -157,15 +148,13 @@ namespace back_end.Tests
                 {
                     HttpContext = new DefaultHttpContext()
                     {
-                        User = new ClaimsPrincipal() // No user in the context
+                        User = new ClaimsPrincipal() 
                     }
                 }
             };
 
-            // Act
             var result = await _controller.PostWorkout(workoutRequest);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<UnauthorizedObjectResult>());
             var unauthorizedResult = result as UnauthorizedObjectResult;
             Assert.That(unauthorizedResult.StatusCode, Is.EqualTo(401));

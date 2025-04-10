@@ -8,16 +8,12 @@ const loginUser = async ({ username, password }) => {
       password,
     });
 
-    // Ha a válasz sikeres, visszaadjuk az adatokat
     return response.data;
   } catch (error) {
-    // Hibakezelés
     if (error.response) {
-      // A szerror válasza tartalmaz hibát
       const errorMessage = error.response.data.message || "Hibás felhasználónév vagy jelszó.";
       throw new Error(errorMessage);
     } else {
-      // Egyéb hiba (pl. hálózati hiba)
       throw new Error("Hiba történt a bejelentkezés során.");
     }
   }
@@ -27,7 +23,6 @@ export function useLogin() {
   return useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      // JWT token mentése localStorage-ba
       localStorage.setItem("jwt", data.token);
       console.log("Jwt token: ", localStorage.getItem("jwt"));
     },

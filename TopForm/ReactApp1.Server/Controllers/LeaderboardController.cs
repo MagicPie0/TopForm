@@ -20,19 +20,15 @@ namespace asp.Server.Controllers
         [HttpGet("get-leaderboard-details")]
         public async Task<IActionResult> GetLeaderboardDetails()
         {
-            // Minden user lekérése, beleértve a profilPic-et is
             var allUsers = await _context.Users
                 .Select(u => new { u.Id, u.Username, u.ProfilePicture })
                 .ToListAsync();
 
-            // Minden rank és muscle group lekérése
             var allRanks = await _context.Ranks.ToListAsync();
             var allMuscleGroups = await _context.MuscleGroups.ToListAsync();
 
-            // Az összes useractivity lekérése
             var allUserActivities = await _context.UserActivity.ToListAsync();
 
-            // Felhasználók adatainak összerendezése
             var leaderboard = allUsers.Select(user =>
             {
                 var userActivities = allUserActivities
@@ -41,12 +37,10 @@ namespace asp.Server.Controllers
 
                 var workoutIds = userActivities.Select(ua => ua.WorkoutId).Distinct().ToList();
 
-                // Az összes workout adatainak lekérdezése
                 var workouts = _context.Workouts
                     .Where(w => workoutIds.Contains(w.Id))
                     .ToList();
 
-                // Az első useractivity rekord lekérése (ha van)
                 var firstActivity = userActivities.FirstOrDefault();
 
                 var rank = firstActivity != null
@@ -61,8 +55,8 @@ namespace asp.Server.Controllers
                 {
                     user.Id,
                     user.Username,
-                    ProfilPic = user.ProfilePicture != null ? Convert.ToBase64String(user.ProfilePicture) : null, // Blob átalakítása base64 stringgé
-                    Workouts = workouts, // Workout-ok itt szerepelnek
+                    ProfilPic = user.ProfilePicture != null ? Convert.ToBase64String(user.ProfilePicture) : null, 
+                    Workouts = workouts,
                     Rank = rank,
                     MuscleGroup = muscleGroup
                 };
@@ -70,7 +64,7 @@ namespace asp.Server.Controllers
 
             return Ok(new
             {
-                Leaderboard = leaderboard // Visszaadjuk a leaderboard adatokat
+                Leaderboard = leaderboard 
             });
         }
     }

@@ -18,10 +18,9 @@ namespace back_end.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        // Titkos kulcs a JWT token aláírásához
-        private const string JwtKey = "your-longer-secret-key-here-256-bitss"; // ✅ Titkos kulcs
-        private const string JwtIssuer = "yourdomain.com"; // ✅ Kibocsátó
-        private const string JwtAudience = "yourdomain.com"; // ✅ Címzett
+        private const string JwtKey = "your-longer-secret-key-here-256-bitss"; 
+        private const string JwtIssuer = "yourdomain.com";
+        private const string JwtAudience = "yourdomain.com";
         public AuthController(ApplicationDbContext context)
         {
             _context = context;
@@ -43,13 +42,11 @@ namespace back_end.Controllers
                 return NotFound(new { message = "User not found.", field = "username", status = 404 });
             }
 
-            // Ellenőrizd, hogy a jelszó mező nem NULL
             if (string.IsNullOrEmpty(user.Password))
             {
                 return StatusCode(500, new { message = "User password is not set.", status = 500 });
             }
 
-            // Ellenőrizzük a jelszót
             bool isValidPassword = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password);
 
             if (!isValidPassword)
@@ -57,12 +54,10 @@ namespace back_end.Controllers
                 return Unauthorized(new { message = "Invalid password.", field = "password", status = 401 });
             }
 
-            // A jelszó helyes, folytassuk a belépéssel
             var token = GenerateJwtToken(user);
             return Ok(new { message = "Login successful", token, status = 200 });
         }
 
-        // Token generáló metódus
         private string GenerateJwtToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtKey));

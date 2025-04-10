@@ -19,9 +19,9 @@ namespace asp.Server.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly string _jwtSecretKey = "your-longer-secret-key-here-256-bitss"; // Titkos kulcs a JWT token validálásához
-        private readonly string _jwtIssuer = "yourdomain.com"; // Token kiállítója
-        private readonly string _jwtAudience = "yourdomain.com"; // Token célközönsége
+        private readonly string _jwtSecretKey = "your-longer-secret-key-here-256-bitss"; 
+        private readonly string _jwtIssuer = "yourdomain.com"; 
+        private readonly string _jwtAudience = "yourdomain.com"; 
 
         public UserController(ApplicationDbContext context)
         {
@@ -29,14 +29,13 @@ namespace asp.Server.Controllers
         }
         public static string HashPassword(string password)
         {
-            return BCrypt.Net.BCrypt.HashPassword(password); // Jelszó hashelése bcrypt-tel
+            return BCrypt.Net.BCrypt.HashPassword(password); 
         }
 
         public static bool VerifyPassword(string inputPassword, string storedHash)
         {
-            return BCrypt.Net.BCrypt.Verify(inputPassword, storedHash); // Jelszó ellenőrzése bcrypt-tel
+            return BCrypt.Net.BCrypt.Verify(inputPassword, storedHash); 
         }
-        // Token validálása
         private ClaimsPrincipal ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -60,13 +59,11 @@ namespace asp.Server.Controllers
             }
             catch (Exception ex)
             {
-                // Hibakereséshez: naplózd a kivételt
                 Console.WriteLine("Token validation error: " + ex.Message);
                 return null;
             }
         }
 
-        // Profilkép feltöltése
         [HttpPost("upload-profile-picture")]
         public async Task<IActionResult> UploadProfilePicture([FromBody] ImageRequest imageRequest)
         {
@@ -77,10 +74,8 @@ namespace asp.Server.Controllers
 
             try
             {
-                // A base64-es képből byte[]-ot készítünk
                 byte[] imageBytes = Convert.FromBase64String(imageRequest.Base64Image);
 
-                // Token ellenőrzése
                 var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                 if (string.IsNullOrEmpty(token))
                 {
@@ -107,7 +102,6 @@ namespace asp.Server.Controllers
                     return NotFound("User not found");
                 }
 
-                // A profilkép byte tömbjét tároljuk az adatbázisban
                 user.ProfilePicture = imageBytes;
                 await _context.SaveChangesAsync();
 
@@ -119,7 +113,6 @@ namespace asp.Server.Controllers
             }
         }
 
-        // Profilkép lekérése
         [HttpGet("get-profile-picture")]
         public async Task<IActionResult> GetProfilePicture()
         {
@@ -154,11 +147,9 @@ namespace asp.Server.Controllers
                 return NotFound("Profile picture not found");
             }
 
-            // A profilkép byte tömböt visszaküldjük
-            return File(user.ProfilePicture, "image/jpeg"); // MIME típus beállítása
+            return File(user.ProfilePicture, "image/jpeg");
         }
 
-        // Felhasználói adatok frissítése
         [Authorize]
         [HttpPost("update")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
@@ -195,7 +186,7 @@ namespace asp.Server.Controllers
 
             if (!string.IsNullOrEmpty(updateUserDto.OldPassword))
             {
-                if (!VerifyPassword(updateUserDto.OldPassword, user.Password)) // Jelszó ellenőrzése bcrypt-tel
+                if (!VerifyPassword(updateUserDto.OldPassword, user.Password)) 
                 {
                     return BadRequest("Old password is incorrect.");
                 }
@@ -213,7 +204,7 @@ namespace asp.Server.Controllers
 
             if (!string.IsNullOrEmpty(updateUserDto.NewPassword))
             {
-                user.Password = HashPassword(updateUserDto.NewPassword); // Jelszó hashelése bcrypt-tel
+                user.Password = HashPassword(updateUserDto.NewPassword); 
             }
 
             await _context.SaveChangesAsync();
@@ -221,7 +212,6 @@ namespace asp.Server.Controllers
             return Ok("Profile updated successfully.");
         }
 
-        // Felhasználói adatok lekérése
         [HttpGet("details")]
         public async Task<IActionResult> GetUserDetails()
         {
@@ -254,13 +244,11 @@ namespace asp.Server.Controllers
             return Ok(new { name = user.Name, username = user.Username, email = user.Email });
         }
 
-        // Adatmodell a profilkép feltöltéséhez
         public class ImageRequest
         {
             public string Base64Image { get; set; }
         }
 
-        // Adatmodell a felhasználói adatok frissítéséhez
         public class UpdateUserDto
         {
             public string OldPassword { get; set; }

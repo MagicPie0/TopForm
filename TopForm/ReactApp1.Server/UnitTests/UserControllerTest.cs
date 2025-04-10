@@ -20,17 +20,15 @@ namespace back_end.Tests
         private Mock<ApplicationDbContext> _mockContext;
         private UserController _controller;
         private User _mockUser;
-        private string _jwtSecretKey = "your-longer-secret-key-here-256-bitss"; // A kulcsot ugyanúgy kell használnod, mint az alkalmazásban
+        private string _jwtSecretKey = "your-longer-secret-key-here-256-bitss";
 
         [SetUp]
         public void Setup()
         {
-            // DbContextOptions létrehozása
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                          .UseInMemoryDatabase("TestDatabase") // InMemory adatbázis használata
+                          .UseInMemoryDatabase("TestDatabase") 
                           .Options;
 
-            // ApplicationDbContext mockolása
             _mockContext = new Mock<ApplicationDbContext>(options);
             _mockUser = new User
             {
@@ -56,7 +54,6 @@ namespace back_end.Tests
 
             _controller = new UserController(_mockContext.Object);
 
-            // JWT token generálása a teszt számára
             var claims = new List<Claim> { new Claim("UserId", "1") };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSecretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -71,7 +68,6 @@ namespace back_end.Tests
             var tokenHandler = new JwtSecurityTokenHandler();
             var generatedToken = tokenHandler.WriteToken(token);
 
-            // Beállítjuk a valid JWT-t az Authorization header-be
             _controller.ControllerContext = new ControllerContext
             {
                 HttpContext = new DefaultHttpContext
@@ -84,17 +80,14 @@ namespace back_end.Tests
         [Test]
         public async Task UploadProfilePicture_ValidRequest_ReturnsOk()
         {
-            // Arrange
             var base64Image = Convert.ToBase64String(Encoding.UTF8.GetBytes("fake-image-content"));
             var imageRequest = new UserController.ImageRequest
             {
                 Base64Image = base64Image
             };
 
-            // Act
             var result = await _controller.UploadProfilePicture(imageRequest);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult?.Value.ToString(), Does.Contain("Profile picture uploaded"));

@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-
 import { lazy, Suspense } from "react";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
-
-// Lazy loaded components
 const PageNotFound = lazy(() => import("./ErrorPages/PageNotFound.jsx"));
 const MainPageLayout = lazy(() => import("./components/mainPage"));
 const Settings = lazy(() => import("./components/settings.jsx"));
@@ -16,10 +14,9 @@ const Workout = lazy(() => import("./components/workoutPage"));
 const Diet = lazy(() => import("./components/dietPage"));
 const Leaderboard = lazy(() => import("./components/leaderboard"));
 
-// Static import
 import WelcomePage from "./components/WelcomePage";
 import Login from "./components/loginRegister.jsx";
-import LoadingPage from "./ErrorPages/loadingPage"; // Import your loading page component
+import LoadingPage from "./ErrorPages/loadingPage"; 
 import AcessDenied from "./ErrorPages/AccessDeniedPage.jsx";
 
 const queryClient = new QueryClient();
@@ -41,7 +38,6 @@ const App = () => {
             <Route path="/" element={<WelcomePage />} />
             <Route path="/login" element={<Login />} />
             
-            {/* Routes that show bodyguard when unauthorized */}
             <Route element={<ProtectedRoute showBodyguard={true} />}>
               <Route path="/registration" element={<Reg />} />
               <Route path="/mainPage" element={<MainLayoutWrapper />}>
@@ -56,7 +52,6 @@ const App = () => {
               </Route>
             </Route>
 
-            {/* Admin route without bodyguard */}
             <Route element={<ProtectedRoute showBodyguard={false} />}>
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/loading" element={<LoadingPage />} />

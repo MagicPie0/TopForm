@@ -25,28 +25,25 @@ const Settings = () => {
   const navigate = useNavigate();
 
 
-  // User data state
   const [userData, setUserData] = useState({
     profileImage: null,
     name: "",
     username: "",
     email: ""
   });
-  
-  // Password states
+
   const [passwords, setPasswords] = useState({
     oldPassword: "",
     newPassword: "",
     confirmPassword: ""
   });
-  
-  // UI states
+
   const [visibility, setVisibility] = useState({
     oldPassword: false,
     newPassword: false,
     confirmPassword: false
   });
-  
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -116,7 +113,7 @@ const Settings = () => {
 
       const imageBlob = await response.blob();
       const imageUrl = URL.createObjectURL(imageBlob);
-      setUserData(prev => ({...prev, profileImage: imageUrl}));
+      setUserData(prev => ({ ...prev, profileImage: imageUrl }));
     } catch (error) {
       console.error("Error fetching image:", error);
     }
@@ -129,8 +126,8 @@ const Settings = () => {
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64Image = reader.result.split(",")[1];
-      setUserData(prev => ({...prev, profileImage: reader.result}));
-      
+      setUserData(prev => ({ ...prev, profileImage: reader.result }));
+
       try {
         const token = localStorage.getItem("jwt");
         if (!token) {
@@ -167,16 +164,16 @@ const Settings = () => {
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
-    setPasswords(prev => ({...prev, [name]: value}));
+    setPasswords(prev => ({ ...prev, [name]: value }));
   };
 
   const handleUserDataChange = (e) => {
     const { name, value } = e.target;
-    setUserData(prev => ({...prev, [name]: value}));
+    setUserData(prev => ({ ...prev, [name]: value }));
   };
 
   const toggleVisibility = (field) => {
-    setVisibility(prev => ({...prev, [field]: !prev[field]}));
+    setVisibility(prev => ({ ...prev, [field]: !prev[field] }));
   };
 
   useEffect(() => {
@@ -216,7 +213,7 @@ const Settings = () => {
     };
 
     fetchUserData();
-  }, [ navigate]);
+  }, [navigate]);
 
   if (loading) {
     return (
@@ -240,7 +237,6 @@ const Settings = () => {
       fontFamily: '"Montserrat", sans-serif',
       position: 'relative'
     }}>
-      {/* Header */}
       <Box sx={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -252,7 +248,7 @@ const Settings = () => {
         position: 'relative',
         zIndex: 1
       }}>
-       
+
 
         <Typography
           variant="h5"
@@ -266,29 +262,9 @@ const Settings = () => {
           {"Settings"}
         </Typography>
 
-        <Box sx={{ display: 'flex', gap: '10px' }}>
-          <motion.div whileHover={{ scale: 1.05 }}>
-            <Button
-              variant="outlined"
-              onClick={handleLanguageToggle}
-              sx={{
-                color: '#d4af37',
-                borderColor: '#d4af37',
-                minWidth: '60px',
-                '&:hover': {
-                  borderColor: '#d4af37',
-                  backgroundColor: 'rgba(212, 175, 55, 0.1)'
-                }
-              }}
-            >
 
-              HU
-            </Button>
-          </motion.div>
-        </Box>
       </Box>
 
-      {/* Main Content */}
       <Box sx={{
         maxWidth: '800px',
         margin: '0 auto',
@@ -296,7 +272,6 @@ const Settings = () => {
         position: 'relative',
         zIndex: 1
       }}>
-        {/* Profile Section */}
         <Card sx={{
           mb: 4,
           borderRadius: '8px',
@@ -315,7 +290,7 @@ const Settings = () => {
               {"Profile"}
             </Typography>
           </Box>
-          
+
           <CardContent>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, flexDirection: { xs: 'column', sm: 'row' } }}>
               <Avatar
@@ -335,18 +310,18 @@ const Settings = () => {
                   </Typography>
                 )}
               </Avatar>
-              
+
               <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
-                <Typography variant="body2" sx={{ 
+                <Typography variant="body2" sx={{
                   color: 'rgba(255,255,255,0.7)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: { xs: 'center', sm: 'flex-start' }
                 }}>
-                  <Diamond sx={{ fontSize: '1rem', mr: 1, color: '#d4af37' }} /> 
+                  <Diamond sx={{ fontSize: '1rem', mr: 1, color: '#d4af37' }} />
                   {userData.username}
                 </Typography>
-                <Typography variant="h6" sx={{ 
+                <Typography variant="h6" sx={{
                   fontWeight: 700,
                   color: '#d4af37',
                   textTransform: 'uppercase'
@@ -389,7 +364,6 @@ const Settings = () => {
           </CardContent>
         </Card>
 
-        {/* Username Section */}
         <Card sx={{
           mb: 4,
           borderRadius: '8px',
@@ -427,7 +401,6 @@ const Settings = () => {
           </CardContent>
         </Card>
 
-        {/* Password Section */}
         <Card sx={{
           mb: 4,
           borderRadius: '8px',
@@ -447,7 +420,7 @@ const Settings = () => {
               {"Change Password"}
             </Typography>
           </Box>
-          
+
           <CardContent>
             <TextField
               label={"Old Password"}
@@ -568,7 +541,6 @@ const Settings = () => {
           </CardContent>
         </Card>
 
-        {/* Save Button */}
         <motion.div
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -596,7 +568,6 @@ const Settings = () => {
         </motion.div>
       </Box>
 
-      {/* Snackbars for feedback */}
       <Snackbar
         open={!!error}
         autoHideDuration={6000}

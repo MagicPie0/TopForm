@@ -24,7 +24,6 @@ namespace back_end.Tests
         [SetUp]
         public void SetUp()
         {
-            // Create options for DbContext
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .Options;
 
@@ -35,15 +34,12 @@ namespace back_end.Tests
         [Test]
         public async Task GetUserForAdmin_ReturnsOkResult_WithUserList()
         {
-            // Arrange
             var users = new List<User> { new User { Id = 1, Username = "testUser", Password = "teszt", Email = "test@example.com", Name = "Test User" } };
             var mockSet = CreateMockDbSet(users.AsQueryable());
             _mockContext.Setup(c => c.Users).Returns(mockSet.Object);
 
-            // Act
             var result = await _controller.GetUserForAdmin();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
@@ -53,15 +49,12 @@ namespace back_end.Tests
         [Test]
         public async Task GetWorkoutForAdmin_ReturnsOkResult_WithWorkoutList()
         {
-            // Arrange
             var workouts = new List<Workouts> { new Workouts { Id = 1, WorkoutData = "Workout 1", WorkoutDate = DateTime.Now } };
             var mockSet = CreateMockDbSet(workouts.AsQueryable());
             _mockContext.Setup(c => c.Workouts).Returns(mockSet.Object);
 
-            // Act
             var result = await _controller.GetWorkoutForAdmin();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
@@ -71,15 +64,12 @@ namespace back_end.Tests
         [Test]
         public async Task GetDietForAdmin_ReturnsOkResult_WithDietList()
         {
-            // Arrange
             var diets = new List<Diet> { new Diet { Id = 1, Breakfast = "Pancakes", Lunch = "Chicken Salad", Diner = "Pasta", Dessert = "Ice Cream", FoodDate = DateTime.Now } };
             var mockSet = CreateMockDbSet(diets.AsQueryable());
-            _mockContext.Setup(c => c.Diet).Returns(mockSet.Object); // Changed from Diets to Diet
+            _mockContext.Setup(c => c.Diet).Returns(mockSet.Object);
 
-            // Act
             var result = await _controller.GetDietForAdmin();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
@@ -89,7 +79,6 @@ namespace back_end.Tests
         [Test]
         public async Task GetMuscleGroupsForAdmin_ReturnsOkResult_WithMuscleGroupsList()
         {
-            // Arrange
             var muscleGroups = new List<MuscleGroup> { new MuscleGroup
             {
                 id = 1,
@@ -103,10 +92,8 @@ namespace back_end.Tests
             var mockSet = CreateMockDbSet(muscleGroups.AsQueryable());
             _mockContext.Setup(c => c.MuscleGroups).Returns(mockSet.Object);
 
-            // Act
             var result = await _controller.GetMuscleGroupsForAdmin();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
@@ -116,15 +103,12 @@ namespace back_end.Tests
         [Test]
         public async Task GetRanksForAdmin_ReturnsOkResult_WithRanksList()
         {
-            // Arrange
             var ranks = new List<Ranks> { new Ranks { id = 1, rankName = "Rank 1", points = 1000 } };
             var mockSet = CreateMockDbSet(ranks.AsQueryable());
             _mockContext.Setup(c => c.Ranks).Returns(mockSet.Object);
 
-            // Act
             var result = await _controller.GetRanksForAdmin();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
@@ -134,15 +118,12 @@ namespace back_end.Tests
         [Test]
         public async Task GetUserActivityForAdmin_ReturnsOkResult_WithUserActivityList()
         {
-            // Arrange
             var userActivity = new List<user_activity> { new user_activity { id = 1, UserId = 1, RanksID = 1, DietId = 1, MuscleGroupId = 1, WorkoutId = 1 } };
             var mockSet = CreateMockDbSet(userActivity.AsQueryable());
             _mockContext.Setup(c => c.UserActivity).Returns(mockSet.Object);
 
-            // Act
             var result = await _controller.GetUserActivityForAdmin();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
@@ -174,7 +155,6 @@ namespace back_end.Tests
         }
     }
 
-    // Helper classes for async operations
     internal class TestAsyncEnumerator<T> : IAsyncEnumerator<T>
     {
         private readonly IEnumerator<T> _inner;

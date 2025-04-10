@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 
-// Token validation function
 function isTokenValid(token) {
   if (!token) return false;
   try {
@@ -39,13 +38,10 @@ const diet = async (dietData) => {
 
     return response.data;
   } catch (error) {
-    // Hibakezelés
     if (error.response) {
-      // A szerver válasza tartalmaz hibát
       console.error("Server response:", error.response.data);
       throw new Error(error.response.data || error.response.statusText);
     } else {
-      // Egyéb hiba (pl. hálózati hiba)
       console.error("Diet save error:", error.message);
       throw new Error("Hálózati hiba történt a diéta mentése során.");
     }

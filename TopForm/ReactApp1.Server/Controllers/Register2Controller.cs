@@ -29,7 +29,6 @@ public class Registration2Controller : ControllerBase
             return BadRequest(new { message = "Invalid request: MuscleGroups is required.", status = 400 });
         }
 
-        // A JWT-ből kinyerjük a felhasználói ID-t
         var userIdFromToken = User.FindFirst("UserId")?.Value;
 
         if (string.IsNullOrEmpty(userIdFromToken))
@@ -49,12 +48,10 @@ public class Registration2Controller : ControllerBase
         {
             try
             {
-                // 1️⃣ User gender frissítése
                 user.Men = request.Men;
                 await _context.SaveChangesAsync();
 
                 DateTime dateTime = DateTime.Now;
-                // 2️⃣ Izomcsoportok hozzáadása vagy frissítése
                 var muscleGroup = new MuscleGroup
                 {
                     name1 = request.MuscleGroups.Count > 0 ? request.MuscleGroups[0].Name : null,
@@ -71,13 +68,11 @@ public class Registration2Controller : ControllerBase
                 _context.MuscleGroups.Add(muscleGroup);
                 await _context.SaveChangesAsync();
 
-                // 3️⃣ user_activity tábla frissítése: user_id és muscle_group_id hozzáadása vagy frissítése
                 var existingUserActivity = await _context.UserActivity
                     .FirstOrDefaultAsync(ua => ua.UserId == userId);
 
                 if (existingUserActivity != null)
                 {
-                    // Ha létezik a rekord, frissítsd
                     existingUserActivity.MuscleGroupId = muscleGroup.id;
                     _context.UserActivity.Update(existingUserActivity);
                 }

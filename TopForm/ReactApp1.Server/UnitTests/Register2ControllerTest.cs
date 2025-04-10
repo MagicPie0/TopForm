@@ -23,13 +23,12 @@ namespace back_end.Tests
         public void Setup()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // új DB minden teszthez
-                .EnableSensitiveDataLogging()  // Aktiválja az érzékeny adatok naplózását
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .EnableSensitiveDataLogging() 
                 .Options;
 
             _context = new ApplicationDbContext(options);
 
-            // Felhasználó és aktivitás inicializálása
             _context.Users.Add(new User
             {
                 Id = 1,
@@ -47,7 +46,6 @@ namespace back_end.Tests
                 MuscleGroupId = null
             });
 
-            // Definiáljunk egy alapértelmezett MuscleGroup-ot
             _context.MuscleGroups.Add(new MuscleGroup
             {
                 name1 = "Chest",
@@ -122,7 +120,7 @@ namespace back_end.Tests
             var request = new UpdateRequest
             {
                 Men = 1,
-                MuscleGroups = new List<MuscleGroupRequest>() // üres listát küldünk
+                MuscleGroups = new List<MuscleGroupRequest>()
             };
 
             var result = await _controller.UpdateUserAndAddMuscleGroups(request);
@@ -135,7 +133,7 @@ namespace back_end.Tests
         {
             _controller.ControllerContext = new ControllerContext
             {
-                HttpContext = new DefaultHttpContext() // nincs felhasználó claim
+                HttpContext = new DefaultHttpContext()
             };
 
             var request = new UpdateRequest

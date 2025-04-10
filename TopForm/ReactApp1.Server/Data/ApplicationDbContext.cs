@@ -11,7 +11,7 @@ namespace back_end.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<MuscleGroup> MuscleGroups { get; set; } // Izomcsoportok tábla
+        public virtual DbSet<MuscleGroup> MuscleGroups { get; set; } 
         public virtual DbSet<user_activity> UserActivity { get; set; }
         public virtual DbSet<Workouts> Workouts { get; set; }
         public virtual DbSet<Diet> Diet { get; set; }
@@ -21,7 +21,6 @@ namespace back_end.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Explicit leképezés a user_id és muscle_group_id oszlopokhoz
             modelBuilder.Entity<user_activity>()
                 .Property(u => u.UserId)
                 .HasColumnName("user_id");
@@ -48,7 +47,6 @@ namespace back_end.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-            // Figyelmen kívül hagyja a tranzakciós figyelmeztetést az InMemory adatbázisban
             optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning));
         }
 

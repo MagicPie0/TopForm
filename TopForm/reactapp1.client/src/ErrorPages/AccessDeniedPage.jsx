@@ -21,18 +21,15 @@ const AccessDeniedPage = () => {
 
   return (
     <div className="fitness-container">
-      {/* Animated pulse elements */}
       <div className="pulse-circle pulse-1"></div>
       <div className="pulse-circle pulse-2"></div>
       
-      {/* Header with subtle animation */}
       <div className="fitness-header">
         <h2 className="fitness-title animate-text">ACCESS</h2>
         <h1 className="fitness-denied animate-text">RESTRICTED</h1>
         <div className="fitness-divider pulse" />
       </div>
 
-      {/* Content area with side-by-side layout */}
       <div className="fitness-content fade-in">
         <div className="text-content">
           <div className="fitness-text">
@@ -80,7 +77,6 @@ const AccessDeniedPage = () => {
         </div>
       </div>
 
-      {/* Footer with subtle animation */}
       <div className="fitness-footer slide-up">
         © {new Date().getFullYear()} TOPFORM - ALL RIGHTS RESERVED
       </div>

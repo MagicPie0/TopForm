@@ -1,5 +1,3 @@
-/* settingsStyle.css */
-
 .settings-container {
     background: #ffffff;
     padding: 20px;
@@ -70,7 +68,6 @@
         background: darkred;
     }
 
-/* Reszponzivitás */
 @media (max-width: 768px) {
     .settings-container {
         margin: 20px;

@@ -89,26 +89,21 @@ namespace asp.Server.Controllers
             if (!DateTime.TryParse(date, out var parsedDate))
                 return BadRequest("Érvénytelen dátum formátum!");
 
-            // Get all workout IDs for the current user
             var userWorkoutIds = await _context.UserActivity
                 .Where(ua => ua.UserId == userId)
                 .Select(ua => ua.WorkoutId)
                 .ToListAsync();
 
-            // Ensure the user has associated workouts
             if (!userWorkoutIds.Any())
                 return NotFound("A felhasználónak nincs edzése erre a napra.");
 
-            // Retrieve the workouts for the specified date
             var workouts = await _context.Workouts
                 .Where(w => w.WorkoutDate.Date == parsedDate.Date && userWorkoutIds.Contains(w.Id))
                 .ToListAsync();
 
-            // If no workouts were found, return a NotFound response
             if (!workouts.Any())
                 return NotFound("Nincs edzés erre a napra.");
 
-            // Parse the workouts
             var parsedWorkouts = workouts.Select(w => new
             {
                 w.Id,

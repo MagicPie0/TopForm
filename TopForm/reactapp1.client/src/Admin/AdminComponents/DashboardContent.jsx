@@ -41,10 +41,6 @@ const DashboardContent = () => {
     isPythonApiError: false
   });
 
- 
-
-
-
   const checkPythonApiStatus = async () => {
     try {
       const netHealth = await fetch('https://localhost:7196/api/GenerateWorkout/health');
@@ -256,14 +252,12 @@ const DashboardContent = () => {
       </div>
 
 
-          {/* Status Cards Row */}
           <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
             gap: "20px",
             marginBottom: "20px"
           }}>
-            {/* ASP.NET API Status Card */}
             <div style={{
               backgroundColor: "white",
               padding: "20px",
@@ -314,7 +308,6 @@ const DashboardContent = () => {
               </p>
             </div>
 
-            {/* Python API Status Card */}
             <div style={{
               backgroundColor: "white",
               padding: "20px",
@@ -379,7 +372,6 @@ const DashboardContent = () => {
               </p>
             </div>
 
-            {/* API Statistics Card */}
             <div style={{
               backgroundColor: "white",
               padding: "20px",
@@ -417,7 +409,6 @@ const DashboardContent = () => {
             </div>
           </div>
 
-          {/* Text Generation Panel */}
           <div style={{
             backgroundColor: "white",
             padding: "20px",

@@ -4,7 +4,6 @@ export function initializeCanvasDots(isDarkMode) {
     const halfx = maxx / 2;
     const halfy = maxy / 2;
 
-    // Canvas létrehozása
     const canvas = document.createElement("canvas");
     canvas.width = maxx;
     canvas.height = maxy;
@@ -17,7 +16,6 @@ export function initializeCanvasDots(isDarkMode) {
     const context = canvas.getContext("2d");
     const dotCount = 200;
 
-    // Dot objektum osztálya
     class Dot {
         constructor() {
             this.rad_x = Math.random() * halfx;
@@ -41,10 +39,8 @@ export function initializeCanvasDots(isDarkMode) {
         }
     }
 
-    // Dots inicializáció
     const dots = Array.from({ length: dotCount }, () => new Dot());
 
-    // Renderelési ciklus
     function render() {
         context.fillStyle = isDarkMode ? "#000000" : "#ffffff";
         context.fillRect(0, 0, maxx, maxy);
@@ -55,7 +51,6 @@ export function initializeCanvasDots(isDarkMode) {
         requestAnimationFrame(render);
     }
 
-    // Canvas tisztítás és eltávolítás
     function cleanup() {
         cancelAnimationFrame(render);
         document.body.removeChild(canvas);
@@ -63,6 +58,5 @@ export function initializeCanvasDots(isDarkMode) {
 
     render();
 
-    // A cleanup függvényt visszaadjuk, hogy szükség esetén meg lehessen hívni.
     return cleanup;
 }

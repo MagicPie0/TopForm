@@ -1,42 +1,37 @@
-/* Az egész oldal fehér háttere */
 .full-page-container {
     background-color: white;
-    min-height: 100vh; /* Az egész viewport magasságot kitölti */
+    min-height: 100vh; 
     display: flex;
     flex-direction: column;
   }
   
-  /* Fejléc stílusa */
   .profile-header {
     width: 100%;
-    background-color: #f5f5f5; /* Világos szürke háttér a fejlécnek */
+    background-color: #f5f5f5; 
     padding: 2rem;
     text-align: center;
-    border-bottom: 1px solid #ddd; /* Vékony szegély a fejléc alján */
+    border-bottom: 1px solid #ddd; 
     height: 150px;
   }
   
-  /* Vissza gomb stílusa */
   .back-button {
     position: absolute;
     right: 1rem;
     top: 1rem;
   }
   
-  /* Profilkép stílusa */
   .profile-avatar {
     width: 100px;
     height: 100px;
     margin-bottom: 1rem;
-    border-radius: 50%; /* Kerek profilkép */
-    border: 3px solid #fff; /* Fehér keret a profilkép körül */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Árnyék a profilkép körül */
+    border-radius: 50%; 
+    border: 3px solid #fff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     left: 1rem;
     top: 3rem;
     position: absolute;
   }
   
-  /* Név stílusa */
   .profile-name {
     font-size: 2rem;
     margin-bottom: 0.5rem;
@@ -45,20 +40,18 @@
     position: absolute;
   }
   
-  /* Felhasználónév stílusa */
   .profile-username {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
-    color: #666; /* Szürke szín a felhasználónévhez */
+    color: #666; 
     position: absolute;
     left: 8rem;
     top: 4rem;
   }
   
-  /* Email stílusa */
   .profile-email {
     font-size: 1rem;
-    color: #666; /* Szürke szín az emailhez */
+    color: #666; 
     position: absolute;
     left: 8rem;
     top: 7rem;

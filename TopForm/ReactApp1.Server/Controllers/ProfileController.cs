@@ -44,7 +44,6 @@ namespace asp.Server.Controllers
                     {
                         Name = exerciseName,
                         MaxWeight = maxWeight,
-                        // Üres listákat adunk vissza a többi property-hez, hogy ne változzon a struktúra
                     });
                 }
 
@@ -57,7 +56,6 @@ namespace asp.Server.Controllers
             }
         }
 
-        // Modell osztályok
         public class WorkoutExercise
         {
             public string Name { get; set; }
@@ -91,8 +89,8 @@ namespace asp.Server.Controllers
 
             var workoutIds = await _context.UserActivity
                 .Where(ua => ua.UserId == userId && ua.WorkoutId != null)
-                .Select(ua => ua.WorkoutId.Value) // .Value mert a WorkoutId nullable
-                .Distinct() // Duplikációk elkerülése
+                .Select(ua => ua.WorkoutId.Value)
+                .Distinct() 
                 .ToListAsync();
 
             if (userActivityIds == null)

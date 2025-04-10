@@ -38,7 +38,7 @@ const ProfilePage = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'info' // 'error', 'warning', 'info', 'success'
+    severity: 'info' 
   });
 
   const handleCloseSnackbar = () => {
@@ -180,7 +180,6 @@ const ProfilePage = () => {
       }
     }}>
 
-      {/* Fő tartalom */}
       <Box sx={{
         maxWidth: '1200px',
         margin: '0 auto',
@@ -188,7 +187,6 @@ const ProfilePage = () => {
         position: 'relative',
         zIndex: 1
       }}>
-        {/* Profil fejléc */}
         <Card sx={{
           mb: 6,
           borderRadius: '0',
@@ -295,9 +293,7 @@ const ProfilePage = () => {
           </Grid>
         </Card>
         
-        {/* Izomcsoportok és grafikon */}
         <Grid container spacing={4}>
-          {/* Izomcsoportok */}
           <Grid item xs={12} md={4}>
             <Card sx={{
               height: '100%',
@@ -355,7 +351,6 @@ const ProfilePage = () => {
             </Card>
           </Grid>
           
-          {/* Grafikon */}
           <Grid item xs={12} md={8}>
             <Card sx={{
               borderRadius: '0',

@@ -47,16 +47,14 @@ const DatabaseTables = () => {
   const [notification, setNotification] = useState({
     open: false,
     message: "",
-    severity: "success", // 'error', 'warning', 'info', 'success'
+    severity: "success", 
   });
-  // New state for hover data
   const [hoverInfo, setHoverInfo] = useState({
     visible: false,
     userName: "",
     x: 0,
     y: 0,
   });
-  // New state to store all tables data for cross-referencing
   const [allTablesData, setAllTablesData] = useState({
     Users: [],
     UserActivity: [],
@@ -79,7 +77,6 @@ const DatabaseTables = () => {
     message: "",
   });
 
-  // Fetch Users and UserActivity for cross-referencing
   const { data: usersData, loading: usersLoading } = useFetch(
     apiEndpoints.Users
   );
@@ -88,7 +85,6 @@ const DatabaseTables = () => {
     apiEndpoints.UserActivity
   );
 
-  // Store the fetched data for cross-referencing
   useEffect(() => {
     if (usersData) {
       const transformedUsers = usersData.map((item) => ({
@@ -127,7 +123,7 @@ const DatabaseTables = () => {
         message: "User deleted successfully",
         severity: "success",
       });
-      setShowDeleteModal(false); // Bezárjuk a modalt sikeres törlés után
+      setShowDeleteModal(false); 
     },
     onError: (error) => {
       setNotification({
@@ -151,11 +147,11 @@ const DatabaseTables = () => {
           `https://localhost:7196/api/AdminUserTable/User/${updatedUser.id}`,
           updatedUser
         );
-        console.log(response.data); // Nézd meg a választ
+        console.log(response.data); 
         return response.data;
       } catch (error) {
         if (error.response) {
-          console.error("Hiba történt:", error.response.data); // A válasz részletezése
+          console.error("Hiba történt:", error.response.data); 
         } else {
           console.error("Ismeretlen hiba:", error.message);
         }
@@ -180,26 +176,20 @@ const DatabaseTables = () => {
     },
   });
 
-  // New function to find user info when hovering over a record
-  // New function to find user info when hovering over a record
   const handleRowHover = (recordId) => {
-    // Find the current record in the active table
     const currentRecord = data.find((item) => item.id === recordId);
 
     if (!currentRecord) return null;
 
-    // If we're in the Users table, just return the user's name directly
     if (activeTable === "Users") {
       return `${currentRecord.name} (${currentRecord.username})`;
     }
 
     let userId = null;
 
-    // If we're in UserActivity table, we have the userId directly
     if (activeTable === "UserActivity") {
       userId = currentRecord.userId;
     } else {
-      // Map table names to their corresponding field names in UserActivity
       const tableToFieldMap = {
         Ranks: "ranksID",
         MuscleGroups: "muscleGroupId",
@@ -207,7 +197,6 @@ const DatabaseTables = () => {
         Diets: "dietId",
       };
 
-      // Get the correct field name from the map, or generate a default
       let idFieldName;
       if (tableToFieldMap[activeTable]) {
         idFieldName = tableToFieldMap[activeTable];
@@ -217,12 +206,10 @@ const DatabaseTables = () => {
           : `${activeTable.toLowerCase()}Id`;
       }
 
-      // For debugging, log what we're looking for
       console.log(
         `Looking for ${activeTable} record with ID ${recordId} using field ${idFieldName}`
       );
 
-      // Look for activity records that reference the current record
       const activityRecord = allTablesData.UserActivity?.find(
         (activity) => activity[idFieldName] === recordId
       );
@@ -236,7 +223,6 @@ const DatabaseTables = () => {
       }
     }
 
-    // If we found a userId, look up the user's name
     if (userId) {
       const user = allTablesData.Users?.find((u) => u.id === userId);
       if (user) {
@@ -249,7 +235,6 @@ const DatabaseTables = () => {
     return null;
   };
 
-  // Helper function to show tooltip
   const handleRowMouseEvent = (e, rowId) => {
     const eventType = e.type;
 
@@ -259,9 +244,7 @@ const DatabaseTables = () => {
       return;
     }
 
-    // For mouseenter or mousemove
     if (hoveredRowId !== rowId) {
-      // We've moved to a new row
       setHoveredRowId(rowId);
       const userName = handleRowHover(rowId);
 
@@ -276,7 +259,6 @@ const DatabaseTables = () => {
         hideTooltip();
       }
     } else if (eventType === "mousemove") {
-      // Just update position if we're on the same row
       setHoverInfo({
         ...hoverInfo,
         x: e.clientX,
@@ -285,7 +267,6 @@ const DatabaseTables = () => {
     }
   };
 
-  // Helper function to hide tooltip
   const hideTooltip = () => {
     setHoverInfo({ ...hoverInfo, visible: false });
   };
@@ -303,7 +284,6 @@ const DatabaseTables = () => {
     error,
   } = useFetch(apiEndpoints[activeTable]);
 
-  // Add this useEffect to handle errors
   useEffect(() => {
     if (error) {
       if (error.message.includes("500")) {
@@ -473,7 +453,6 @@ const DatabaseTables = () => {
   };
 
   const handleSave = () => {
-    // Prepare the user data in the format expected by the backend
     const updatedUser = {
       id: editingId,
       Username: editForm.username,
@@ -490,7 +469,7 @@ const DatabaseTables = () => {
 
     if (updatedUser.Men === null) {
       console.error("Hibás gender érték");
-      return; // Megakadályozza a kérés küldését
+      return; 
     }
 
     updateMutation.mutate(updatedUser);
@@ -608,7 +587,6 @@ const DatabaseTables = () => {
     tap: { scale: 0.95, boxShadow: "0 1px 3px rgba(0,0,0,0.1)" },
   };
 
-  // Add CSS for the tooltip
   const tooltipStyle = {
     position: "fixed",
     top: `${hoverInfo.y + 10}px`,
@@ -664,7 +642,6 @@ const DatabaseTables = () => {
           </button>
         </div>
       )}
-      {/* User hover tooltip */}
       <div style={tooltipStyle}>
         <FaUser /> {hoverInfo.userName}
       </div>
@@ -683,7 +660,6 @@ const DatabaseTables = () => {
           {notification.message}
         </Alert>
       </Snackbar>
-      {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className="database-modal-overlay">
           <div className="database-modal">
@@ -693,7 +669,6 @@ const DatabaseTables = () => {
               undone.
             </p>
 
-            {/* Show error if mutation failed */}
             {deleteMutation.isError && (
               <div className="database-modal-error">
                 Error: {deleteMutation.error.message}
@@ -729,7 +704,6 @@ const DatabaseTables = () => {
           </div>
         </div>
       )}
-      {/* Table selector */}
       <div className="database-table-selector-container">
         <div className="database-table-selector">
           {tables.map((table) => (

@@ -33,7 +33,7 @@ namespace asp.Server.Services
             }
             catch
             {
-                return null; // Hiba esetén nullat ad vissza
+                return null;
             }
         }
     }

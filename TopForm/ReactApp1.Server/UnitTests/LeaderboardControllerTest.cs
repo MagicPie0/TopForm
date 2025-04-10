@@ -24,7 +24,6 @@ namespace back_end.Tests
         {
             _mockContext = new Mock<ApplicationDbContext>(new DbContextOptions<ApplicationDbContext>());
 
-            // Mock Users DbSet with required fields
             var mockUsers = new List<User>
         {
             new User
@@ -52,7 +51,6 @@ namespace back_end.Tests
         };
             _mockContext.Setup(x => x.Users).ReturnsDbSet(mockUsers);
 
-            // Fix RankName in mock Ranks data
             var mockRanks = new List<Ranks>
         {
             new Ranks { id = 1, rankName = "Novice", points = 100 },
@@ -87,10 +85,8 @@ namespace back_end.Tests
         [Test]
         public async Task GetLeaderboardDetails_ReturnsOkResultWithLeaderboard()
         {
-            // Act
             var result = await _controller.GetLeaderboardDetails();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult?.StatusCode, Is.EqualTo(200));
@@ -99,31 +95,28 @@ namespace back_end.Tests
             Assert.That(leaderboard?.Leaderboard, Is.Not.Null);
             var leaderboardList = leaderboard?.Leaderboard as IEnumerable<dynamic>;
 
-            Assert.That(leaderboardList.Count(), Is.EqualTo(2)); // Ensure we have 2 users
+            Assert.That(leaderboardList.Count(), Is.EqualTo(2));
         }
 
         [Test]
         public async Task GetLeaderboardDetails_ReturnsCorrectDataForUsers()
         {
-            // Act
             var result = await _controller.GetLeaderboardDetails();
             var okResult = result as OkObjectResult;
             var leaderboard = okResult?.Value as dynamic;
 
-            // Cast the dynamic to a strongly typed list (assuming it's an IEnumerable of some type)
             var leaderboardList = leaderboard?.Leaderboard as IEnumerable<dynamic>;
 
-            // Assert
             var user1 = leaderboardList?.FirstOrDefault(u => u.Username == "user1");
             Assert.That(user1, Is.Not.Null);
             Assert.That(user1.Username, Is.EqualTo("user1"));
-            Assert.That(user1.Rank.rankName, Is.EqualTo("Novice"));  // Update this to match 'rankName'
+            Assert.That(user1.Rank.rankName, Is.EqualTo("Novice")); 
             Assert.That(user1.MuscleGroup.name1, Is.EqualTo("Chest"));
 
             var user2 = leaderboardList?.FirstOrDefault(u => u.Username == "user2");
             Assert.That(user2, Is.Not.Null);
             Assert.That(user2.Username, Is.EqualTo("user2"));
-            Assert.That(user2.Rank.rankName, Is.EqualTo("Intermediate"));  // Same here
+            Assert.That(user2.Rank.rankName, Is.EqualTo("Intermediate"));  
             Assert.That(user2.MuscleGroup.name1, Is.EqualTo("Biceps"));
         }
 
@@ -141,7 +134,7 @@ namespace back_end.Tests
             var leaderboardList = leaderboard?.Leaderboard as IEnumerable<dynamic>;
 
             Assert.That(leaderboardList, Is.Not.Null);
-            Assert.That(leaderboardList.Count(), Is.EqualTo(2)); // Users still exist, even if no activities
+            Assert.That(leaderboardList.Count(), Is.EqualTo(2));
         }
     }
 

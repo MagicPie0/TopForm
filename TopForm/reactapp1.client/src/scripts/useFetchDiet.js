@@ -18,7 +18,6 @@ const fetchDietByDate = async (date) => {
     return response.data;
   } catch (error) {
     if (error.response?.status === 404) {
-      // No diet for this date, return empty data
       return null;
     }
     throw error;

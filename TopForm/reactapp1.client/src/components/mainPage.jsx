@@ -59,11 +59,9 @@ const navigate = useNavigate();
   ];
 
   const handleLogout = () => {
-    // Remove JWT token from localStorage
     if(localStorage.getItem('jwt')){
       localStorage.removeItem('jwt');
     }
-    // Redirect to login page
     navigate('/login');
   };
 
@@ -183,14 +181,12 @@ const navigate = useNavigate();
           </List>
         </Box>
 
-        {/* Bottom Section - Profile and Logout */}
         <Box sx={{ pb: 2 }}>
 
-          {/* Logout Button */}
           <Tooltip title="Log out" placement="right" arrow>
             <ListItem
               button
-              onClick={handleLogout}  // Changed from component={Link} to onClick
+              onClick={handleLogout} 
               sx={{
                 color: 'rgba(255,255,255,0.7)',
                 py: 1.5,
@@ -234,7 +230,6 @@ const navigate = useNavigate();
         </Box>
       </Drawer>
 
-      {/* Main Content */}
       <Box
         component="main"
         sx={{

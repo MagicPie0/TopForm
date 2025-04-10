@@ -29,7 +29,6 @@ namespace back_end.Tests
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
 
-            // Seed: User
             var user = new User
             {
                 Username = "testuser",
@@ -41,7 +40,6 @@ namespace back_end.Tests
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            // Seed: MuscleGroup, Rank, Workout
             var muscleGroup = new MuscleGroup
             {
                 name1 = "Chest",
@@ -67,7 +65,6 @@ namespace back_end.Tests
             _context.Workouts.Add(workout);
             _context.SaveChanges();
 
-            // Seed: UserActivity
             var userActivity = new user_activity
             {
                 UserId = user.Id,
@@ -78,7 +75,6 @@ namespace back_end.Tests
             _context.UserActivity.Add(userActivity);
             _context.SaveChanges();
 
-            // Setup controller with claims
             _controller = new ProfileController(_context);
 
             var claims = new List<Claim>
@@ -103,10 +99,8 @@ namespace back_end.Tests
         [Test]
         public async Task GetProfile_ReturnsCorrectProfileForAuthorizedUser()
         {
-            // Act
             var result = await _controller.GetProfile();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
 
             var okResult = result as OkObjectResult;
@@ -115,21 +109,17 @@ namespace back_end.Tests
             dynamic profile = okResult!.Value;
             Assert.That(profile, Is.Not.Null);
 
-            // USER
             Assert.That((string)profile.User["Name"], Is.EqualTo("Test Elek"));
             Assert.That((string)profile.User["Username"], Is.EqualTo("testuser"));
             Assert.That((string)profile.User["Email"], Is.EqualTo("test@example.com"));
             Assert.That((byte[])profile.User["ProfilePicture"], Is.EqualTo(System.Text.Encoding.UTF8.GetBytes("pic.jpg")));
 
-            // RANK
             Assert.That((string)profile.Rank["Name"], Is.EqualTo("Champion"));
             Assert.That((int)profile.Rank["Points"], Is.EqualTo(500));
 
-            // MUSCLES
             Assert.That((string)profile.Muscles.Groups[0].Name, Is.EqualTo("Chest"));
             Assert.That((int)profile.Muscles.Groups[0].Kg, Is.EqualTo(50));
 
-            // WORKOUTS
             Assert.That(profile.Workouts.Count, Is.GreaterThan(0));
             Assert.That(profile.Workouts[0].Exercises.Count, Is.GreaterThan(0));
             Assert.That(profile.Workouts[0].Exercises[0].Name, Is.EqualTo("Bench Press"));
@@ -140,16 +130,13 @@ namespace back_end.Tests
         [Test]
         public async Task GetProfile_ReturnsUnauthorizedWhenNoUserIdClaim()
         {
-            // Arrange - simulate no user
             _controller.ControllerContext = new ControllerContext
             {
                 HttpContext = new DefaultHttpContext()
             };
 
-            // Act
             var result = await _controller.GetProfile();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<ObjectResult>());
             var unauthorized = result as ObjectResult;
             Assert.That(unauthorized?.StatusCode, Is.EqualTo(401));

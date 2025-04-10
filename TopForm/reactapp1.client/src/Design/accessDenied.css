@@ -1,4 +1,3 @@
-/* Fitness-themed Access Denied Page */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 .fitness-theme {
@@ -58,7 +57,6 @@
   margin: 1.5rem auto;
 }
 
-/* Content layout */
 .fitness-content {
   display: flex;
   width: 100%;
@@ -96,7 +94,6 @@
   background: #111;
 }
 
-/* Text styles */
 .fitness-text {
   width: 100%;
   display: flex;
@@ -119,7 +116,6 @@
   margin: 0;
 }
 
-/* Button styles */
 .fitness-buttons {
   display: flex;
   flex-direction: column;
@@ -160,7 +156,6 @@
   border-color: #555;
 }
 
-/* Footer styles */
 .fitness-footer {
   margin-top: 2rem;
   color: #666;
@@ -172,8 +167,6 @@
   max-width: 1200px;
 }
 
-/* Animation styles */
-/* Background pulse effect */
 .pulse-circle {
   position: absolute;
   border-radius: 50%;
@@ -212,7 +205,6 @@
   }
 }
 
-/* Text animation */
 .animate-text {
   animation: text-focus 1s ease-out;
 }
@@ -228,7 +220,6 @@
   }
 }
 
-/* Divider pulse */
 .fitness-divider.pulse {
   animation: divider-pulse 2s infinite ease-in-out;
 }
@@ -243,7 +234,6 @@
   }
 }
 
-/* Fade in content */
 .fade-in {
   animation: fadeIn 1s ease-out;
 }
@@ -257,7 +247,6 @@
   }
 }
 
-/* Slide in text */
 .slide-in {
   animation: slideIn 0.8s ease-out forwards;
 }
@@ -273,7 +262,6 @@
   }
 }
 
-/* Slide up footer */
 .slide-up {
   animation: slideUp 1s ease-out forwards;
 }
@@ -289,7 +277,6 @@
   }
 }
 
-/* Hover effects */
 .hover-glow {
   transition: box-shadow 0.3s ease;
 }
@@ -306,7 +293,6 @@
   transform: scale(1.03);
 }
 
-/* Model container subtle glow */
 .fitness-model-container {
   transition: box-shadow 0.5s ease;
   animation: container-glow 4s infinite alternate;
@@ -321,7 +307,6 @@
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .fitness-container {
     padding: 1.5rem;

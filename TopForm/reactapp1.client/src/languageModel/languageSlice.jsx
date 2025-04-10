@@ -1,4 +1,3 @@
-// languageSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import hu from './hu.json';
 import en from './en.json';
@@ -24,10 +23,8 @@ const languageSlice = createSlice({
   }
 });
 
-// Export actions
 export const { toggleLanguage, setLanguage } = languageSlice.actions;
 
-// Create and export selectors
 export const selectCurrentLanguage = (state) => state.language.current;
 export const selectTranslations = (state) => state.language.translations[state.language.current];
 

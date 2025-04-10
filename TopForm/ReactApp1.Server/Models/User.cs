@@ -9,10 +9,10 @@ namespace back_end.Models
         public required string Username { get; set; }
         public required string Email { get; set; }
         public required string Password { get; set; }
-        public byte[]? ProfilePicture { get; set; } // Blob a profilkép tárolására
+        public byte[]? ProfilePicture { get; set; } 
         public required string Name { get; set; }
         public DateTime? BirthDate { get; set; }
-        public byte Men { get; set; } // 0: Nő, 1: Férfi
+        public byte Men { get; set; }
     }
 
 

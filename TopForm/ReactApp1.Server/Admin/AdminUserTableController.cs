@@ -43,7 +43,6 @@ namespace asp.Server.Admin
                     var ranksIds = activities.Where(a => a.RanksID != null).Select(a => a.RanksID!.Value).Distinct().ToList();
                     var muscleGroupIds = activities.Where(a => a.MuscleGroupId != null).Select(a => a.MuscleGroupId!.Value).Distinct().ToList();
 
-                    // Nyers SQL törlés: megbízhatóbb, nincs EF tracking
                     if (workoutIds.Any())
                     {
                         await _context.Database.ExecuteSqlRawAsync($"DELETE FROM Workouts WHERE Id IN ({string.Join(",", workoutIds)})");
@@ -64,10 +63,8 @@ namespace asp.Server.Admin
                         await _context.Database.ExecuteSqlRawAsync($"DELETE FROM muscle_groups WHERE id IN ({string.Join(",", muscleGroupIds)})");
                     }
 
-                    // UserActivity törlése SQL-lel
                     await _context.Database.ExecuteSqlRawAsync($"DELETE FROM user_activity WHERE user_id = {id}");
 
-                    // Felhasználó törlése SQL-lel
                     await _context.Database.ExecuteSqlRawAsync($"DELETE FROM Users WHERE Id = {id}");
 
                     await transaction.CommitAsync();
@@ -96,7 +93,7 @@ namespace asp.Server.Admin
             public string Username { get; set; }
             public string Email { get; set; }
             public string Name { get; set; }
-            public int Men { get; set; } // 0 - férfi, 1 - nő
+            public int Men { get; set; } 
         }
 
 

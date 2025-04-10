@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import exercisesData from '../../workout/workout.json'; // Lokális JSON fájl importálása
+import exercisesData from '../../workout/workout.json';
 
 const ExercisesEditor = () => {
     const [viewMode, setViewMode] = useState('json');
-    const [exercises, setExercises] = useState(exercisesData); // Initialize with imported data
+    const [exercises, setExercises] = useState(exercisesData); 
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
     const [newExercise, setNewExercise] = useState('');
     const [newMuscleGroup, setNewMuscleGroup] = useState('');
     const [editMode, setEditMode] = useState(null);
     const [editValue, setEditValue] = useState('');
-    const [isLoading, setIsLoading] = useState(false); // No initial loading needed
+    const [isLoading, setIsLoading] = useState(false);
   
-    // Save data to local state
     const saveData = async (updatedData) => {
       setIsLoading(true);
       try {
-        // In a real app, you might want to save to a file or API here
-        // For now, we'll just update the state
-        await new Promise(resolve => setTimeout(resolve, 100)); // Simulate slight delay
+        await new Promise(resolve => setTimeout(resolve, 100)); 
         setExercises(updatedData);
       } catch (error) {
         console.error("Error saving data:", error);
@@ -26,7 +23,6 @@ const ExercisesEditor = () => {
       }
     };
   
-    // Add new exercise
     const handleAddExercise = async () => {
       if (!selectedMuscleGroup || !newExercise) return;
       
@@ -39,7 +35,6 @@ const ExercisesEditor = () => {
       setNewExercise('');
     };
   
-    // Add new muscle group
     const handleAddMuscleGroup = async () => {
       if (!newMuscleGroup || exercises[newMuscleGroup]) return;
       
@@ -53,7 +48,6 @@ const ExercisesEditor = () => {
       setSelectedMuscleGroup(newMuscleGroup);
     };
   
-    // Delete exercise
     const handleDeleteExercise = async (muscleGroup, exercise) => {
       const updatedData = {
         ...exercises,
@@ -63,7 +57,6 @@ const ExercisesEditor = () => {
       await saveData(updatedData);
     };
   
-    // Delete muscle group
     const handleDeleteMuscleGroup = async (muscleGroup) => {
       const { [muscleGroup]: _, ...updatedData } = exercises;
       
@@ -71,13 +64,11 @@ const ExercisesEditor = () => {
       setSelectedMuscleGroup('');
     };
   
-    // Start editing
     const startEditing = (type, group, exercise = null) => {
       setEditMode({ type, group, exercise });
       setEditValue(exercise || group);
     };
   
-    // Save edit
     const handleSaveEdit = async () => {
       if (!editMode || !editValue) return;
       
@@ -91,7 +82,6 @@ const ExercisesEditor = () => {
           )
         };
       } else {
-        // Renaming a muscle group is more complex
         const { [editMode.group]: oldExercises, ...rest } = exercises;
         updatedData = {
           ...rest,
@@ -122,14 +112,13 @@ const ExercisesEditor = () => {
     return (
       <div style={{
         display: 'grid',
-        gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr', // Reszponzív elrendezés
+        gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr', 
         
         gap: '20px',
         padding: '20px',
         height: 'calc(100vh - 60px)',
         backgroundColor: '#f8f9fa'
       }}>
-        {/* Management Panel */}
         <div style={{
           backgroundColor: 'white',
           borderRadius: '12px',
@@ -147,7 +136,6 @@ const ExercisesEditor = () => {
             <span style={{ color: '#ff7b00' }}>Manage</span> Exercises
           </h2>
   
-          {/* Muscle Group Selection */}
           <div style={{ marginBottom: '24px' }}>
             <div style={{
               display: 'flex',
@@ -257,7 +245,6 @@ const ExercisesEditor = () => {
               </select>
             )}
   
-            {/* Add new muscle group */}
             <div style={{ display: 'flex', gap: '10px' }}>
               <input
                 type="text"
@@ -289,14 +276,12 @@ const ExercisesEditor = () => {
             </div>
           </div>
   
-          {/* Exercises Management */}
           {selectedMuscleGroup && (
             <div>
               <h3 style={{ marginBottom: '16px' }}>
                 Exercises for {selectedMuscleGroup.charAt(0).toUpperCase() + selectedMuscleGroup.slice(1)}
               </h3>
               
-              {/* Add new exercise */}
               <div style={{ display: 'flex', gap: '10px', marginBottom: '24px' }}>
                 <input
                   type="text"
@@ -327,7 +312,6 @@ const ExercisesEditor = () => {
                 </button>
               </div>
   
-              {/* Exercises list */}
               <div style={{
                 border: '1px solid #e9ecef',
                 borderRadius: '8px',
@@ -437,7 +421,6 @@ const ExercisesEditor = () => {
           )}
         </div>
   
-        {/* Data Preview Panel */}
         <div style={{
           backgroundColor: 'white',
           borderRadius: '12px',

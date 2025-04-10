@@ -5,15 +5,14 @@ const completeRegistrationData = async ({ gender, measurements }) => {
   const jwt = localStorage.getItem("jwt");
   console.log(jwt);
 
-  // Process the measurements array
   const muscleGroupData = measurements
-    .filter((m) => m.name && m.kg) // Ensure that name and kg are not empty
+    .filter((m) => m.name && m.kg) 
     .map((m) => ({
-      name: m.name, // Already in the correct format
-      kg: m.kg, // Use kg instead of weight
+      name: m.name, 
+      kg: m.kg, 
     }));
 
-  console.log("Processed MuscleGroups:", muscleGroupData); // Debug log
+  console.log("Processed MuscleGroups:", muscleGroupData);
 
   if (muscleGroupData.length === 0) {
     throw new Error("Kérjük, adjon meg legalább egy izomcsoportot!");
@@ -24,7 +23,7 @@ const completeRegistrationData = async ({ gender, measurements }) => {
     MuscleGroups: muscleGroupData,
   };
 
-  console.log("Sending data to backend:", dataToSend); // Check what is being sent
+  console.log("Sending data to backend:", dataToSend);
 
   try {
     const response = await axios.post(
@@ -40,12 +39,9 @@ const completeRegistrationData = async ({ gender, measurements }) => {
 
     return response.data;
   } catch (error) {
-    // Hibakezelés
     if (error.response) {
-      // A szerver válasza tartalmaz hibát
       throw new Error(error.response.data.message || "Registration completion failed");
     } else {
-      // Egyéb hiba (pl. hálózati hiba)
       throw new Error("Hálózati hiba történt a regisztráció befejezése során.");
     }
   }

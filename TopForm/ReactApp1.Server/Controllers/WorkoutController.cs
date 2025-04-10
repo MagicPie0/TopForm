@@ -31,7 +31,6 @@ namespace back_end.Controllers
                 return BadRequest(new { message = "Invalid request: All fields are required.", status = 400 });
             }
 
-            // A JWT-ből kinyerjük a felhasználói ID-t
             var userIdFromToken = User.FindFirst("UserId")?.Value;
 
             if (string.IsNullOrEmpty(userIdFromToken))
@@ -45,7 +44,6 @@ namespace back_end.Controllers
             {
                 try
                 {
-                    // 1️⃣ Workout mentése
                     var workouts = new List<object>();
                     int weightIndex = 0;
                     int repIndex = 0;
@@ -55,7 +53,6 @@ namespace back_end.Controllers
                         var exerciseName = request.WorkoutNames[i];
                         int sets = int.Parse(request.Sets[i]);
 
-                        // Kinyerjük a megfelelő súlyokat és ismétléseket
                         var weights = request.WeightsKg
                             .Skip(weightIndex)
                             .Take(sets)
@@ -96,8 +93,7 @@ namespace back_end.Controllers
                     _context.Workouts.Add(workout);
                     await _context.SaveChangesAsync();
 
-                    // 2️⃣ Rang és pont számítás
-                    // 2️⃣ Rang és pont számítás
+
                     var calculationRequest = new WorkoutCalculationRequest
                     {
                         Kg = request.WeightsKg,
@@ -105,29 +101,26 @@ namespace back_end.Controllers
                         Sets = request.Sets
                     };
                     var (points, name) = CalculatePointsAndName(calculationRequest);
-                    Ranks newRank = null; // Deklaráljuk a newRank változót itt, hogy a blokkon kívül is elérhető legyen
+                    Ranks newRank = null;
 
-                    // 3️⃣ Rank kezelése
                     var existingRank = await _context.UserActivity
                         .FirstOrDefaultAsync(ua => ua.UserId == userId && ua.RanksID != null);
 
                     if (existingRank != null)
                     {
-                        // Ha van már rank_id a userhez, akkor frissítjük a ranks táblát
                         var rankRecord = await _context.Ranks
                             .FirstOrDefaultAsync(r => r.id == existingRank.RanksID);
 
                         if (rankRecord != null)
                         {
                             rankRecord.points += points;
-                            rankRecord.rankName = GetNameBasedOnPoints(rankRecord.points); // Az új összpontszám alapján frissítjük a nevet
+                            rankRecord.rankName = GetNameBasedOnPoints(rankRecord.points); 
 
                             _context.Ranks.Update(rankRecord);
                         }
                     }
                     else
                     {
-                        // Új rang mentése
                          newRank = new Ranks
                         {
                             points = points,
@@ -135,15 +128,14 @@ namespace back_end.Controllers
                         };
 
                         _context.Ranks.Add(newRank);
-                        await _context.SaveChangesAsync(); // Itt kapja meg az ID-t
+                        await _context.SaveChangesAsync(); 
 
-                        // Frissítjük a user_activity táblát a generált ID-val
                         var existingRanksActivity = await _context.UserActivity
                             .FirstOrDefaultAsync(ua => ua.UserId == userId && ua.RanksID == null);
 
                         if (existingRanksActivity != null)
                         {
-                            existingRanksActivity.RanksID = newRank.id; // Itt már biztosan van ID
+                            existingRanksActivity.RanksID = newRank.id;
                             _context.UserActivity.Update(existingRanksActivity);    
                         }
                     }
@@ -151,7 +143,6 @@ namespace back_end.Controllers
 
                     await _context.SaveChangesAsync();
 
-                    // 4️⃣ UserActivity frissítése vagy létrehozása
                     var existingUserActivity = await _context.UserActivity
                         .FirstOrDefaultAsync(ua => ua.UserId == userId && ua.WorkoutId == null);
 
@@ -192,7 +183,6 @@ namespace back_end.Controllers
 
                     await _context.SaveChangesAsync();
 
-                    // 5️⃣ Tranzakció commit
                     await transaction.CommitAsync();
 
                     return Ok(new { message = "Workout and user_activity saved successfully.", status = 200 });
@@ -243,14 +233,14 @@ namespace back_end.Controllers
 
         private string GetNameBasedOnPoints(int points)
         {
-            if (points >= 10000000) return "Titan";//10 millió
-            if (points >= 3000000) return "Champion";//3 millió
-            if (points >= 800000) return "Master";//800 ezer
-            if (points >= 600000) return "Legend";//600 ezer
-            if (points >= 200000) return "Elite";//200 ezer
-            if (points >= 50000) return "Pro";//50 ezer
-            if (points >= 20000) return "Advanced";//20 ezer
-            if (points >= 5000) return "Intermediate";//5 ezer
+            if (points >= 10000000) return "Titan";
+            if (points >= 3000000) return "Champion";
+            if (points >= 800000) return "Master";
+            if (points >= 600000) return "Legend";
+            if (points >= 200000) return "Elite";
+            if (points >= 50000) return "Pro";
+            if (points >= 20000) return "Advanced";
+            if (points >= 5000) return "Intermediate";
             return "Beginner";
         }
 
@@ -259,9 +249,9 @@ namespace back_end.Controllers
 
     public class WorkoutRequest
     {
-        public List<string>? WorkoutNames { get; set; } // Több edzésnév
-        public List<string>? WeightsKg { get; set; } // Több súly
-        public List<string>? Reps { get; set; } // Több ismétlés
-        public List<string>? Sets { get; set; } // Több szett
+        public List<string>? WorkoutNames { get; set; }
+        public List<string>? WeightsKg { get; set; } 
+        public List<string>? Reps { get; set; } 
+        public List<string>? Sets { get; set; }
     }
 }

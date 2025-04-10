@@ -26,19 +26,16 @@ namespace back_end.Tests
         [SetUp]
         public void SetUp()
         {
-            // Mock DbSet<UserActivity>
             var mockUserActivityDbSet = new Mock<DbSet<user_activity>>();
             _mockContext = new Mock<ApplicationDbContext>(new DbContextOptions<ApplicationDbContext>());
 
             _mockContext.Setup(x => x.UserActivity).Returns(mockUserActivityDbSet.Object);
 
-            // Mock DbSet<Diet>
             var mockDietDbSet = new Mock<DbSet<Diet>>();
             _mockContext.Setup(x => x.Diet).Returns(mockDietDbSet.Object);
 
             _controller = new GetDietController(_mockContext.Object);
 
-            // Setup the mock context for authorized user
             var userClaims = new List<Claim>
             {
                 new Claim("UserId", "1")
@@ -59,13 +56,10 @@ namespace back_end.Tests
         [Test]
         public async Task GetUserDietByDate_UnauthorizedRequest_ReturnsUnauthorized()
         {
-            // Arrange: Remove the UserId claim to simulate an unauthorized request
             _controller.ControllerContext.HttpContext.User = new ClaimsPrincipal();
 
-            // Act
             var result = await _controller.GetUserDietByDate("2025-04-07");
 
-            // Assert
             Assert.That(result, Is.InstanceOf<UnauthorizedObjectResult>());
             var unauthorizedResult = result as UnauthorizedObjectResult;
             Assert.That(unauthorizedResult?.StatusCode, Is.EqualTo(401));
@@ -75,10 +69,8 @@ namespace back_end.Tests
         [Test]
         public async Task GetUserDietByDate_InvalidDateFormat_ReturnsBadRequest()
         {
-            // Act
             var result = await _controller.GetUserDietByDate("invalid-date");
 
-            // Assert
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = result as BadRequestObjectResult;
             Assert.That(badRequestResult?.StatusCode, Is.EqualTo(400));
@@ -88,7 +80,6 @@ namespace back_end.Tests
         [Test]
         public async Task GetUserDietByDate_NoDietFound_ReturnsNotFound()
         {
-            // Arrange: Mock the diet data
             var userDietIds = new List<int> { 1, 2 };
             _mockContext.Setup(x => x.UserActivity)
                 .ReturnsDbSet(new List<user_activity> {
@@ -99,10 +90,8 @@ namespace back_end.Tests
             _mockContext.Setup(x => x.Diet)
                 .ReturnsDbSet(new List<Diet> { });
 
-            // Act
             var result = await _controller.GetUserDietByDate("2025-04-07");
 
-            // Assert
             Assert.That(result, Is.InstanceOf<NotFoundObjectResult>());
             var notFoundResult = result as NotFoundObjectResult;
             Assert.That(notFoundResult?.StatusCode, Is.EqualTo(404));
@@ -112,7 +101,6 @@ namespace back_end.Tests
         [Test]
         public async Task GetUserDietByDate_ValidRequest_ReturnsOkWithDietData()
         {
-            // Arrange: Mock the diet data
             var userDietIds = new List<int> { 1, 2 };
             var mockDiets = new List<Diet>
             {
@@ -139,10 +127,8 @@ namespace back_end.Tests
             _mockContext.Setup(x => x.Diet)
                 .ReturnsDbSet(mockDiets);
 
-            // Act
             var result = await _controller.GetUserDietByDate("2025-04-07");
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult?.StatusCode, Is.EqualTo(200));

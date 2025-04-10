@@ -1,4 +1,3 @@
-/* Base Styles */
 :root {
   --primary-color: #ff4757;
   --primary-dark: #e84118;
@@ -18,7 +17,6 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Background Styles */
 .signin-container {
   position: relative;
   min-height: 100vh;
@@ -47,7 +45,6 @@
   background: radial-gradient(circle at 20% 50%, rgba(255, 71, 87, 0.2) 0%, rgba(47, 53, 66, 0) 50%);
 }
 
-/* Logo Section */
 .signin-logo-container {
   text-align: center;
   margin-bottom: 2rem;
@@ -75,7 +72,6 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-/* Form Container */
 .form-container {
   position: relative;
   width: 100%;
@@ -91,11 +87,10 @@
   transform: scale(0.98);
 }
 
-/* Form Panels */
 .form-panel {
   padding: 3rem;
   transition: all 0.5s ease;
-  position: relative; /* Ensure position is set for proper stacking */
+  position: relative; 
 }
 
 .form-panel.hidden {
@@ -110,17 +105,16 @@
 
 .login-panel:not(.hidden) {
   animation: slideInFromLeft 0.5s ease-out;
-  position: relative; /* Ensure position is set */
-  opacity: 1; /* Ensure visibility */
+  position: relative; 
+  opacity: 1; 
 }
 
 .register-panel:not(.hidden) {
   animation: slideInFromRight 0.5s ease-out;
-  position: relative; /* Ensure position is set */
-  opacity: 1; /* Ensure visibility */
+  position: relative; 
+  opacity: 1; 
 }
 
-/* Form Elements */
 h2 {
   color: var(--secondary-color);
   margin-bottom: 0.5rem;
@@ -189,7 +183,6 @@ h2 {
   width: 100%;
 }
 
-/* Date Input Styling */
 .input-group input[type="date"] {
   padding-top: 1.5rem;
   padding-bottom: 0.5rem;
@@ -201,7 +194,6 @@ h2 {
   color: var(--primary-color);
 }
 
-/* Buttons */
 .auth-button {
   position: relative;
   padding: 1rem;
@@ -264,7 +256,6 @@ h2 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Divider */
 .divider {
   display: flex;
   align-items: center;
@@ -289,7 +280,6 @@ h2 {
   margin-left: 1rem;
 }
 
-/* Forgot Password */
 .forgot-password {
   text-align: right;
   font-size: 0.85rem;
@@ -304,7 +294,6 @@ h2 {
   color: var(--primary-color);
 }
 
-/* Switch Panel */
 .switch-panel {
   margin-top: 2rem;
   text-align: center;
@@ -339,7 +328,6 @@ h2 {
   transform: translateX(3px);
 }
 
-/* Error Message */
 .error-message {
   color: var(--primary-color);
   background: rgba(255, 71, 87, 0.1);
@@ -353,7 +341,6 @@ h2 {
   border-left: 3px solid var(--primary-color);
 }
 
-/* Language Toggle Button */
 .languageButton {
   position: absolute;
   top: 20px;
@@ -373,7 +360,6 @@ h2 {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Show Password Button */
 .show-password {
   position: absolute;
   right: 10px;
@@ -384,7 +370,7 @@ h2 {
   cursor: pointer;
   font-size: 1.2rem;
   padding: 5px;
-  z-index: 5; /* Ensure it's above input field */
+  z-index: 5; 
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
@@ -393,7 +379,6 @@ h2 {
   opacity: 1;
 }
 
-/* Processing Spinner */
 .spinner {
   display: inline-block;
   width: 20px;
@@ -408,7 +393,6 @@ h2 {
   to { transform: rotate(360deg); }
 }
 
-/* Snackbar Styles */
 .snackbar {
   position: fixed;
   top: 20px;
@@ -451,7 +435,6 @@ h2 {
   cursor: pointer;
 }
 
-/* Új CSS szabályok a helyes elrendezéshez */
 .signin-main-wrapper {
 display: flex;
 flex-direction: column;
@@ -474,7 +457,6 @@ max-width: 700px;
 z-index: 2;
 }
 
-/* Reszponzív beállítások */
 @media (max-width: 768px) {
 .signin-main-wrapper {
   padding: 10px;
@@ -489,7 +471,6 @@ z-index: 2;
 }
 }
 
-/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -523,7 +504,6 @@ z-index: 2;
   40%, 80% { transform: translateX(5px); }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .form-container {
     margin: 1rem;
@@ -553,7 +533,6 @@ z-index: 2;
   }
 }
 
-/* Modal Styles */
 .modal-overlay {
 position: fixed;
 top: 0;
@@ -626,7 +605,7 @@ border-left: 3px solid var(--primary-color);
 }
 .forgot-password-link {
   display: inline-block;
-  color: #4285f4; /* Modern blue link color */
+  color: #4285f4;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
@@ -637,10 +616,9 @@ border-left: 3px solid var(--primary-color);
 }
 
 .forgot-password-link:hover {
-  color: #3367d6; /* Slightly darker blue on hover */
+  color: #3367d6;
 }
 
-/* Animated underline effect */
 .forgot-password-link::after {
   content: '';
   position: absolute;
@@ -659,7 +637,6 @@ border-left: 3px solid var(--primary-color);
   transform-origin: left;
 }
 
-/* Focus state for accessibility */
 .forgot-password-link:focus {
   outline: none;
   color: #3367d6;

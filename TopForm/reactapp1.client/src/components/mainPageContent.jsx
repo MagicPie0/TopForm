@@ -58,7 +58,7 @@ const MainPageContent = () => {
     {
       title: "EDZÉSTERVEK",
       description:
-        "Professzionális személyi edzők által tervezett, AI-alapú programok.",
+        "Állítsd össze életed legjobb edzésését vagy használd a beépített AI funkciókat!",
       icon: <FitnessCenter fontSize="large" />,
       path: "/mainPage/workout",
       gradient: "linear-gradient(135deg, #d4af37, #f5d020)",
@@ -67,7 +67,7 @@ const MainPageContent = () => {
     {
       title: "ÉTRENDTERVEK",
       description:
-        "Táplálkozási szakértők által optimalizált étrendek, testtípus szerint.",
+        "Táplálkozz egészségesen és építsd fel a saját étrendedet pár kattintással!",
       icon: <Restaurant fontSize="large" />,
       path: "/mainPage/diet",
       gradient: "linear-gradient(135deg, #8B0000, #d4af37)",
@@ -75,7 +75,7 @@ const MainPageContent = () => {
     },
     {
       title: "RANGLISTA",
-      description: "Versenyzz másokkal és szerezd meg az exkluzív jutalmakat!",
+      description: "Versenyzz másokkal és szerezd meg az exkluzív rangokat!",
       icon: <Leaderboard fontSize="large" />,
       path: "/mainPage/leaderboard",
       gradient: "linear-gradient(135deg, #000000, #8B0000)",
@@ -111,7 +111,6 @@ const MainPageContent = () => {
         },
       }}
     >
-      {/*Snackbar értesítés */}
       <Snackbar
         open={loginNotification}
         autoHideDuration={4000}
@@ -143,7 +142,6 @@ const MainPageContent = () => {
         }}
       />
 
-      {/* Profilmenü */}
       <Box sx={{ position: "fixed", top: 24, right: 24, zIndex: 1200 }}>
         <motion.div
           whileHover={{ scale: 1.1 }}
@@ -228,7 +226,6 @@ const MainPageContent = () => {
         </Menu>
       </Box>
 
-      {/* Tartalom */}
       <Box
         sx={{
           flex: 1,
@@ -248,7 +245,6 @@ const MainPageContent = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Logó rész - 2 képből áll */}
             <Box
               sx={{
                 display: "flex",
@@ -261,7 +257,6 @@ const MainPageContent = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                {/* Fő logó kép */}
                 <Box
                   component="img"
                   src="/topformlogo.png"
@@ -274,7 +269,6 @@ const MainPageContent = () => {
                 />
               </motion.div>
 
-              {/* Ikon/melléklogó */}
               <motion.div
                 whileHover={{ rotate: 5 }}
                 transition={{ type: "spring", stiffness: 200 }}
@@ -339,7 +333,6 @@ const MainPageContent = () => {
                         },
                       }}
                     >
-                      {/* Animált háttér effekt */}
                       <Box
                         className="card-hover-effect"
                         sx={{
@@ -356,7 +349,6 @@ const MainPageContent = () => {
                         }}
                       />
 
-                      {/* Másodlagos glow effekt */}
                       <Box
                         className="card-glow"
                         sx={{
@@ -372,7 +364,6 @@ const MainPageContent = () => {
                         }}
                       />
 
-                      {/* Tartalom */}
                       <Box
                         component={Link}
                         to={feature.path}
@@ -476,7 +467,6 @@ const MainPageContent = () => {
         </Box>
       </Box>
 
-      {/*Lábjegyzet */}
       <Box
         sx={{
           py: 3,
@@ -500,7 +490,6 @@ const MainPageContent = () => {
         </Typography>
       </Box>
 
-      {/* Globális CSS animáció */}
       <style jsx global>{`
         @keyframes subtlePulse {
           0% {

@@ -48,16 +48,13 @@ namespace WorkoutPlanner.Controllers
                 var resultContent = await response.Content.ReadAsStringAsync();
                 _logger.LogInformation($"Python API response received: {resultContent.Substring(0, Math.Min(100, resultContent.Length))}...");
 
-                // Parse and validate the response
                 try
                 {
-                    // Try to parse as JSON first
                     var jsonResponse = JsonSerializer.Deserialize<JsonElement>(resultContent);
                     return Ok(jsonResponse);
                 }
                 catch
                 {
-                    // If not valid JSON, return as text
                     return Ok(new { generatedText = resultContent });
                 }
             }

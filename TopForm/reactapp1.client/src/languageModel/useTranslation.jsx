@@ -1,4 +1,3 @@
-// useTranslation.js
 import { useSelector } from 'react-redux';
 import { selectCurrentLanguage, selectTranslations } from './languageSlice';
 

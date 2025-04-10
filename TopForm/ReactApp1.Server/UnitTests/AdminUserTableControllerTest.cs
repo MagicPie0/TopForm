@@ -28,7 +28,6 @@ namespace back_end.Tests
             _context = new ApplicationDbContext(options);
             _controller = new AdminUserTableController(_context);
 
-            // Seed test data
             var user = new User { Id = 1, Username = "testuser", Email = "test@example.com", Name = "Test User", Men = 0, Password = "TestPassword123" };
             _context.Users.Add(user);
 
@@ -72,10 +71,8 @@ namespace back_end.Tests
         [Test]
         public async Task DeleteUser_ReturnsNotFound_WhenUserDoesNotExist()
         {
-            // Act
             var result = await _controller.DeleteUser(999);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<NotFoundObjectResult>());
             var notFoundResult = result as NotFoundObjectResult;
             Assert.That(notFoundResult.Value, Has.Property("message").EqualTo("User not found"));
@@ -85,21 +82,17 @@ namespace back_end.Tests
         [Test]
         public async Task DeleteUser_ReturnsInternalServerError_WhenExceptionOccurs()
         {
-            // Arrange
             var mockSet = new Mock<DbSet<User>>();
             var mockContext = new Mock<ApplicationDbContext>(new DbContextOptions<ApplicationDbContext>());
             mockContext.Setup(c => c.Users).Returns(mockSet.Object);
 
-            // Setup to throw on SaveChangesAsync instead of AnyAsync
             mockContext.Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
-                       .ThrowsAsync(new Exception("Database failure"));
+                            .ThrowsAsync(new Exception("Database failure"));
 
             var controller = new AdminUserTableController(mockContext.Object);
 
-            // Act
             var result = await controller.DeleteUser(1);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<ObjectResult>());
             var objectResult = result as ObjectResult;
             Assert.That(objectResult.StatusCode, Is.EqualTo(500));
@@ -110,7 +103,6 @@ namespace back_end.Tests
         [Test]
         public async Task UpdateUserByID_ReturnsNotFound_WhenUserDoesNotExist()
         {
-            // Arrange
             var updateDto = new AdminUserTableController.UserUpdateDTO
             {
                 Username = "updated",
@@ -119,10 +111,8 @@ namespace back_end.Tests
                 Men = 1
             };
 
-            // Act
             var result = await _controller.UpdateUserByID(999, updateDto);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<NotFoundObjectResult>());
             var notFoundResult = result as NotFoundObjectResult;
             Assert.That(notFoundResult.Value, Has.Property("message").EqualTo("The user was not found"));
@@ -132,7 +122,6 @@ namespace back_end.Tests
         [Test]
         public async Task UpdateUserByID_ReturnsOk_WhenUpdateIsSuccessful()
         {
-            // Arrange
             var updateDto = new AdminUserTableController.UserUpdateDTO
             {
                 Username = "updated",
@@ -141,16 +130,13 @@ namespace back_end.Tests
                 Men = 1
             };
 
-            // Act
             var result = await _controller.UpdateUserByID(1, updateDto);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.Value, Has.Property("message").EqualTo("Update was successful"));
             Assert.That(okResult.Value, Has.Property("status").EqualTo(200));
 
-            // Verify user was updated
             var updatedUser = await _context.Users.FindAsync(1);
             Assert.That(updatedUser.Username, Is.EqualTo("updated"));
             Assert.That(updatedUser.Email, Is.EqualTo("updated@example.com"));

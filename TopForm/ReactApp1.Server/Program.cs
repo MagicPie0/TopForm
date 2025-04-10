@@ -13,20 +13,16 @@ using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adatbázis kapcsolat beállítása (példa: MySQL)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 31)))); // Az aktuális MySQL verziódat add meg itt
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 31)))); 
 
-// Alkalmazás szolgáltatásainak hozzáadása
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 
-// Swagger konfiguráció hozzáadása
 builder.Services.AddSwaggerGen(c =>
 {
-    // Security definíció hozzáadása
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -53,30 +49,27 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Token validation szolgáltatás
 builder.Services.AddScoped<TokenValidationService>();
 
-// JWT Auth middleware beállítása
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.RequireHttpsMetadata = false; // Fejlesztéshez engedélyezheted HTTP-t
+        options.RequireHttpsMetadata = false; 
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false, // Nem szükséges validálni az issuer-t, ha nem állítottad be
-            ValidateAudience = false, // Nem szükséges validálni az audience-t
-            ValidateLifetime = true, // Token élettartam ellenőrzése
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-longer-secret-key-here-256-bitss")), // Titkos kulcs
+            ValidateIssuer = false, 
+            ValidateAudience = false, 
+            ValidateLifetime = true, 
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-longer-secret-key-here-256-bitss")),
         };
     });
 
-// CORS beállítások, ha frontend külön domainen fut
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://localhost:52515") // Frontend domain
+        policy.WithOrigins("https://localhost:52515")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -87,14 +80,12 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
-// Fejlesztési környezetben engedélyezzük a Swagger-t
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// HTTP kérés kezelése
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -112,10 +103,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// CORS használata
 app.UseCors("AllowFrontend");
 
-// Autentikáció és autorizáció engedélyezése
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -130,16 +119,15 @@ void StartPythonFlaskApp()
 {
     try
     {
-        // Az aktuális munkakönyvtár és a relatív Python alkalmazás elérési útja
         string currentDirectory = Directory.GetCurrentDirectory();
-        string pythonAppPath = Path.Combine(currentDirectory, "AI", "ai.py"); // Módosítsd a relatív elérési útvonalat
+        string pythonAppPath = Path.Combine(currentDirectory, "AI", "ai.py");
 
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
-            FileName = "python", // A Python futtató parancs
-            Arguments = pythonAppPath, // A Python alkalmazás fájlja (Flask alkalmazás)
-            UseShellExecute = false, // Ne használja a shell-t
-            CreateNoWindow = true // Ne nyisson új ablakot
+            FileName = "python", 
+            Arguments = pythonAppPath, 
+            UseShellExecute = false, 
+            CreateNoWindow = true 
         };
 
         Process.Start(startInfo);
@@ -147,7 +135,6 @@ void StartPythonFlaskApp()
     }
     catch (System.Exception ex)
     {
-        // Ha a Python Flask alkalmazás elindítása nem sikerül
         Console.WriteLine("Hiba történt a Python Flask alkalmazás indításakor: " + ex.Message);
     }
 }

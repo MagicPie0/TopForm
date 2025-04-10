@@ -26,18 +26,16 @@ const LoadingPage = () => {
   }, []);
 
   useEffect(() => {
-    // Ha az animáció befejeződött, indítsunk egy időzítőt az átirányításhoz
     if (isComplete) {
       const redirectTimer = setTimeout(() => {
         setShouldRedirect(true);
-      }, 1500); // 1.5 másodperc múlva állítsa true-ra a redirect állapotot
+      }, 1500);
 
       return () => clearTimeout(redirectTimer);
     }
   }, [isComplete]);
 
   useEffect(() => {
-    // Ha a redirect állapot true, navigáljunk a főoldalra
     if (shouldRedirect) {
       navigate('/mainPage');
     }
@@ -158,7 +156,6 @@ const LoadingPage = () => {
   );
 };
 
-// Styled Components
 const LoadingContainer = styled.div`
   position: fixed;
   top: 0;

@@ -44,7 +44,6 @@ namespace back_end.Tests
         [Test]
         public async Task Register_ReturnsOk_WhenRegistrationIsSuccessful()
         {
-            // Arrange
             var request = new RegisterDto
             {
                 Username = "testuser",
@@ -54,21 +53,17 @@ namespace back_end.Tests
                 BirthDate = new DateTime(1990, 1, 1)
             };
 
-            // Act
             var result = await _controller.Register(request);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.Value, Has.Property("message").EqualTo("User registered successfully."));
             Assert.That(okResult.Value, Has.Property("jwt").Not.Null);
 
-            // Verify user was created
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == "testuser");
             Assert.That(user, Is.Not.Null);
             Assert.That(user.Name, Is.EqualTo("Test User"));
 
-            // Verify user activity was created
             var userActivity = await _context.UserActivity.FirstOrDefaultAsync(ua => ua.UserId == user.Id);
             Assert.That(userActivity, Is.Not.Null);
         }
@@ -76,7 +71,6 @@ namespace back_end.Tests
         [Test]
         public async Task Register_ReturnsBadRequest_WhenUsernameExists()
         {
-            // Arrange
             var existingUser = new User
             {
                 Username = "existinguser",
@@ -90,17 +84,15 @@ namespace back_end.Tests
 
             var request = new RegisterDto
             {
-                Username = "existinguser", // Same username
+                Username = "existinguser",
                 Email = "new@example.com",
                 Password = "Test123!",
                 Name = "New User",
                 BirthDate = new DateTime(1990, 1, 1)
             };
 
-            // Act
             var result = await _controller.Register(request);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = result as BadRequestObjectResult;
             Assert.That(badRequestResult.Value, Has.Property("message").EqualTo("Username already exists."));
@@ -110,20 +102,17 @@ namespace back_end.Tests
         [Test]
         public async Task Register_ReturnsBadRequest_WhenBirthDateIsMissing()
         {
-            // Arrange
             var request = new RegisterDto
             {
                 Username = "testuser",
                 Email = "test@example.com",
                 Password = "Test123!",
                 Name = "Test User",
-                BirthDate = null // Missing birth date
+                BirthDate = null 
             };
 
-            // Act
             var result = await _controller.Register(request);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = result as BadRequestObjectResult;
             Assert.That(badRequestResult.Value, Has.Property("message").EqualTo("Birth date is required."));
@@ -133,20 +122,18 @@ namespace back_end.Tests
         [Test]
         public async Task Register_ReturnsBadRequest_WhenUsernameIsMissing()
         {
-            // Arrange
             var request = new RegisterDto
             {
-                Username = "", // Missing username
+                Username = "",
                 Email = "test@example.com",
                 Password = "Test123!",
                 Name = "Test User",
                 BirthDate = new DateTime(1990, 1, 1)
             };
 
-            // Act
             var result = await _controller.Register(request);
 
-            // Assert
+
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = result as BadRequestObjectResult;
             Assert.That(badRequestResult.Value, Has.Property("message").EqualTo("Username and password are required."));
@@ -155,12 +142,10 @@ namespace back_end.Tests
         [Test]
         public async Task Register_ReturnsInternalServerError_WhenDatabaseFails()
         {
-            // Arrange
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "FailingDatabase")
                 .Options;
 
-            // Mockoljuk a SaveChangesAsync-t, hogy mindig hibát dobjon
             var mockContext = new FailingApplicationDbContext(options);
 
             var controller = new RegistrationController(mockContext, _loggerMock.Object);
@@ -174,16 +159,13 @@ namespace back_end.Tests
                 BirthDate = new DateTime(1990, 1, 1)
             };
 
-            // Act
             var result = await controller.Register(request);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<ObjectResult>());
             var objectResult = result as ObjectResult;
             Assert.That(objectResult.StatusCode, Is.EqualTo(500));
             Assert.That(objectResult.Value, Has.Property("message").EqualTo("An internal server error occurred."));
 
-            // Verify the error was logged
             _loggerMock.Verify(
                 x => x.Log(
                     LogLevel.Error,
@@ -194,7 +176,6 @@ namespace back_end.Tests
                 Times.Once);
         }
 
-        // Segédosztály ami mindig hibát dob
         public class FailingApplicationDbContext : ApplicationDbContext
         {
             public FailingApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -211,7 +192,6 @@ namespace back_end.Tests
         [Test]
         public void GenerateJwtToken_ReturnsValidToken()
         {
-            // Arrange
             var user = new User
             {
                 Id = 1,
@@ -222,7 +202,6 @@ namespace back_end.Tests
                 BirthDate = new DateTime(1990, 1, 1)
             };
 
-            // Act - Reflection használata privát metódus eléréséhez
             var methodInfo = typeof(RegistrationController)
                 .GetMethod("GenerateJwtToken", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
@@ -230,10 +209,8 @@ namespace back_end.Tests
 
             var token = (string)methodInfo.Invoke(_controller, new object[] { user });
 
-            // Assert
             Assert.That(token, Is.Not.Null.And.Not.Empty);
 
-            // Token validáció
             var tokenHandler = new JwtSecurityTokenHandler();
             var validationParameters = new TokenValidationParameters
             {

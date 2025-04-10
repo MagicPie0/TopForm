@@ -19,7 +19,6 @@ import UserDetailsPopup from "./userDetailsPopup";
 import quotes from "../workout/quotes.json";
 import { useLeaderboardData } from "../scripts/leaderboard.js";
 
-// Rank icons
 import Advanced from "../rank_icons/advanced.png";
 import Apex from "../rank_icons/apex.png";
 import Beginner from "../rank_icons/beginner.png";
@@ -76,7 +75,6 @@ const Leaderboard = () => {
     }
   }, [fetchedLeaderboardData]);
 
-  // Diagram adatok a kiválasztott felhasználóhoz
   const chartData = selectedUserForChart
     ? [{
         name: selectedUserForChart.username,
@@ -98,13 +96,11 @@ const Leaderboard = () => {
     return `data:image/${mimeType};base64,${user.profilPic}`;
   };
 
-  // Véletlenszerű idézet generálása
   const generateQuote = () => {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     setQuote(quotes[randomIndex]);
   };
 
-  // Hírek lekérése
   const fetchNews = async () => {
     const apiKey = "daa169968ac14f62ae944e343c6a7e26";
     const url = `https://newsapi.org/v2/everything?q=fitness&apiKey=${apiKey}`;
@@ -121,18 +117,15 @@ const Leaderboard = () => {
     }
   };
 
-  // Ranglista adatok betöltése
   useEffect(() => {
     loadLeaderboardData();
   }, [loadLeaderboardData]);
 
-  // Idézet és hírek betöltése
   useEffect(() => {
     generateQuote();
     fetchNews();
   }, []);
 
-  // Keresés kezelése
   const handleSearch = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
@@ -210,9 +203,7 @@ const Leaderboard = () => {
         </motion.div>
 
         <Grid container spacing={4}>
-          {/* Main Content */}
           <Grid item xs={12} lg={8}>
-            {/* Search */}
             <motion.div
               whileHover={{ scale: 1.01 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -249,7 +240,6 @@ const Leaderboard = () => {
               />
             </motion.div>
 
-            {/* Podium */}
             <Box sx={{ 
               display: "flex",
               justifyContent: "center",
@@ -355,7 +345,6 @@ const Leaderboard = () => {
               })}
             </Box>
 
-            {/* Leaderboard */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -488,7 +477,6 @@ const Leaderboard = () => {
               </Card>
             </motion.div>
 
-            {/* User Performance Chart */}
             {selectedUserForChart && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -606,9 +594,7 @@ const Leaderboard = () => {
             )}
           </Grid>
 
-          {/* Sidebar */}
           <Grid item xs={12} lg={4}>
-            {/* News */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -718,7 +704,6 @@ const Leaderboard = () => {
               </Card>
             </motion.div>
 
-            {/* Quote */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -808,7 +793,6 @@ const Leaderboard = () => {
         </Grid>
       </Box>
 
-      {/* User Details Popup */}
       {selectedUserForPopup && (
         <UserDetailsPopup
           user={selectedUserForPopup}

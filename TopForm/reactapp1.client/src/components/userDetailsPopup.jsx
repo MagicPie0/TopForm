@@ -30,7 +30,7 @@ const UserDetailsPopup = ({ user, onClose }) => {
 
   const getRankImages = (rank) => {
     if (!rank || !rank.rankName) {
-      return rankImages.Beginner; // Alapértelmezett kép
+      return rankImages.Beginner; 
     }
     switch (rank.rankName) {
       case "Beginner":
@@ -54,12 +54,12 @@ const UserDetailsPopup = ({ user, onClose }) => {
       case "Legend":
         return rankImages.Legend;
       default:
-        return rankImages.Beginner; // Alapértelmezett kép
+        return rankImages.Beginner; 
     }
   };
   const getProfilePicture = (user) => {
-    if (!user || !user.profilPic) return Profil; // Ha nincs adat, alapértelmezett kép
-    const mimeType = user.profilPic.startsWith("/9j/") ? "jpeg" : "png"; // Base64 ellenőrzés
+    if (!user || !user.profilPic) return Profil;
+    const mimeType = user.profilPic.startsWith("/9j/") ? "jpeg" : "png";
     return `data:image/${mimeType};base64,${user.profilPic}`;
   };
   return (
@@ -70,7 +70,7 @@ const UserDetailsPopup = ({ user, onClose }) => {
         </button>
         <div className="popup-header">
           <img
-            src={getProfilePicture(user) || Profil} // Használjuk közvetlenül a 'user' objektumot
+            src={getProfilePicture(user) || Profil}
             className="popup-profile-pic"
           />
           <h2>{user.username}</h2>

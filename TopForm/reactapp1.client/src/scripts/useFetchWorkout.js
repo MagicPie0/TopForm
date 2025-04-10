@@ -12,14 +12,13 @@ const fetchWorkoutByDate = async (date) => {
       },
     }
   );
-  //Ha 404-es hiba van, akkor nincs aznapi edzés
   return response.data;
 };
 
 export const useFetchWorkout = (date) => {
   return useQuery({
-    queryKey: ["workout", date], // Cache key
+    queryKey: ["workout", date], 
     queryFn: () => fetchWorkoutByDate(date),
-    enabled: !!date, // Csak akkor fusson, ha van dátum
+    enabled: !!date, 
   });
 };

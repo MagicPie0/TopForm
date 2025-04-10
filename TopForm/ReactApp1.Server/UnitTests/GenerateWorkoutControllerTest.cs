@@ -51,14 +51,11 @@ namespace back_end.Tests
                     Content = new StringContent(expectedResponse, Encoding.UTF8, "application/json")
                 });
 
-            // Act
             var result = await _controller.GenerateWorkout(request);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
 
-            // Properly handle the JsonElement response
             var jsonElement = (JsonElement)okResult.Value;
             var responseObject = JsonSerializer.Deserialize<ExpandoObject>(jsonElement.GetRawText());
             var responseDict = (IDictionary<string, object>)responseObject;
@@ -66,15 +63,11 @@ namespace back_end.Tests
             Assert.That(responseDict["generatedText"].ToString(), Is.EqualTo("Generated workout plan"));
         }
 
-      
-
         [Test]
         public void HealthCheck_ReturnsOkWithHealthStatus()
         {
-            // Act
             var result = _controller.HealthCheck();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             dynamic value = okResult.Value;
@@ -85,7 +78,6 @@ namespace back_end.Tests
         [Test]
         public async Task PythonApiStatus_ReturnsOnlineStatus_WhenApiIsAvailable()
         {
-            // Arrange
             _mockHttpMessageHandler
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>(
@@ -99,10 +91,8 @@ namespace back_end.Tests
                     Content = new StringContent("test response")
                 });
 
-            // Act
             var result = await _controller.PythonApiStatus();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             dynamic value = okResult.Value;
@@ -113,7 +103,6 @@ namespace back_end.Tests
         [Test]
         public async Task PythonApiStatus_ReturnsOfflineStatus_WhenApiThrowsException()
         {
-            // Arrange
             var errorMessage = "Connection refused";
 
             _mockHttpMessageHandler
@@ -125,10 +114,8 @@ namespace back_end.Tests
                 )
                 .ThrowsAsync(new HttpRequestException(errorMessage));
 
-            // Act
             var result = await _controller.PythonApiStatus();
 
-            // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             dynamic value = okResult.Value;
@@ -139,13 +126,10 @@ namespace back_end.Tests
         [Test]
         public async Task GenerateWorkout_ReturnsBadRequest_WhenInputIsEmpty()
         {
-            // Arrange
             var request = new AiRequest { InputText = "" };
 
-            // Act
             var result = await _controller.GenerateWorkout(request);
 
-            // Assert
             Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = result as BadRequestObjectResult;
             dynamic value = badRequestResult.Value;

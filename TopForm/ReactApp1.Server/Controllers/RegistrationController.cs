@@ -20,9 +20,9 @@ namespace back_end.Controllers
         private readonly ApplicationDbContext _context;
         private readonly ILogger<RegistrationController> _logger;
 
-        private const string JwtKey = "your-longer-secret-key-here-256-bitss"; // ✅ Titkos kulcs
-        private const string JwtIssuer = "yourdomain.com"; // ✅ Kibocsátó
-        private const string JwtAudience = "yourdomain.com"; // ✅ Címzett
+        private const string JwtKey = "your-longer-secret-key-here-256-bitss"; 
+        private const string JwtIssuer = "yourdomain.com"; 
+        private const string JwtAudience = "yourdomain.com"; 
 
         public RegistrationController(ApplicationDbContext context, ILogger<RegistrationController> logger)
         {
@@ -77,10 +77,8 @@ namespace back_end.Controllers
 
                     await transaction.CommitAsync();
 
-                    // ✅ JWT Token generálás
                     string jwt = GenerateJwtToken(user);
 
-                    // Return success response with JWT
                     return Ok(new { message = "User registered successfully.", jwt = jwt, status = 200 });
                 }
                 catch (Exception ex)
@@ -88,14 +86,13 @@ namespace back_end.Controllers
                     await transaction.RollbackAsync();
                     _logger.LogError(ex, "An error occurred during user registration.");
 
-                    // Belső kivétel lekérése
                     var innerExceptionMessage = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
 
                     return StatusCode(500, new
                     {
                         message = "An internal server error occurred.",
                         error = ex.Message,
-                        innerError = innerExceptionMessage, // Belső kivétel hozzáadása
+                        innerError = innerExceptionMessage, 
                         stackTrace = ex.StackTrace,
                         status = 500
                     });
@@ -111,7 +108,6 @@ namespace back_end.Controllers
 
 
 
-        // ✅ JWT Token generálás
         private string GenerateJwtToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtKey));
@@ -138,7 +134,6 @@ namespace back_end.Controllers
         }
     }
 
-    // DTO
     public class RegisterDto
     {
         public string Username { get; set; }

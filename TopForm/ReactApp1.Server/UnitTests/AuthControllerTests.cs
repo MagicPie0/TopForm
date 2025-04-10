@@ -20,14 +20,12 @@ namespace back_end.Tests
         [SetUp]
         public void Setup()
         {
-            // InMemory adatbázis használata
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
 
             _context = new ApplicationDbContext(options);
 
-            // Tiszta adatbázis minden teszthez
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
 
@@ -67,13 +65,13 @@ namespace back_end.Tests
             {
                 Username = "testuser",
                 Password = BCrypt.Net.BCrypt.HashPassword("correct_password"),
-                Email = "test@example.com",          // ✅ required mező
-                Name = "Test Elek",                  // ✅ required mező
-                BirthDate = new DateTime(1995, 1, 1) // ha ez is required
+                Email = "test@example.com",       
+                Name = "Test Elek",               
+                BirthDate = new DateTime(1995, 1, 1) 
             };
 
 
-            _context.Users.Add(user); // ✅ Használjuk a helyes DbSet-et
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             var loginDto = new AuthController.LoginDto

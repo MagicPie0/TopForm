@@ -3,7 +3,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import ExercisesEditor from "./AdminComponents/ExercisesEditor";
 import DatabaseTables from "./AdminComponents/DatabaseTables";
 import DashboardContent from "./AdminComponents/DashboardContent";
-import "./admin.css"; // Import the new CSS file
+import "./admin.css";
 
 const AdminPage = () => {
   const [currentView, setCurrentView] = useState("dashboard");

@@ -46,7 +46,6 @@ namespace asp.Server.Controllers
             if (!diets.Any())
                 return NotFound("Nincs diéta erre a napra.");
 
-            // 🔄 JSON visszafejtése az eredményekben
             var parsedDiets = diets.Select(d => new
             {
                 d.Id,

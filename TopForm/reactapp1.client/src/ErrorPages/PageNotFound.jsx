@@ -3,7 +3,6 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import styled from "styled-components";
 import { Suspense, useEffect } from "react";
 
-// Előbetöltés (cache-el is!)
 useGLTF.preload("/model/Error_modell.glb");
 
 const PageNotFound = () => {
@@ -19,14 +18,11 @@ const PageNotFound = () => {
       <ModelContainer>
         <Suspense fallback={<FallbackText>Töltés...</FallbackText>}>
           <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5], fov: 50 }}>
-            {/* Optimalizált világítás */}
             <hemisphereLight intensity={1.2} groundColor="#444" />
             <pointLight position={[0, -3, 0]} intensity={0.6} color="#ff6600" />
 
-            {/* 3D modell */}
             <ErrorModel />
 
-            {/* Kontroller */}
             <OrbitControls enableZoom={false} autoRotate />
           </Canvas>
         </Suspense>
@@ -35,7 +31,6 @@ const PageNotFound = () => {
   );
 };
 
-// 🧠 3D modell – RAM-barát dispose kezelés
 function ErrorModel() {
   const { scene } = useGLTF("/model/Error_modell.glb");
 
@@ -57,7 +52,6 @@ function ErrorModel() {
   return <primitive object={scene} scale={1.5} position={[0, 0.5, 0]} />;
 }
 
-// 🎨 Stílusok
 const Container = styled.div`
   display: flex;
   flex-direction: column;

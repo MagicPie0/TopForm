@@ -5,7 +5,7 @@ namespace asp.Server.Models
     [Table("muscle_groups")]
     public class MuscleGroup
     {
-        public int id { get; set; } // Primary key (nem változik)
+        public int id { get; set; } 
         public required string name1 { get; set; }
         public required int kg1 { get; set; }
         public required string name2 { get; set; }

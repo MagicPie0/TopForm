@@ -31,7 +31,7 @@ const TopformIntro = () => {
             <img src="/dieta2.jpg" alt="Étrend ikon" />
             <div>
               <h3>Étrendek</h3>
-              <p>Kapj személyre szabott étrendet vagy rakd össze sajátodat pár kattintással!</p>
+              <p>Rakd össze a saját étrendedet pár kattintással, és legyél sokkal egészségesebb!</p>
             </div>
           </div>
 

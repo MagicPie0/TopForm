@@ -12,7 +12,6 @@ const fetchProfile = async () => {
       },
     }
   );
-  //Ha 404-es hiba van, akkor nincs aznapi edzés
   return response.data;
 };
 

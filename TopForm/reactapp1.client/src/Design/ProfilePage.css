@@ -1,4 +1,3 @@
-/* Alapstílusok */
 * {
     margin: 0;
     padding: 0;
@@ -13,14 +12,13 @@ body {
 .profile-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 80px 20px 40px; /* Nagyobb felső padding a gomb miatt */
+    padding: 80px 20px 40px; 
     position: relative;
 }
 
-/* Profil adatok balra igazítva */
 .profile-info {
     text-align: left;
-    margin-right: 30px; /* Space between profile info and graph */
+    margin-right: 30px;
 }
 
 .profile-title {
@@ -34,12 +32,10 @@ body {
     font-size: 0.95rem;
 }
 
-
-/* Back to Home gomb */
 .back-home {
     position: absolute;
     top: 20px;
-    right: 20px; /* Ensures it doesn't touch the edge */
+    right: 20px;
     display: inline-block;
     background-color: #ed0a0a;
     color: white;
@@ -70,7 +66,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Hónapok grid-je */
 .month-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -92,7 +87,6 @@ body {
     box-shadow: 0 4px 8px rgba(237,10,10,0.1);
 }
 
-/* Testrészek grid-je */
 .bodypart-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -111,14 +105,13 @@ body {
     letter-spacing: 1px;
 }
 
-/* Grafikon konténer */
 .graph-container {
     background: white;
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     transition: transform 0.3s;
-    flex-grow: 1; /* Allows the graph to fill remaining space */
+    flex-grow: 1;
 }
 
 .graph-container:hover {
@@ -126,7 +119,6 @@ body {
     box-shadow: 0 8px 15px rgba(237,10,10,0.1);
 }
 
-/* Reszponzív design */
 @media (max-width: 768px) {
     .profile-container {
         flex-direction: column;
@@ -134,11 +126,11 @@ body {
     }
     .graph-container {
         width: 100%;
-        order: 2; /* Graph goes below profile info */
+        order: 2; 
     }
     .profile-info {
-        order: 1; /* Profile info goes above */
-        margin-bottom: 20px; /* Space between profile info and graph */
+        order: 1;
+        margin-bottom: 20px;
     }
 }
 

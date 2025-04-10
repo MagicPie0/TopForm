@@ -32,7 +32,6 @@ namespace back_end.Controllers
                 return BadRequest(new { status = 400, message = "Request cannot be null" });
             }
 
-            // A JWT-ből kinyerjük a felhasználói ID-t
             var userIdFromToken = User.FindFirst("UserId")?.Value;
 
             if (string.IsNullOrEmpty(userIdFromToken))
@@ -46,20 +45,18 @@ namespace back_end.Controllers
             {
                 try
                 {
-                    // 1️⃣ Meal mentése
                     var diet = new Diet
                     {
                         Breakfast = request.Breakfast != null ? JsonSerializer.Serialize(request.Breakfast) : null,
                         Lunch = request.Lunch != null ? JsonSerializer.Serialize(request.Lunch) : null,
                         Diner = request.Diner != null ? JsonSerializer.Serialize(request.Diner) : null,
                         Dessert = request.Dessert != null ? JsonSerializer.Serialize(request.Dessert) : null,
-                        FoodDate = DateTime.UtcNow.Date // Aktuális dátum
+                        FoodDate = DateTime.UtcNow.Date 
                     };
 
                     _context.Diet.Add(diet);
                     await _context.SaveChangesAsync();
 
-                    // 2️⃣ UserActivity frissítése vagy létrehozása
                     var existingUserActivity = await _context.UserActivity
                         .FirstOrDefaultAsync(ua => ua.UserId == userId && ua.DietId == null);
 
@@ -91,14 +88,12 @@ namespace back_end.Controllers
 
                     await _context.SaveChangesAsync();
 
-                    // 3️⃣ Tranzakció commit
                     await transaction.CommitAsync();
 
                     return Ok(new { message = "Meal and user_activity saved successfully.", status = 200 });
                 }
                 catch (Exception ex)
                 {
-                    // 4️⃣ Tranzakció rollback hiba esetén
                     await transaction.RollbackAsync();
                     Console.WriteLine($"ERROR: {ex.InnerException?.Message ?? ex.Message}");
                     return StatusCode(500, new { message = $"Error: {ex.InnerException?.Message ?? ex.Message}", status = 500 });
@@ -108,16 +103,16 @@ namespace back_end.Controllers
     }
     public class FoodItem
     {
-        public required string Name { get; set; }       // Az étel neve
-        public required string Portion { get; set; }    // Az étel adagja
-        public required int Calories { get; set; }      // Az étel kalóriája
+        public required string Name { get; set; }      
+        public required string Portion { get; set; }   
+        public required int Calories { get; set; }      
     }
 
     public class FoodRequest
     {
-        public List<FoodItem>? Breakfast { get; set; } // Reggeli ételek
-        public List<FoodItem>? Lunch { get; set; }     // Ebéd ételek
-        public List<FoodItem>? Diner { get; set; }     // Vacsora ételek
-        public List<FoodItem>? Dessert { get; set; }   // Desszert ételek
+        public List<FoodItem>? Breakfast { get; set; } 
+        public List<FoodItem>? Lunch { get; set; }
+        public List<FoodItem>? Diner { get; set; }  
+        public List<FoodItem>? Dessert { get; set; } 
     }
 }
