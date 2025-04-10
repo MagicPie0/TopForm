@@ -108,9 +108,9 @@ const WorkoutApp = () => {
   const createDefaultExercise = () => ({
     category: Object.keys(exercises)[0],
     edzesTipus: exercises[Object.keys(exercises)[0]][0],
-    suly: "",
+    suly: "0", // Alapértelmezetten 0 a súly
     ismetles: "10",
-    sorozatok: Array.from({ length: 3 }, () => ({ suly: "", ismetles: "10" })),
+    sorozatok: Array.from({ length: 3 }, () => ({ suly: "0", ismetles: "10" })),
   });
 
   // AI generálás kezelése
@@ -244,7 +244,16 @@ const WorkoutApp = () => {
   const parseAIResponse = (response) => {
     if (!response?.generatedText) {
       console.error("Invalid AI response format", response);
-      return [createDefaultExercise()];
+      return {
+        category: validateCategory(category, exerciseName),
+        edzesTipus: validateExercise(exerciseName, category),
+        suly: weight || "0", // Ha nincs súly, akkor legyen 0
+        ismetles: reps.toString() || "0", // Ha nincs ismétlés, akkor legyen 0
+        sorozatok: Array.from({ length: sets }, () => ({
+          suly: weight || "0", // Ha nincs súly, akkor legyen 0
+          ismetles: reps.toString() || "0", // Ha nincs ismétlés, akkor legyen 0
+        })),
+      };
     }
 
     const lines = response.generatedText
@@ -502,20 +511,25 @@ const WorkoutApp = () => {
   };
 
   const handleInputChange = (index, field, value) => {
+    // Ha üres string a value és a field súly vagy ismétlés, akkor legyen 0
+    const processedValue = (field === "suly" || field === "ismetles") && value === "" ? "0" : value;
+    
     const updatedWorkout = [...workout];
-    updatedWorkout[index][field] = value;
+    updatedWorkout[index][field] = processedValue;
     setWorkout(updatedWorkout);
     setHasUnsavedChanges(true);
   };
-
   const handleSorozatChange = (cardIndex, sorozatIndex, field, value) => {
+    // Ha üres string a value és a field súly vagy ismétlés, akkor legyen 0
+    const processedValue = (field === "suly" || field === "ismetles") && value === "" ? "0" : value;
+    
     setWorkout((prev) =>
       prev.map((card, index) =>
         index === cardIndex
           ? {
               ...card,
               sorozatok: card.sorozatok.map((sorozat, i) =>
-                i === sorozatIndex ? { ...sorozat, [field]: value } : sorozat
+                i === sorozatIndex ? { ...sorozat, [field]: processedValue } : sorozat
               ),
             }
           : card

@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "VNwqZDwT6gMtKzst6/AJo87E0FUZICjb6Oi3U3E9/48=",
+  "Hash": "sCNaKACCt364X2PHFDIL630flNCD8pX6JvN40uPSstU=",
   "Source": "asp.Server",
   "BasePath": "_content/asp.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\reactapp1.client\\react.client.esproj",
+      "Identity": "C:\\TopForm\\TopForm\\TopForm\\reactapp1.client\\react.client.esproj",
       "Version": 2,
       "Source": "react.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
@@ -22,17 +22,17 @@
     {
       "Name": "asp.Server\\wwwroot",
       "Source": "asp.Server",
-      "ContentRoot": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
+      "ContentRoot": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
       "BasePath": "_content/asp.Server",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "Identity": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
       "SourceId": "asp.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
+      "ContentRoot": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\",
       "BasePath": "_content/asp.Server",
       "RelativePath": "model/men#[.{fingerprint}]?.glb",
       "AssetKind": "All",
@@ -53,7 +53,7 @@
   "Endpoints": [
     {
       "Route": "model/men.glb",
-      "AssetFile": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "AssetFile": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -74,7 +74,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Mar 2025 19:09:44 GMT"
+          "Value": "Thu, 10 Apr 2025 06:59:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -90,7 +90,7 @@
     },
     {
       "Route": "model/men.ym9m2z47l9.glb",
-      "AssetFile": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
+      "AssetFile": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\wwwroot\\model\\men.glb",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -111,7 +111,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 24 Mar 2025 19:09:44 GMT"
+          "Value": "Thu, 10 Apr 2025 06:59:34 GMT"
         },
         {
           "Name": "Cache-Control",

@@ -1,53 +1,52 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\",
+  "WorkspaceRootPath": "C:\\TopForm\\TopForm\\TopForm\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\unittests\\generateworkoutcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\unittests\\generateworkoutcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\unittests\\generateworkoutcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\controllers\\generateworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\controllers\\generateworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\controllers\\generateworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\ai\\ai.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\ai\\ai.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\ai\\ai.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\controllers\\profilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\unittests\\profilecontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\unittests\\profilecontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\unittests\\profilecontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\models\\ranks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\models\\ranks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\models\\ranks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\unittests\\getworkoutcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\unittests\\getworkoutcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\unittests\\getworkoutcontrollertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\users\\fulop\\onedrive\\documents\\github\\topform\\topform\\reactapp1.server\\controllers\\getworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|c:\\topform\\topform\\topform\\reactapp1.server\\controllers\\getworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C0FF66A-462A-4EF1-8D54-DE51D2CAB8AF}|ReactApp1.Server\\asp.Server.csproj|solutionrelative:reactapp1.server\\controllers\\getworkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -64,9 +63,9 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "ai.py",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\AI\\ai.py",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\AI\\ai.py",
               "RelativeDocumentMoniker": "ReactApp1.Server\\AI\\ai.py",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\AI\\ai.py",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\AI\\ai.py",
               "RelativeToolTip": "ReactApp1.Server\\AI\\ai.py",
               "ViewState": "AgIAAHUAAAAAAAAAAAAgwOMAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
@@ -76,9 +75,9 @@
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "ProfileControllerTest.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\ProfileControllerTest.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\ProfileControllerTest.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\UnitTests\\ProfileControllerTest.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\ProfileControllerTest.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\ProfileControllerTest.cs",
               "RelativeToolTip": "ReactApp1.Server\\UnitTests\\ProfileControllerTest.cs",
               "ViewState": "AgIAAGsAAAAAAAAAAAAjwH0AAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -88,9 +87,9 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "ProfileController.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\ProfileController.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\ProfileController.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\Controllers\\ProfileController.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\ProfileController.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\ProfileController.cs",
               "RelativeToolTip": "ReactApp1.Server\\Controllers\\ProfileController.cs",
               "ViewState": "AgIAAH0AAAAAAAAAAAAmwIkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -100,9 +99,9 @@
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\UserController.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\UserController.cs",
               "RelativeToolTip": "ReactApp1.Server\\Controllers\\UserController.cs",
               "ViewState": "AgIAAI0AAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -113,21 +112,19 @@
               "DocumentIndex": 0,
               "Title": "react-dom.development.js",
               "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
-              "RelativeDocumentMoniker": "reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "RelativeDocumentMoniker": "..\\..\\..\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
               "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
-              "RelativeToolTip": "reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
-              "ViewState": "AgIAAD5pAAAAAAAAAAAQwFFpAAAEAAAAAAAAAA==",
+              "RelativeToolTip": "..\\..\\..\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\reactapp1.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-04-08T15:33:26.888Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-08T15:33:26.888Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "GenerateWorkoutController.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
               "RelativeToolTip": "ReactApp1.Server\\Controllers\\GenerateWorkoutController.cs",
               "ViewState": "AgIAAEgAAAAAAAAAAAAkwHYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -137,9 +134,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Program.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Program.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\Program.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Program.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Program.cs",
               "RelativeToolTip": "ReactApp1.Server\\Program.cs",
               "ViewState": "AgIAAE4AAAAAAAAAAAAAAGUAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -149,9 +146,9 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "GenerateWorkoutControllerTest.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\GenerateWorkoutControllerTest.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\GenerateWorkoutControllerTest.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\UnitTests\\GenerateWorkoutControllerTest.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\GenerateWorkoutControllerTest.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\GenerateWorkoutControllerTest.cs",
               "RelativeToolTip": "ReactApp1.Server\\UnitTests\\GenerateWorkoutControllerTest.cs",
               "ViewState": "AgIAAEQAAAAAAAAAAAAAAEQAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -161,9 +158,9 @@
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "Ranks.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Models\\Ranks.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Models\\Ranks.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\Models\\Ranks.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Models\\Ranks.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Models\\Ranks.cs",
               "RelativeToolTip": "ReactApp1.Server\\Models\\Ranks.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -173,9 +170,9 @@
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Models\\User.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Models\\User.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Models\\User.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Models\\User.cs",
               "RelativeToolTip": "ReactApp1.Server\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -185,9 +182,9 @@
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "GetWorkoutControllerTest.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\GetWorkoutControllerTest.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\GetWorkoutControllerTest.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\UnitTests\\GetWorkoutControllerTest.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\GetWorkoutControllerTest.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\UnitTests\\GetWorkoutControllerTest.cs",
               "RelativeToolTip": "ReactApp1.Server\\UnitTests\\GetWorkoutControllerTest.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAowDYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -197,9 +194,9 @@
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "GetWorkoutController.cs",
-              "DocumentMoniker": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
+              "DocumentMoniker": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
               "RelativeDocumentMoniker": "ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
-              "ToolTip": "C:\\Users\\fulop\\OneDrive\\Documents\\GitHub\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
+              "ToolTip": "C:\\TopForm\\TopForm\\TopForm\\ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
               "RelativeToolTip": "ReactApp1.Server\\Controllers\\GetWorkoutController.cs",
               "ViewState": "AgIAAFoAAAAAAAAAAAAmwHoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
